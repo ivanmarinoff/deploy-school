@@ -1,0 +1,23 @@
+{#{% include 'home/navbar.html' %}#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Content Edit Page</title>
+</head>
+
+<body display="inline">
+<h1>
+    Edit this content!
+<form action="{% url 'edit-content' content.pk %}?page={{ content.pk }}" method="post">
+
+        {{ form.as_p }}
+         {% csrf_token %}
+
+    <button type="submit">Save</button>
+    {{ request.user }}
+</form>
+</h1>
+</body>
+
+</html>

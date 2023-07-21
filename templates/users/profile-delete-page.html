@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Delete Page</title>
+</head>
+<body>
+    <h1>
+        Are you sure you want to delete this profile?
+        <form action="{% url 'profile-delete' request.user.pk %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Yes</button>
+            <a class="edit-btn" href="javascript:history.back()">Go back</a>
+        </form>
+    </h1>
+   {{ request.user }}
+</body>
+</html>
+

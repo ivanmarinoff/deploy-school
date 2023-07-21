@@ -1,0 +1,52 @@
+{% load custom_filters %}
+{% include 'home/navbar.html' %}
+{% load static %}
+
+<html>
+<head>
+    <title>Slide Navbar</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/login.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="main">
+    <input type="checkbox" id="chk" aria-hidden="true">
+
+        <div class="signup">
+            <form action="{% url 'register_user' %}" method="post">
+                <label for="chk" aria-hidden="true">Sign up</label>
+                {{ form.username|placeholder:"User name" }}
+                {{ form.email }}
+                {{ form.password1 }}
+                {{ form.password2}}
+                <input type="text" name="txt" placeholder="User name" required="">
+                <input type="email" name="email" placeholder="Email" required="">
+                <input type="password" name="pswd1" placeholder="Password" required="">
+                <input type="password" name="pswd2" placeholder="Confirm Password" required="">
+                <button>Sign up</button>
+            {% csrf_token %}
+            </form>
+        </div>
+{##}
+{#        <div class="login">#}
+{#        <form action="{% url 'login_user' %}" method="post">#}
+{##}
+{#            <input type="hidden" value="{{ next }}" name="next"/>#}
+{#            <label for="chk" aria-hidden="true">Login</label>#}
+{#            {{ form.username|placeholder:"User name" }}#}
+{#            {{ form.password }}#}
+{#            <input type="email" name="email" placeholder="Email" required="">#}
+{#            <input type="password" name="pswd" placeholder="Password" required="">#}
+{#            <button>Login</button>#}
+{#            {% csrf_token %}#}
+{#        </form>#}
+
+    </div>
+
+</body>
+</html>
+
+{{ request.user }}
+
+
