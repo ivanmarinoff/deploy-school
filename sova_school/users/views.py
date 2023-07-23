@@ -1,10 +1,15 @@
-from django.contrib.auth import views as auth_views, login, get_user_model, update_session_auth_hash
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import PasswordChangeForm
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.contrib.auth.views import logout_then_login
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
-from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserPasswordChangeForm
+from django.contrib.auth import mixins as auth_mixins, get_user_model, login
+
+from sova_school import settings
+from sova_school.settings import LOGIN_URL
+from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditForm
 from sova_school.users.models import User
 
 UserModel = get_user_model()
@@ -48,6 +53,9 @@ class LoginUserView(auth_views.LoginView):
     success_url = reverse_lazy('profile-details')
     class_name = 'login'
 
+    def logout_then_login(self, login_url=settings.LOGIN_URL):
+        return logout_then_login(self.request, login_url)
+
 
 class LogoutUserView(auth_views.LogoutView):
     pass
@@ -59,6 +67,10 @@ class LogoutUserView(auth_views.LogoutView):
 class ProfileDetailsView(views.DetailView):
     template_name = 'users/profile-details.html'
     model = UserModel
+    form_class = UserEditForm
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.object
 
     # user = User.objects.get(username=self.request.username)
     # user.set_password('new password')
@@ -71,56 +83,86 @@ class ProfileDetailsView(views.DetailView):
 class ProfileEditView(views.UpdateView):
     template_name = 'users/profile-edit-page.html'
     model = UserModel
-    # form_class = UserEditForm
-    fields = ('first_name', 'last_name', 'email', 'username', 'password')
+    form_class = UserEditForm
+    # fields = ('first_name', 'last_name', 'email', 'username', 'password')
 
     def get_success_url(self):
         return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
 
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        save_changes = self.request.GET.get('save_changes')
+        if save_changes:
+            self.object.save()
+        return result
+    #
+    # def get_form(self, *args, **kwargs):
+    #     form = super().get_form(*args, **kwargs)
+    #     form.instance.user = self.request.user
+    #     return form
 
 
-class PasswordChangeView(auth_views.PasswordChangeView):
-    model = UserPasswordChangeForm
+class PasswordChangeView(auth_mixins.UserPassesTestMixin, auth_mixins.LoginRequiredMixin,
+                         auth_views.PasswordChangeView):
+    form_class = PasswordChangeForm
     template_name = 'users/profile_password_change.html'
-    success_url = reverse_lazy('login_user')
+
+    def get_success_url(self):
+        user_pk = self.kwargs['pk']
+        return reverse_lazy('password_change_done', kwargs={'pk': user_pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.get_object()
+        return context
+
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        obj = get_object_or_404(UserModel, pk=pk)
+        return obj
+
+    def test_func(self):
+        return self.get_object().pk == self.request.user.pk or self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        raise Http404()
+
+    def logout_then_login(self, login_url=settings.LOGIN_URL):
+        return logout_then_login(self.request, login_url)
+
+# class UsersPasswordChangeView(auth_views.PasswordChangeView):
+#     model = UserModel
+#     template_name = 'users/profile_password_change.html'
+#     success_url = reverse_lazy('users:password_change_done')
+#
+#     def dispatch(self, *args, **kwargs):
+#         return super().dispatch(*args, **kwargs)
+#
+#     def get_form_kwargs(self):
+#         kwargs = super().get_form_kwargs()
+#         kwargs['user'] = User.objects.filter(pk=self.kwargs['pk'])
+#         return kwargs
+#
+#     def form_valid(self, form):
+#         form.save()
+#         del self.request.session[INTERNAL_RESET_SESSION_TOKEN]
+#         update_session_auth_hash(self.request, form.user)
+#         return super().form_valid(form)
+
+
+class PasswordChangeDoneView(auth_views.PasswordChangeDoneView):
+    template_name = 'users/password_change_done.html'
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = User.objects.filter(pk=self.kwargs['pk'])
         return kwargs
 
-    # def change_password(request):
-    #     if request.method == 'POST':
-    #         form = PasswordChangeForm(request.user, request.POST)
-    #         if form.is_valid():
-    #             user = form.save()
-    #             update_session_auth_hash(request, user)  # Important!
-    #             return redirect('profile-details')
-    #
-    #     else:
-    #         form = PasswordChangeForm(request.user)
-    #     return render(request, 'users/profile-edit-page.html', {
-    #         'form': form
-    #     })
-
-    # def update(self, instance, validated_data):
-    #     user = self.context['request'].user
-    #
-    #     if user.pk != instance.pk:
-    #         raise ValidationError({"authorize": "You dont have permission for this user."})
-    #
-    #     instance.first_name = validated_data['first_name']
-    #     instance.last_name = validated_data['last_name']
-    #     instance.email = validated_data['email']
-    #     instance.username = validated_data['username']
-    #     instance.set_password(validated_data['password'])
-    #     instance.save()
-    #
-    #     instance.save()
-    #
-    #     return instance
+    def get_success_url(self):
+        return reverse_lazy('profile-details', kwargs={'pk': self.kwargs['pk']})
 
 
 class ProfileDeleteView(views.DeleteView):

@@ -22,7 +22,7 @@
                 {{ form.username|placeholder:"User name" }}
                 {{ form.email }}
                 {{ form.password1 }}
-                {{ form.password2}}
+                {{ form.password2 }}
                 {% csrf_token %}
 {#                <input type="text" name="txt" placeholder="User name" required="">#}
 {#                <input type="email" name="email" placeholder="Email" required="">#}
@@ -38,7 +38,7 @@
             <input type="hidden" value="{{ next }}" name="next"/>
             <label for="chk" aria-hidden="true">Login</label>
             {{ form.username|placeholder:"User name" }}
-            {{ form.password }}
+            {{ form.password|placeholder:"Password" }}
             {% csrf_token %}
 {#            <input type="email" name="email" placeholder="Email" required="">#}
 {#            <input type="password" name="pswd" placeholder="Password" required="">#}

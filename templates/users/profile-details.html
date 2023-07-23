@@ -3,27 +3,25 @@
 {% block user_content %}
 
     <li>
-        <h1>This is profile details page!
-            {{ request.user }}
-        </h1>
+        <p>This is profile details page!</p>
+
     </li>
-    <form>
-        <h1>
-            <li>
-                {{ request.user.username }}
-            </li>
-            <li>
-                {{ request.user.email }}
-            </li>
-            <li>
-                {{ request.user.first_name }}
-            </li>
-            <li>
-                {{ request.user.last_name }}
-            </li>
-        </h1>
+    <form action="{% url 'profile-details' request.user.pk %}" method="get" class="wow fadeInUp">
 
 
+        <h2><p>User Name:</p> {{ request.user.username }}</h2>
+
+
+        <h2><p>E-mail:</p>{{ request.user.email }}</h2>
+
+
+        <h2><p>First name</p>{{ request.user.first_name }}</h2>
+
+        <h2><p>Last name</p>{{ request.user.last_name }}</h2>
+    {% csrf_token %}
     </form>
-
+    <form action="{% url 'profile-edit' pk=user.pk %}" method="get" class="wow fadeInUp">
+            <input type="submit" class="form-control" value="Edit Profile">
+    {% csrf_token %}
+        </form>
 {% endblock %}

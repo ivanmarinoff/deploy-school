@@ -1,5 +1,3 @@
-from enum import Enum
-
 from django.db import models
 from django.contrib.auth import models as auth_models
 from django.core import validators
@@ -30,6 +28,7 @@ class User(auth_models.AbstractUser):
     email = models.EmailField(
         unique=True,
     )
+
 
     @property
     def full_name(self):

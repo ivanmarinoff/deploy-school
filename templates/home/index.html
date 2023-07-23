@@ -3,40 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% block content %}
-    {#<head>#}
-    {##}
-    {#    <meta charset="utf-8">#}
-    {#    <meta http-equiv="X-UA-Compatible" content="IE=Edge">#}
-    {#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
-    {#    <meta name="keywords" content="">#}
-    {#    <meta name="description" content="">#}
-    {##}
-    {#    <title>S.O.V.A</title>#}
-    {#    <link rel="icon" type="image/x-icon" href="{% static 'pictures/logo/cropped-cropped-collages3-009weef9b5.jpg' %}">#}
-    {#    <!--#}
-    {#    Snapshot Template#}
-    {#    http://www.templatemo.com/tm-493-snapshot#}
-    {##}
-    {#    Zoom Slider#}
-    {#    https://vegas.jaysalvat.com/#}
-    {##}
-    {#    Caption Hover Effects#}
-    {#    http://tympanus.net/codrops/2013/06/18/caption-hover-effects/#}
-    {#    -->#}
-    {#    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">#}
-    {#    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">#}
-    {#    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">#}
-    {#    <link rel="stylesheet" href="{% static 'css/component.css' %}">#}
-    {##}
-    {#    <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">#}
-    {#    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">#}
-    {#    <link rel="stylesheet" href="{% static 'css/vegas.min.css' %}">#}
-    {#    <link rel="stylesheet" href="{% static 'css/style.css' %}">#}
-    {##}
-    {#    <!-- Google web font  -->#}
-    {#    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>#}
-    {##}
-    {#</head>#}
+
     <body id="top" data-spy="scroll" data-offset="50" data-target=".navbar-collapse">
 
     <div class="vegas-slide vegas-transition-zoomIn vegas-transition-zoomIn-in vegas-transition-zoomIn-out"
@@ -87,34 +54,6 @@
     </div>
 
 
-    <!-- Navigation section  -->
-
-    {#<div class="navbar navbar-default navbar-fixed-top" role="navigation">#}
-    {#    <div class="container">#}
-    {##}
-    {#        <div class="navbar-header">#}
-    {#            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">#}
-    {#                <span class="icon icon-bar"></span>#}
-    {#                <span class="icon icon-bar"></span>#}
-    {#                <span class="icon icon-bar"></span>#}
-    {#            </button>#}
-    {#            <a href="#top" class="navbar-brand smoothScroll">SCHOOL OF PSYCHOLOGY</a>#}
-    {#        </div>#}
-    {#        <div class="collapse navbar-collapse">#}
-    {#            <ul class="nav navbar-nav navbar-right">#}
-    {#                <li><a href="#top" class="smoothScroll"><span>Home</span></a></li>#}
-    {#                <li><a href="#about" class="smoothScroll"><span>About</span></a></li>#}
-    {#                <li><a href="#team" class="smoothScroll"><span>Team</span></a></li>#}
-    {#                <li><a href="#gallery" class="smoothScroll"><span>Gallery</span></a></li>#}
-    {#                <li><a href="#contact" class="smoothScroll"><span>Contact</span></a></li>#}
-    {#                <li><a href="{% url 'register_user' %}" class="smoothScroll"><span>Sign Up</span></a></li>#}
-    {#            </ul>#}
-    {#        </div>#}
-    {##}
-    {#    </div>#}
-    {#</div>#}
-
-
     <!-- Home section -->
 
     <section id="home">
@@ -147,28 +86,10 @@
     <section id="about">
         <div class="container">
             <div class="row">
-
-                <div class="col-md-9 col-sm-8 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="about-thumb">
-                        <h1>WHO IS "SCHOOL OF PSYCHOLOGY" FOR?</h1>
-                        <p>The course is suitable for amateurs, students or students (over 18 years old) who want to
-                            understand
-                            more about psychology AND the fundamental aspects of psychological science and gain
-                            knowledge about
-                            the most fundamental aspects of psychological science.</p>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-4 wow fadeInUp about-img" data-wow-delay="0.6s">
-                    <img src="{% static 'images/psydiagaeea.jpg' %}" class="img-responsive img-circle" alt="About">
-                </div>
-
-                <div class="clearfix"></div>
-
-                <div class="col-md-12 col-sm-12 wow fadeInUp" data-wow-delay="0.3s">
+                   <div class="col-md-12 col-sm-12 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="section-title text-center">
                         <h1>Leaders of "SCHOOL OF PSYCHOLOGY"</h1>
-                        <h3>This is our team that will train you!</h3>
+                        <p class="description">This is our team that will train you!</p>
                     </div>
                 </div>
 
@@ -218,113 +139,29 @@
                             <p class="description">Psychologist MSc, Project Manager.</p>
                         </div>
                     </div>
-
-                    {#                <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">#}
-                    {#                    <div class="team-thumb">#}
-                    {#                        <div class="image-holder">#}
-                    {#                            <img src="{% static 'images/team-img5.jpg' %}" class="img-responsive img-circle"#}
-                    {#                                 alt="Lukia">#}
-                    {#                        </div>#}
-                    {#                        <h2 class="heading">Lukia, Fashion</h2>#}
-                    {#                        <p class="description">Maecenas sed diam eget risus varius blandit sit.</p>#}
-                    {#                    </div>#}
-                    {#                </div>#}
-                    {##}
-                    {#                <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">#}
-                    {#                    <div class="team-thumb">#}
-                    {#                        <div class="image-holder">#}
-                    {#                            <img src="{% static 'images/team-img6.jpg' %}" class="img-responsive img-circle"#}
-                    {#                                 alt="George">#}
-                    {#                        </div>#}
-                    {#                        <h2 class="heading">George, Admin</h2>#}
-                    {#                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing.</p>#}
-                    {#                    </div>#}
-                    {#                </div>#}
-                    {##}
-                    {#                <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">#}
-                    {#                    <div class="team-thumb">#}
-                    {#                        <div class="image-holder">#}
-                    {#                            <img src="{% static 'images/team-img7.jpg' %}" class="img-responsive img-circle" alt="Day">#}
-                    {#                        </div>#}
-                    {#                        <h2 class="heading">Day, Accountant</h2>#}
-                    {#                        <p class="description">Maecenas sed diam eget risus varius blandit sit.</p>#}
-                    {#                    </div>#}
-                    {#                </div>#}
-                    {##}
-                    {#                <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">#}
-                    {#                    <div class="team-thumb">#}
-                    {#                        <div class="image-holder">#}
-                    {#                            <img src="{% static 'images/team-img8.jpg' %}" class="img-responsive img-circle" alt="Lynn">#}
-                    {#                        </div>#}
-                    {#                        <h2 class="heading">Lynn, Marketing</h2>#}
-                    {#                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing.</p>#}
-                    {#                    </div>#}
-                    {#                </div>#}
-                    {##}
-                    {#            </div>#}
-                    <!-- end team carousel -->
-
                 </div>
+
+                <div class="col-md-9 col-sm-8 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="about-thumb">
+                        <h1>WHO IS "SCHOOL OF PSYCHOLOGY" FOR?</h1>
+                        <p>The course is suitable for amateurs, students or students <a rel="nofollow">(over 18 years old)</a> who want to
+                            understand
+                            more about psychology AND the fundamental aspects of psychological science and gain
+                            knowledge about
+                            the most fundamental aspects of psychological science.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-4 wow fadeInUp about-img" data-wow-delay="0.6s">
+                    <img src="{% static 'images/psydiagaeea.jpg' %}" class="img-responsive img-circle" alt="About">
+                </div>
+
+                <div class="clearfix"></div>
+
+
             </div>
         </div>
     </section>
-
-
-    <!-- Team section -->
-
-    {#<section id="team">#}
-    {#      <div class="container">#}
-    {#                    <h1>Leaders of "SCHOOL OF PSYCHOLOGY"</h1>#}
-    {#                    <h3>This is our team that will train you!</h3>#}
-    {#                </div>#}
-    {#            </div>#}
-    {##}
-    {#            <!-- team carousel -->#}
-    {#            <div id="team-carousel" class="owl-carousel">#}
-    {#                        <div class="image-holder">#}
-    {#                            <img src="{% static 'images/team/svetlana.png' %}" class="img-responsive img-circle" alt="Svetlana">#}
-    {#                        </div>#}
-    {#                        <h2 class="heading">Sotirova, Svetlana</h2>#}
-    {#                        <p class="description">Therapeutic, family consultant.</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {##}
-    {#                <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.6s">#}
-    {#                    <div class="team-thumb">#}
-    {#                        <div class="image-holder">#}
-    {#                            <img src="{% static 'images/team/emilia.png' %}" class="img-responsive img-circle" alt="Emilia">#}
-    {#                        </div>#}
-    {#                        <h2 class="heading">Sotirova, Emilia</h2>#}
-    {#                        <p class="description">Psychologist, family therapeutic, psychodrama teacher.</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {##}
-    {#                <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">#}
-    {#                    <div class="team-thumb">#}
-    {#                        <div class="image-holder">#}
-    {#                            <img src="{% static 'images/team/rositza.png' %}" class="img-responsive img-circle"#}
-    {#                                 alt="Rositza">#}
-    {#                        </div>#}
-    {#                        <h2 class="heading">Slavova, Rositza</h2>#}
-    {#                        <p class="description">Therapeutic, family consultant.</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {##}
-    {#                <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">#}
-    {#                    <div class="team-thumb">#}
-    {#                        <div class="image-holder">#}
-    {#                            <img src="{% static 'images/team/monika.png' %}" class="img-responsive img-circle"#}
-    {#                                 alt="Monika">#}
-    {#                        </div>#}
-    {#                        <h2 class="heading">Roideva, Monika</h2>#}
-    {#                        <p class="description">Psychologist MSc, Project Manager.</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#             </div>#}
-    {#    </div>#}
-    {#    </div>#}
-    {#    </div>#}
-    {#</section>#}
 
     <!-- Gallery section -->
 
@@ -344,7 +181,7 @@
                 <ul class="grid cs-style-4">
                     <li class="col-md-6 col-sm-6">
                         <figure>
-                            <div><img src="{% static 'images/gallery-img1.jpg' %}" alt="image 1"></div>
+                            <div><img src="{% static 'pictures/prospectus/програма-училищеd0fa.png' %}" alt="image 1"></div>
                             <figcaption>
                                 <h1>Sapien arcu</h1>
                                 <small>Cum sociis natoque penatibus et magnis dis parturient montes.</small>
@@ -355,7 +192,7 @@
 
                     <li class="col-md-6 col-sm-6">
                         <figure>
-                            <div><img src="{% static 'images/gallery-img2.jpg' %}" alt="image 2"></div>
+                            <div><img src="{% static 'pictures/prospectus/ниво-2d0fa.png' %}" alt="image 2"></div>
                             <figcaption>
                                 <h1>Aliquam erat</h1>
                                 <small>Suspendisse venenatis quam sed libero euismod feugiat.</small>
@@ -401,57 +238,23 @@
                 <div class="col-md-offset-1 col-md-10 col-sm-12">
 
                     <div class="col-lg-offset-1 col-lg-10 section-title wow fadeInUp" data-wow-delay="0.4s">
-                        <h1>Send a message</h1>
-                        {% csrf_token %}
-                        <p>Nunc suscipit ante in lectus laoreet, nec pharetra diam dictum. Lorem ipsum dolor sit amet,
-                            consectetur adipiscing elit. </p>
+                        <h1>Connect with us!</h1>
+                        <p>The School of Psychology is located in the center of the city of
+                            <a rel="nofollow"
+                               href="https://www.google.com/maps/search/%D1%83%D0%BB.+%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%8A%D1%80%20%D0%94%D1%8F%D0%BA%D0%BE%D0%B2%D0%B8%D1%87%2045,+%D0%B3%D1%80.%20%D0%92%D0%B0%D1%80%D0%BD%D0%B0,"
+                               \ target="_blank">Varna, 45 Aleksandar Djakovic Str.</a></p>
                     </div>
-
-                    <form action="#" method="post" class="wow fadeInUp" data-wow-delay="0.8s">
-                        <div class="col-md-6 col-sm-6">
-                            <input name="name" type="text" class="form-control" id="name" placeholder="Name">
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <input name="email" type="email" class="form-control" id="email" placeholder="Email">
-                        </div>
-                        <div class="col-md-12 col-sm-12">
-                        <textarea name="message" rows="6" class="form-control" id="message"
-                                  placeholder="Message"></textarea>
-                        </div>
-                        <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
-                            <input type="submit" class="form-control" value="SEND MESSAGE">
-                        </div>
-                    </form>
-
+                    <h1>Phone: +359895763555</h1>
+                    <h1>E-mail: office@sovapsychologist.com</h1>
                 </div>
+                </form>
 
             </div>
+
+        </div>
         </div>
     </section>
 
-    <!-- Login section -->
-    {##}
-    {#<section id="contact">#}
-    {#    <div class="container">#}
-    {#        <div class="row">#}
-    {##}
-    {#            <div class="col-md-offset-1 col-md-10 col-sm-12">#}
-    {##}
-    {#                <div class="col-lg-offset-1 col-lg-10 section-title wow fadeInUp" data-wow-delay="0.4s">#}
-    {#                    <h1>Login</h1>#}
-    {#                    {% csrf_token %}#}
-    {##}
-    {#                </div>#}
-    {##}
-    {#                <form action="{% url 'login_user' %}" method="post" class="wow fadeInUp" data-wow-delay="0.8s">#}
-    {#                    {{ form }}#}
-    {#                </form>#}
-    {##}
-    {#            </div>#}
-    {##}
-    {#        </div>#}
-    {#    </div>#}
-    {#</section>#}
 
     <!-- Footer section -->
 
@@ -463,11 +266,13 @@
                 <div class="col-md-12 col-sm-12">
 
                     <ul class="social-icon">
-                        <li><a href="#" class="fa fa-facebook wow fadeInUp" data-wow-delay="0.2s"></a></li>
-                        <li><a href="#" class="fa fa-twitter wow fadeInUp" data-wow-delay="0.4s"></a></li>
-                        <li><a href="#" class="fa fa-linkedin wow fadeInUp" data-wow-delay="0.6s"></a></li>
-                        <li><a href="#" class="fa fa-instagram wow fadeInUp" data-wow-delay="0.8s"></a></li>
-                        <li><a href="#" class="fa fa-google-plus wow fadeInUp" data-wow-delay="1.0s"></a></li>
+                        <li><a href="https://www.facebook.com/S.O.V.A.psychologist" class="fa fa-facebook wow fadeInUp" data-wow-delay="0.2s"></a></li>
+                        <li><a href="https://twitter.com/sovapsycenter" class="fa fa-twitter wow fadeInUp" data-wow-delay="0.4s"></a></li>
+                        <li><a href="https://www.linkedin.com/company/sova-psychologist" class="fa fa-linkedin wow fadeInUp" data-wow-delay="0.6s"></a></li>
+                        <li><a href="https://www.instagram.com/sova_psy/" class="fa fa-instagram wow fadeInUp" data-wow-delay="0.8s"></a></li>
+                        <li><a href="https://plus.google.com/+SovaPsychologist" class="fa fa-google-plus wow fadeInUp" data-wow-delay="1.0s"></a></li>
+                        <li><a href="https://www.youtube.com/channel/UCd2dYVIA_CY_hoAyNkQ2rLg" class="fa fa-youtube wow fadeInUp" data-wow-delay="1.2s"></a></li>
+                        <li><a href="https://www.pinterest.com/sovapsy" class="fa fa-pinterest wow fadeInUp" data-wow-delay="1.4s"></a></li>
                     </ul>
 
                     {#                <p class="wow fadeInUp" data-wow-delay="1s">Copyright &copy; 2016 Snapshot Studio |#}

@@ -17,9 +17,9 @@
             <form action="{% url 'register_user' %}" method="post">
                 <label for="chk" aria-hidden="true">Sign up</label>
                 {{ form.username|placeholder:"User name" }}
-                {{ form.email }}
-                {{ form.password1 }}
-                {{ form.password2}}
+                {{ form.email|placeholder:"Email" }}
+                {{ form.password1|placeholder:"Password" }}
+                {{ form.password2 |placeholder:"Confirm Password" }}
                 <input type="text" name="txt" placeholder="User name" required="">
                 <input type="email" name="email" placeholder="Email" required="">
                 <input type="password" name="pswd1" placeholder="Password" required="">

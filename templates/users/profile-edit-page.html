@@ -116,13 +116,14 @@
 {#                                    {{ form.new_password2.errors }}#}
 {#                                    {{ form.new_password2.label_tag }}#}
 {#                                    {{ form.new_password2 }}#}
-
+                    <form action="{% url 'profile-details' request.user.pk %}" method="get" class="wow fadeInUp">
+                    <input type="submit" class="form-control" value="SAVE">
                 {% csrf_token %}
-                <input type="submit" class="form-control" value="SAVE">
-            </form>
-               <form action="{% url 'password-change' request.user.pk %}" method="post" class="wow fadeInUp">
-                <input type="submit" class="form-control" value="CHANGE PASSWORD">
-                   {% csrf_token %}
+                    </form>
+                    <form action="{% url 'password_change' request.user.pk %}" method="post" class="wow fadeInUp">
+                        <input type="submit" class="form-control" value="CHANGE PASSWORD">
+                {% csrf_token %}
+                    </form>
             </form>
             </div>
         </div>
