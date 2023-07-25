@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="{% static 'css/vegas.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-
     <!-- Navigation section  -->
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -36,17 +35,19 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-
                     {% if request.user.is_authenticated %}
 
                         <li><a href="{% url 'logout_user' %}" class="smoothScroll"><span>Logout</span></a></li>
-                        <li><a href="{% url 'profile-edit' pk=request.user.pk %}" class="smoothScroll"><span>Edit profile</span></a></li>
-{#                        <li><a href="{% url 'profile-details' pk=request.user.pk %}"#}
-{#                               class="smoothScroll"><span>Profile Details</span></a></li>#}
-{#                        <li><a href="{% url 'profile-delete' pk=request.user.pk %}"#}
-{#                               class="smoothScroll"><span>Delete</span></a></li>#}
-                        <li><a href="{% url 'read-content' pk=request.user.pk %}" class="smoothScroll"><span>Content</span></a></li>
-                        <li><a href="{% url 'global-read-content' %}" class="smoothScroll"><span>Global Content</span></a></li>
+                        <li><a href="{% url 'profile-edit' pk=request.user.pk %}" class="smoothScroll"><span>Edit profile</span></a>
+                        </li>
+                        {#                        <li><a href="{% url 'profile-details' pk=request.user.pk %}"#}
+                        {#                               class="smoothScroll"><span>Profile Details</span></a></li>#}
+                        {#                        <li><a href="{% url 'profile-delete' pk=request.user.pk %}"#}
+                        {#                               class="smoothScroll"><span>Delete</span></a></li>#}
+                        <li><a href="{% url 'read-content' pk=request.user.pk %}"
+                               class="smoothScroll"><span>Content</span></a></li>
+                        <li><a href="{% url 'global-read-content' %}"
+                               class="smoothScroll"><span>Global Content</span></a></li>
                     {% else %}
                         <li><a href="#top" class="smoothScroll"><span>Home</span></a></li>
                         <li><a href="#about" class="smoothScroll"><span>About</span></a></li>
@@ -54,6 +55,7 @@
                         <li><a href="#contact" class="smoothScroll"><span>Contact</span></a></li>
                         <li><a href="{% url 'login_user' %}" class="smoothScroll"><span>Login</span></a></li>
                         <li><a href="{% url 'register_user' %}" class="smoothScroll"><span>Sign Up</span></a></li>
+
                     {% endif %}
                 </ul>
             </div>
@@ -61,6 +63,16 @@
         </div>
     </div>
     </body>
+<!-- Javascript  -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/vegas.min.js' %}"></script>
+    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+    <script src="{% static 'js/toucheffects.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
     {% block content %}
     {% endblock %}
 </head>

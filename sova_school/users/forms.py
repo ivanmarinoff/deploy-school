@@ -1,6 +1,7 @@
 from django.contrib.auth import forms as auth_forms, get_user_model, update_session_auth_hash
 from django import template
 from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import redirect
 
 register = template.Library()
 
@@ -11,12 +12,22 @@ class RegisterUserForm(auth_forms.UserCreationForm):
     class Meta:
         model = UserModel
         fields = ('username', 'email', 'password1', 'password2')
+        labels = {
+            'username': 'Username',
+            'email': 'Email',
+            'password1': 'Password',
+            'password2': 'Confirm Password',
+        }
 
 
 class LoginUserForm(auth_forms.AuthenticationForm):
     class Meta:
         model = UserModel
         fields = ('username', 'password')
+        labels = {
+            'username': 'Username',
+            'password': 'Password',
+        }
 
 
 class UserEditForm(auth_forms.UserChangeForm):
@@ -63,12 +74,14 @@ class UserPasswordChangeForm(auth_forms.PasswordChangeForm):
     #                                       )
     # }
 
-    def password_change(request):
-        if request.method == "POST":
-            form = PasswordChangeForm(user=request.user, data=request.POST)
-            if form.is_valid():
-                form.save()
-                update_session_auth_hash(request, form.user)
+    # def password_change(request):
+    #     if request.method == "POST":
+    #         form = PasswordChangeForm(user=request.user, data=request.POST)
+    #         if form.is_valid():
+    #             form.save()
+    #             update_session_auth_hash(request, form.user)
+    #             request.user.logout()
+    #             return redirect('password_change_done')
 
 
 @register.filter

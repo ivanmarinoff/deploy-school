@@ -1,16 +1,11 @@
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins, get_user_model, login
-
-from sova_school import settings
-from sova_school.settings import LOGIN_URL
 from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditForm
-from sova_school.users.models import User
 
 UserModel = get_user_model()
 
@@ -32,19 +27,25 @@ class RegisterUserView(OnlyAnonymousMixin, views.CreateView):
 
     def form_valid(self, form):
         result = super().form_valid(form)
-
         login(self.request, self.object)
         return result
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        context['next'] = self.request.GET.get('next', '')
-
-        return context
+        context['user'] = self.object
 
     def get_success_url(self):
-        return self.request.POST.get('next', self.success_url)
+        return ('login_user',)
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #
+    #     context['next'] = self.request.GET.get('next', '')
+    #
+    #     return context
+    #
+    # def get_success_url(self):
+    #     return self.request.POST.get('next', self.success_url)
 
 
 class LoginUserView(auth_views.LoginView):
@@ -53,37 +54,37 @@ class LoginUserView(auth_views.LoginView):
     success_url = reverse_lazy('profile-details')
     class_name = 'login'
 
-    def logout_then_login(self, login_url=settings.LOGIN_URL):
-        return logout_then_login(self.request, login_url)
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(self.get_success_url())
+        return super().dispatch(request, *args, **kwargs)
 
-
-class LogoutUserView(auth_views.LogoutView):
-    pass
-    # # next_page = reverse_lazy('index')
     # def get_success_url(self):
-    #     return reverse_lazy('index')
+    #     return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
 
 
-class ProfileDetailsView(views.DetailView):
+class LogoutUserView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
+    pass
+
+
+class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
     template_name = 'users/profile-details.html'
     model = UserModel
     form_class = UserEditForm
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.object
-
-    # user = User.objects.get(username=self.request.username)
-    # user.set_password('new password')
-    # user.save()
 
     def get_success_url(self):
         return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
 
 
-class ProfileEditView(views.UpdateView):
+class ProfileEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     template_name = 'users/profile-edit-page.html'
     model = UserModel
     form_class = UserEditForm
+
     # fields = ('first_name', 'last_name', 'email', 'username', 'password')
 
     def get_success_url(self):
@@ -110,9 +111,9 @@ class PasswordChangeView(auth_mixins.UserPassesTestMixin, auth_mixins.LoginRequi
     form_class = PasswordChangeForm
     template_name = 'users/profile_password_change.html'
 
-    def get_success_url(self):
-        user_pk = self.kwargs['pk']
-        return reverse_lazy('password_change_done', kwargs={'pk': user_pk})
+    # def get_success_url(self):
+    #     user_pk = self.kwargs['pk']
+    #     return reverse_lazy('password_change_done', kwargs={'pk': user_pk})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -130,8 +131,6 @@ class PasswordChangeView(auth_mixins.UserPassesTestMixin, auth_mixins.LoginRequi
     def handle_no_permission(self):
         raise Http404()
 
-    def logout_then_login(self, login_url=settings.LOGIN_URL):
-        return logout_then_login(self.request, login_url)
 
 # class UsersPasswordChangeView(auth_views.PasswordChangeView):
 #     model = UserModel
@@ -153,19 +152,16 @@ class PasswordChangeView(auth_mixins.UserPassesTestMixin, auth_mixins.LoginRequi
 #         return super().form_valid(form)
 
 
-class PasswordChangeDoneView(auth_views.PasswordChangeDoneView):
+class PasswordChangeDoneView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
+    # form_class = PasswordChangeForm
     template_name = 'users/password_change_done.html'
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = User.objects.filter(pk=self.kwargs['pk'])
-        return kwargs
+    success_url = reverse_lazy('password_change_done')
 
     def get_success_url(self):
-        return reverse_lazy('profile-details', kwargs={'pk': self.kwargs['pk']})
+        return self.request.POST.get('next', self.success_url)
 
 
-class ProfileDeleteView(views.DeleteView):
+class ProfileDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     model = UserModel
     template_name = 'users/profile-delete-page.html'
     next_page = reverse_lazy('index')

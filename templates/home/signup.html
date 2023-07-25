@@ -1,53 +1,52 @@
 {% extends 'users/user_navbar.html' %}
-{% load custom_filters %}
+{#{% load custom_filters %}#}
 {% load static %}
 {% block user_content %}
 
-<html>
-<head>
-    <title>Slide Navbar</title>
-    <link rel="stylesheet" type="text/css" href="{% static '/css/signup.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-</head>
-<body>
+    <html>
+    <head>
+        <title>Slide Navbar</title>
+        <link rel="stylesheet" type="text/css" href="{% static '/css/signup.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    </head>
+    <body>
 
-<div class="main">
-    <input type="checkbox" id="chk" aria-hidden="true">
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
 
         <div class="signup">
-            <form action="{% url 'register_user' %}?next={{ next }}" method="post">
-{#                 <input type="hidden" value="{{ next }}" name="next"/>#}
+            <form action="{% url 'register_user' %}" method="post">
                 <label for="chk" aria-hidden="true">Sign up</label>
-                {{ form.username|placeholder:"User name" }}
+                {{ form.username }}
                 {{ form.email }}
                 {{ form.password1 }}
-                {{ form.password2}}
+                {{ form.password2 }}
+                {#                <input type="text" name="txt" placeholder="User name" required="">#}
+                {#                <input type="email" name="email" placeholder="Email" required="">#}
+                {#                <input type="password" name="pswd1" placeholder="Password" required="">#}
+                {#                <input type="password" name="pswd2" placeholder="Confirm Password" required="">#}
                 {% csrf_token %}
-{#                <input type="text" name="txt" placeholder="User name" required="">#}
-{#                <input type="email" name="email" placeholder="Email" required="">#}
-{#                <input type="password" name="pswd1" placeholder="Password" required="">#}
-{#                <input type="password" name="pswd2" placeholder="Confirm Password" required="">#}
                 <button type="submit">Sign up</button>
             </form>
         </div>
 
         <div class="login">
-        <form action="{% url 'login_user' %}" method="post">
+            <form action="{% url 'login_user' %}" method="post">
+                <label for="chk" aria-hidden="true">Login</label>
+                {#            {{ form.username|placeholder:"User name" }}#}
+                {#            {{ form.password }}#}
+                <input type="email" name="email" placeholder="Email" required="">
+                <input type="password" name="pswd" placeholder="Password" required="">
+                {% csrf_token %}
 
-            <input type="hidden" value="{{ next }}" name="next"/>
-            <label for="chk" aria-hidden="true">Login</label>
-            {{ form.username|placeholder:"User name" }}
-            {{ form.password }}
-            {% csrf_token %}
-{#            <input type="email" name="email" placeholder="Email" required="">#}
-{#            <input type="password" name="pswd" placeholder="Password" required="">#}
-            <button>Login</button>
-        </form>
+                <button>Login</button>
+            </form>
 
+        </div>
     </div>
 
-</body>
-</html>
+    </body>
+    </html>
 {% endblock %}
 {{ request.user }}
 
