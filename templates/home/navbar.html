@@ -36,10 +36,6 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     {% if request.user.is_authenticated %}
-
-                        <li><a href="{% url 'logout_user' %}" class="smoothScroll"><span>Logout</span></a></li>
-                        <li><a href="{% url 'profile-edit' pk=request.user.pk %}" class="smoothScroll"><span>Edit profile</span></a>
-                        </li>
                         {#                        <li><a href="{% url 'profile-details' pk=request.user.pk %}"#}
                         {#                               class="smoothScroll"><span>Profile Details</span></a></li>#}
                         {#                        <li><a href="{% url 'profile-delete' pk=request.user.pk %}"#}
@@ -48,6 +44,9 @@
                                class="smoothScroll"><span>Content</span></a></li>
                         <li><a href="{% url 'global-read-content' %}"
                                class="smoothScroll"><span>Global Content</span></a></li>
+                        <li><a href="{% url 'profile-details' pk=request.user.pk %}" class="smoothScroll"><span>Profile Details</span></a>
+                        </li>
+                        <li><a href="{% url 'logout_user' %}" class="smoothScroll"><span>Logout</span></a></li>
                     {% else %}
                         <li><a href="#top" class="smoothScroll"><span>Home</span></a></li>
                         <li><a href="#about" class="smoothScroll"><span>About</span></a></li>

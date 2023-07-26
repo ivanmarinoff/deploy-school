@@ -28,8 +28,8 @@ class ContentModelForm(forms.ModelForm):
         widgets = {'text': forms.Textarea(attrs={'placeholder': 'Add content...'})}
 
 
-class SearchForm(forms.Form):
-    content = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Search content...'}))
+# class SearchForm(forms.Form):
+#     content = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Search content...'}))
 
 
 class ContentEditForm(ContentModelForm):

@@ -1,23 +1,34 @@
-{#{% include 'home/navbar.html' %}#}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Content Edit Page</title>
-</head>
+{% extends 'content/content_navbar.html' %}
+{% block navbar_content %}
+{#    <div class="container" id="content">#}
+        <div class="row">
+            <div class="col-12 row text align-fa-align-center">
+                <br><br><br><br>
+                <h1>
+                    <p>Edit this content!</p>
+                    <form action="{% url 'edit-content' content.pk %}" method="post">
+                        <div class="col-12">
+{#                            <tbody>#}
+                            <table class="table table-bordered">
+                                {% for text in form %}
+{#                                <tr>#}
+                                    <h1>{{ title }}</h1>
+                                    <h1>{{ text }}</h1>
+{#                                </tr>#}
+                            {% endfor %}
+{#                            </tbody>#}
+                            </table>
+{#                            </tbody>#}
+                        </div>
+                            {% csrf_token %}
 
-<body display="inline">
-<h1>
-    Edit this content!
-<form action="{% url 'edit-content' content.pk %}?page={{ content.pk }}" method="post">
-
-        {{ form.as_p }}
-         {% csrf_token %}
-
-    <button type="submit">Save</button>
-    {{ request.user }}
+                    <button type="submit">Save</button>
+                    <button onclick="history.back()">Go Back</button>
 </form>
-</h1>
-</body>
+                </h1>
+            </div>
+        </div>
+{#    </div>#}
 
-</html>
+
+{% endblock navbar_content %}

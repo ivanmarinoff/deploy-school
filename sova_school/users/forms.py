@@ -9,6 +9,20 @@ UserModel = get_user_model()
 
 
 class RegisterUserForm(auth_forms.UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__clear_fields_helper_text()
+
+        for field_name in ['username', 'email', 'password1', 'password2']:
+            self.fields[field_name].help_text = None
+
+    def __clear_fields_helper_text(self):
+        for field in self.fields.values():
+            field.help_text = None
+            field.widget.attrs['class'] = 'form-control'
+
+
+
     class Meta:
         model = UserModel
         fields = ('username', 'email', 'password1', 'password2')
@@ -18,6 +32,15 @@ class RegisterUserForm(auth_forms.UserCreationForm):
             'password1': 'Password',
             'password2': 'Confirm Password',
         }
+
+        # def save(self, commit=True):
+        #     user = super().save(commit=commit)
+        #     profile = UserModel(
+        #         user=user,
+        #     )
+        #     if commit:
+        #         profile.save()
+        #     return user
 
 
 class LoginUserForm(auth_forms.AuthenticationForm):
@@ -52,9 +75,6 @@ class UserPasswordChangeForm(auth_forms.PasswordChangeForm):
             return True
         else:
             return False
-
-
-
 
     # fields = ('old_password', 'new_password1', 'new_password2')
     # labels = {

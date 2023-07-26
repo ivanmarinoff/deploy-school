@@ -1,18 +1,34 @@
-{#{% include 'home/navbar.html' %}#}
+{% extends 'content/content_navbar.html' %}
+{% block navbar_content %}
+{#    <div class="container" id="content">#}
+        <div class="row">
+            <div class="col-12 row text align-fa-align-center">
+                <br><br><br><br>
+                <h1>
+                    <p>Create content!</p>
+                    <form action="{% url 'create-content' request.user.pk %}" method="post">
+                        <div class="col-12">
+{#                            <tbody>#}
+{#                            <table class="table table-bordered">#}
+                                {% for text in form %}
+{#                                <tr>#}
+                                    <h1>{{ title }}</h1>
+                                    <h1>{{ text }}</h1>
+{#                                </tr>#}
+                            {% endfor %}
+{#                            </tbody>#}
+{#                            </table>#}
+{#                            </tbody>#}
+                        </div>
+                            {% csrf_token %}
 
-<html lang="en">
-
-
-<body display="inline">
-<form action="{% url 'create-content' request.user.pk %}" method="post">
-{% csrf_token %}
-    <h1>
-        {{ form.as_p }}
-    </h1>
-
-<button type="submit">Add text</button>
-    {{ request.user }}
+                    <button type="submit">Save</button>
+                    <button onclick="history.back()">Go Back</button>
 </form>
-</body>
+                </h1>
+            </div>
+        </div>
+{#    </div>#}
 
-</html>
+
+{% endblock navbar_content %}

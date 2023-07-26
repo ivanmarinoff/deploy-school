@@ -10,7 +10,7 @@
         <form action="{% url 'profile-delete' request.user.pk %}" method="post">
             {% csrf_token %}
             <button type="submit">Yes</button>
-            <a class="edit-btn" href="javascript:history.back()">Go back</a>
+            <button onclick="history.back()">Go Back</button>
         </form>
     </h1>
    {{ request.user }}

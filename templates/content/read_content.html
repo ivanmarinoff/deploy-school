@@ -1,52 +1,90 @@
-{#{% include 'home/navbar.html' %}#}
+{% extends 'content/content_navbar.html' %}
 {#<style>#}
 {#    .list {#}
 {#        display: flex;#}
 {#    }#}
 {#</style>#}
-<form action="{% url 'read-content' request.user.pk %}}?page={{ page_obj.number }}">
-    <input name="search" value="{{ search }}" placeholder="Search">
-    <button>Search</button>
-</form>
 
-<div class="list">
-    <li>
-        This is a read content {{ request.user }}
+{% block navbar_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <br><br><br><br>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th><p>Title</p></th>
+                        <th><p>Content</p></th>
+                        {#            <th>Menu</th>#}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <form action="{% url 'read-content' request.user.pk %}" method="get">
+                        <input type="text" class="form-control" name="search" placeholder="Search by content..."
+                               value="{{ request.GET.title }}">
+                        <input type="submit" class="form-control" value="Search">
+                    </form>
+                    <form action="{% url 'create-content' request.user.pk %}" method="get">
+                        <input type="submit" class="form-control" value="Create content"></form>
+                    {% for content in object_list reversed %}
+                            <tr>
+                                <td>
+                                    <h2><a href="{% url 'detail-content' content.pk %}">{{ content.title|truncatechars:20 }}</a></h2>
+                                </td>
+                                <td><p>{{ content.text|truncatechars:200 }}</p></td>
+                            </tr>
+                    {% endfor %}
 
-    </li>
-    <form>
-        {% for content in object_list %}
+                    </tbody>
+                </table>
 
-            <li>
-                {{ content.title }}
-            </li>
-            <li>
-                {{ content.text }}
-            </li>
-            <a href="{% url 'edit-content' content.pk %}" class="smoothScroll"><span>Edit</span></a>
-            <a href="{% url 'delete-content' content.pk %}" class="smoothScroll"><span>Delete</span></a>
-        {% endfor %}
+                {% csrf_token %}
 
-        {#    <form action="{% url 'edit-content' request.user.pk %}" method="post">#}
-        {#<li><a href="{% url 'edit-content' pk=request.user.pk %}" class="smoothScroll"><span>Edit</span></a></li>#}
-        {#        {{ content.pk }} - {{ content.title }}#}
+                {% if is_paginated %}
 
-        {% csrf_token %}
-    </form>
+                    <h2>
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
 
-    {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
-    {% else %}
-        <a&lt;></a>
-    {% endif %}
+                                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
 
-    {{ page_obj.number }} / {{ paginator.num_pages }}
+                            {% else %}
 
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
-    {% else %}
-        <a&gt;></a>
-    {% endif %}
+                                <li class="disabled"><span>&laquo;</span></li>
 
-</div>
+                            {% endif %}
 
+                            {% for i in paginator.page_range %}
+
+                                {% if page_obj.number == i %}
+
+                                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+
+                                {% else %}
+
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+
+                                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+
+                            {% else %}
+
+                                <li class="disabled"><span>&raquo;</span></li>
+
+                            {% endif %}
+
+                        </ul>
+
+                    </h2>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

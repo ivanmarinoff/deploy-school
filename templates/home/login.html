@@ -1,5 +1,5 @@
 {% extends 'users/user_navbar.html' %}
-{#{% load custom_filters %}#}
+{% load custom_filters %}
 {% load static %}
 {% block user_content %}
 
@@ -13,19 +13,19 @@
     <body>
 
     <div class="main">
-        <input type="checkbox" id="chk" aria-hidden="true">
+        <input type="checkbox" id="chk" aria-hidden="false">
 
         <div class="signup">
             <form action="{% url 'register_user' %}" method="post" name="signup">
-                <label for="chk" aria-hidden="true">Sign up</label>
-                {#                {{ form.username }}#}
-                {#                {{ form.email }}#}
-                {#                {{ form.password1 }}#}
-                {#                {{ form.password2 }}#}
-                <input type="text" name="txt" placeholder="User name" value="{{ form.username }}">
-                <input type="email" name="email" placeholder="Email" value="{{ form.email }}">
-                <input type="password" name="pswd1" placeholder="Password" value="{{ form.password1 }}">
-                <input type="password" name="pswd2" placeholder="Confirm Password" value="{{ form.password2 }}">
+                <label for="chk" >Sign up</label>
+                                {{ form.username }}
+                                {{ form.email }}
+                                {{ form.password1 }}
+                                {{ form.password2 }}
+{#                <input type="text" name="txt" placeholder="User name" value="{{ form.username }}">#}
+{#                <input type="email" name="email" placeholder="Email" value="{{ form.email }}">#}
+{#                <input type="password" name="pswd1" placeholder="Password" value="{{ form.password1 }}">#}
+{#                <input type="password" name="pswd2" placeholder="Confirm Password" value="{{ form.password2 }}">#}
                 <button type="submit">Sign up</button>
                 {% csrf_token %}
             </form>
@@ -33,9 +33,9 @@
 
         <div class="login">
             <form action="{% url 'login_user' %}" method="post" name="login">
-                <label for="chk" aria-hidden="true">Login</label>
-                {{ form.username }}
-                {{ form.password }}
+                <label for="chk" >Login</label>
+                {{ form.username|placeholder:'Username' }}
+                {{ form.password|placeholder:'Password' }}
                 <button type="submit">Login</button>
                 {% csrf_token %}
             </form>

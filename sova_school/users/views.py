@@ -1,6 +1,6 @@
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views, authenticate
 from django.contrib.auth.forms import PasswordChangeForm
-from django.http import HttpResponseRedirect, Http404
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -10,32 +10,42 @@ from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditFor
 UserModel = get_user_model()
 
 
-class OnlyAnonymousMixin:
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return HttpResponseRedirect(self.get_success_url())
-        return super().dispatch(request, *args, **kwargs)
+# class OnlyAnonymousMixin:
+#     def dispatch(self, request, *args, **kwargs):
+#         if request.user.is_authenticated:
+#             return HttpResponseRedirect(self.getsuccess_url)
+#         return super().dispatch(self.request, *args, **kwargs)
 
 
 # Bear minimum on RegisterUserView!
-class RegisterUserView(OnlyAnonymousMixin, views.CreateView):
+class RegisterUserView(views.CreateView):
     model = UserModel
     template_name = 'home/signup.html'
     form_class = RegisterUserForm
     success_url = reverse_lazy('login_user')
     class_name = 'signup'
 
+    # def form_valid(self, form):
+    #     result = super().form_valid(form)
+    #     login(self.request, self.object)
+    #     return result
+
     def form_valid(self, form):
-        result = super().form_valid(form)
-        login(self.request, self.object)
-        return result
+        valid = super(RegisterUserView, self).form_valid(form)
+        username, password = form.cleaned_data.get(
+            'username'), form.cleaned_data.get('password1')
+        new_user = authenticate(username=username, password=password)
+        login(self.request, new_user)
+
+        return valid
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.object
+        context['form'] = self.get_form()
+        return super().get_context_data(**kwargs)
 
     def get_success_url(self):
-        return ('login_user',)
+        return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
@@ -53,14 +63,25 @@ class LoginUserView(auth_views.LoginView):
     template_name = 'home/login.html'
     success_url = reverse_lazy('profile-details')
     class_name = 'login'
+    redirect_authenticated_user = True
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return HttpResponseRedirect(self.get_success_url())
-        return super().dispatch(request, *args, **kwargs)
+    def form_valid(self, form):
+        result = form.cleaned_data.get('username')
+        if not result:
+            self.request.session.clear()
+            self.request.session.set_expiry(0)
 
-    # def get_success_url(self):
-    #     return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        form.errors.clear()
+        form.add_error(None, 'Invalid Username or password')
+        return super().form_invalid(form)
+
+
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse_lazy('profile-details', kwargs={'pk': self.request.user.pk})
 
 
 class LogoutUserView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
@@ -90,20 +111,12 @@ class ProfileEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     def get_success_url(self):
         return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     return super().dispatch(request, *args, **kwargs)
-
     def form_valid(self, form):
         result = super().form_valid(form)
         save_changes = self.request.GET.get('save_changes')
         if save_changes:
             self.object.save()
         return result
-    #
-    # def get_form(self, *args, **kwargs):
-    #     form = super().get_form(*args, **kwargs)
-    #     form.instance.user = self.request.user
-    #     return form
 
 
 class PasswordChangeView(auth_mixins.UserPassesTestMixin, auth_mixins.LoginRequiredMixin,
@@ -132,28 +145,7 @@ class PasswordChangeView(auth_mixins.UserPassesTestMixin, auth_mixins.LoginRequi
         raise Http404()
 
 
-# class UsersPasswordChangeView(auth_views.PasswordChangeView):
-#     model = UserModel
-#     template_name = 'users/profile_password_change.html'
-#     success_url = reverse_lazy('users:password_change_done')
-#
-#     def dispatch(self, *args, **kwargs):
-#         return super().dispatch(*args, **kwargs)
-#
-#     def get_form_kwargs(self):
-#         kwargs = super().get_form_kwargs()
-#         kwargs['user'] = User.objects.filter(pk=self.kwargs['pk'])
-#         return kwargs
-#
-#     def form_valid(self, form):
-#         form.save()
-#         del self.request.session[INTERNAL_RESET_SESSION_TOKEN]
-#         update_session_auth_hash(self.request, form.user)
-#         return super().form_valid(form)
-
-
 class PasswordChangeDoneView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
-    # form_class = PasswordChangeForm
     template_name = 'users/password_change_done.html'
     success_url = reverse_lazy('password_change_done')
 

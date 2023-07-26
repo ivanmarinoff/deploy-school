@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import models as auth_models
 from django.core import validators
+from django.urls import reverse
 
 
 def validate_only_alphabetical(value):
@@ -29,9 +30,11 @@ class User(auth_models.AbstractUser):
         unique=True,
     )
 
-
     @property
     def full_name(self):
         if self.first_name and self.last_name:
             return f'{self.first_name} {self.last_name}'
         return None
+
+    def get_absolute_url(self):
+        return reverse("profile-details", kwargs={"pk": self.pk})
