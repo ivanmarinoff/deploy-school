@@ -1,0 +1,38 @@
+{% extends 'global_content/global_navbar.html' %}
+{% block global_navbar_content %}
+    {#    <div class="container" id="content">#}
+    <div class="row">
+        <div class="col-12 row text align-fa-align-center">
+            <br><br><br><br>
+            <h1>
+                <p>Create content!</p>
+                {% if request.user.is_superuser %}
+                    <form action="{% url 'global-create-content' %}" method="post">
+                        <div class="col-12">
+                            {#                            <tbody>#}
+                            {#                            <table class="table table-bordered">#}
+                            {% for text in form %}
+                                {#                                <tr>#}
+                                <h1>{{ title }}</h1>
+                                <h1>{{ text }}</h1>
+                                <h1>{{ image }}</h1>
+                                <h1>{{ photo }}</h1>
+                                {#                                </tr>#}
+                            {% endfor %}
+                            {#                            </tbody>#}
+                            {#                            </table>#}
+                            {#                            </tbody>#}
+                        </div>
+                        {% csrf_token %}
+
+                        <button type="submit">Save</button>
+                        <button onclick="history.back()">Go Back</button>
+                    </form>
+                {% endif %}
+            </h1>
+        </div>
+    </div>
+    {#    </div>#}
+
+
+{% endblock global_navbar_content %}

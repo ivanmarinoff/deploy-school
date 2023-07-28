@@ -1,0 +1,41 @@
+{% extends 'global_content/global_navbar.html' %}
+{% block global_navbar_content %}
+    {#    <div class="container" id="content">#}
+    <div class="row">
+        <div class="col-12 row text align-fa-align-center">
+            <br><br><br><br>
+            <h1>
+                <p>Edit this content!</p>
+
+
+                    <form action="{% url 'global-edit-content' slug=object.slug %}" method="post">
+                        <div class="col-12">
+                            {#                            <tbody>#}
+                            <table class="table table-bordered">
+                            {% if  request.user.is_superuser %}
+{#                                {% for text in form %}#}
+                                    {#                                <tr>#}
+                                    <h1>{{ form.title }}</h1>
+                                    <h1>{{ form.text }}</h1>
+                                    <h1>{{ form.image }}</h1>
+                                    <h1>{{ form.photo }}</h1>
+                                    {#                                </tr>#}
+{#                                {% endfor %}#}
+                                {#                            </tbody>#}
+                            </table>
+                            {#                            </tbody>#}
+                        </div>
+                        {% csrf_token %}
+
+                        <button type="submit">Save</button>
+                        <button onclick="history.back()">Go Back</button>
+                    </form>
+                {% endif %}
+
+            </h1>
+        </div>
+    </div>
+    {#    </div>#}
+
+
+{% endblock global_navbar_content %}

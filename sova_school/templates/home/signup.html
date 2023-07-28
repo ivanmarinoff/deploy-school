@@ -1,0 +1,53 @@
+{% extends 'users/user_navbar.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block user_content %}
+
+    <html>
+    <head>
+        <title>Slide Navbar</title>
+        <link rel="stylesheet" type="text/css" href="{% static '/css/signup.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    </head>
+    <body>
+
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="false">
+
+        <div class="signup">
+            <form action="{% url 'register_user' %}" method="post">
+                <label for="chk" >Sign up</label>
+                                {{ form.username|placeholder:'Username' }}
+                                {{ form.email|placeholder:'Email' }}
+                                {{ form.password1|placeholder:'Password' }}
+                                {{ form.password2|placeholder:'Confirm Password' }}
+{#                <input type="text" name="txt" placeholder="User name" required="" value="{{ form.username }}">#}
+{#                <input type="email" name="email" placeholder="Email" required="" value="{{ form.email }}">#}
+{#                <input type="password" name="pswd1" placeholder="Password" required="" value="{{ form.password1 }}">#}
+{#                <input type="password" name="pswd2" placeholder="Confirm Password" required=""#}
+{#                       value="{{ form.password2 }}">#}
+                <button type="submit">Sign up</button>
+                {% csrf_token %}
+            </form>
+        </div>
+
+        <div class="login">
+            <form action="{% url 'login_user' %}" method="post">
+                <label for="chk" >Login</label>
+                            {{ form.username }}
+                            {{ form.password }}
+{#                <input type="email" name="email" placeholder="Email" required="">#}
+{#                <input type="password" name="pswd" placeholder="Password" required="">#}
+                {% csrf_token %}
+
+                <button>Login</button>
+            </form>
+
+        </div>
+    </div>
+
+    </body>
+    </html>
+{% endblock %}
+
+

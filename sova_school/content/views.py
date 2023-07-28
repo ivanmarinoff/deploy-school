@@ -19,7 +19,7 @@ class CreateContentView(auth_mixins.LoginRequiredMixin, views.CreateView):
         return form
 
     def get_success_url(self):
-        return reverse_lazy('detail-content', kwargs={'pk': self.object.pk})
+        return reverse_lazy('read-content', kwargs={'pk': self.object.pk})
 
 
 class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):

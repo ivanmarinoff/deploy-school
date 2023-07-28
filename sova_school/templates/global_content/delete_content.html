@@ -1,0 +1,28 @@
+{% extends 'global_content/global_navbar.html' %}
+
+{% block global_navbar_content %}
+
+
+<body>
+<h1>
+    Are you sure you want to delete this content?
+    <form action="{% url 'global-delete-content' content.pk %}" method="post">
+        <li>
+            {{ content.title }}
+        </li>
+        <li>
+            {{ content.text }}
+        </li>
+
+        {% csrf_token %}
+        <button type="submit">Yes</button>
+        <button onclick="history.back()">Go Back</button>
+    </form>
+</h1>
+{{ request.user }}
+</body>
+</html>
+<li>
+    This is a delete content!
+</li>
+{% endblock global_navbar_content%}

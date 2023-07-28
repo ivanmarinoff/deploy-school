@@ -19,30 +19,31 @@ class DisabledFormMixin:
                 field.widget.attrs['disabled'] = 'disabled'
 
 
-class ContentModelForm(forms.ModelForm):
+class GlobalContentModelForm(forms.ModelForm):
     class Meta:
         model = GlobalContent
-        fields = ['title', 'text', 'image_url', 'slug']
+        fields = ['title', 'text', 'image_url', 'photos', 'slug']
         widgets = {
             'text': forms.Textarea(attrs={'placeholder': 'Add content...'}),
             'title': forms.TextInput(attrs={'placeholder': 'Add title...'}),
             'image_url': forms.URLInput(attrs={'placeholder': 'Add image url...'}),
+            # 'photos': forms.ImageField(attrs={'placeholder': 'Add photo...'}),
         }
 
 
-class SearchForm(forms.Form):
-    content = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Search content...'}))
+# class GlobalSearchForm(forms.Form):
+#     content = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Search content...'}))
 
 
-class ContentEditForm(ContentModelForm):
+class GlobalContentEditForm(GlobalContentModelForm):
     pass
 
 
-class ContentReadForm(ContentModelForm):
+class GlobalContentReadForm(GlobalContentModelForm):
     pass
 
 
-class ContentDeleteForm(ContentModelForm):
+class GlobalContentDeleteForm(GlobalContentModelForm):
     def save(self, commit=True):
         if commit:
             self.instance.delete()

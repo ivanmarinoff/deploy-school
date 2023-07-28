@@ -1,0 +1,137 @@
+{% extends 'users/user_navbar.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block user_content %}
+
+{#    <li>#}
+{#        <h1>This is profile edit page!#}
+{#            {{ request.user }}#}
+{#        </h1>#}
+{#    </li>#}
+{##}
+{#    <section id="home">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{##}
+{#                <div class="col-md-offset-1 col-md-10 col-sm-12">#}
+{##}
+{#                    <div class="col-lg-offset-1 col-lg-10 section-title wow fadeInUp" data-wow-delay="0.4s">#}
+{#                        <h1>Edit Profile</h1>#}
+{#                        <p>Nunc suscipit ante in lectus laoreet, nec pharetra diam dictum. Lorem ipsum dolor sit amet,#}
+{#                            consectetur adipiscing elit. </p>#}
+{#                    </div>#}
+{##}
+{#                    <form action="{% url 'profile-edit' request.user.pk %}" method="post" class="wow fadeInUp"#}
+{#                          data-wow-delay="0.8s">#}
+{#                        {% csrf_token %}#}
+{#                        <div class="col-md-6 col-sm-6" display="column">#}
+                            {#                             <div class="fieldWrapper">#}
+                            {#                                {{ form.username.errors }}#}
+                            {#                                <label for="{{ form.usetname.id_for_label }}">Your Username:</label>#}
+                            {#                             {{ form.username }}#}
+                            {#                        </div>#}
+                            {#                            <div class="fieldWrapper">#}
+{#                            {{ form.username.errors }}#}
+{#                            {{ form.username.label_tag }}#}
+{#                            {{ form.username }}#}
+{#                        </div>#}
+{#                        <div class="col-md-6 col-sm-6" display="column">#}
+                            {#                                <div class="fieldWrapper">#}
+                            {#                                    {{ form.email.errors }}#}
+                            {#                                    <label for="{{ form.email.id_for_label }}">Your Email:</label>#}
+{#                            {{ form.email.errors }}#}
+{#                            {{ form.email.label_tag }}#}
+{#                            {{ form.email }}#}
+{#                        </div>#}
+{#                        <div class="col-md-6 col-sm-6" display="column">#}
+                            {#                                    <div class="fieldWrapper">#}
+                            {#                                        {{ form.first_name.errors }}#}
+                            {#                                        <label for="{{ form.first_name.id_for_label }}">Your first name:</label>#}
+{#                            {{ form.first_name.errors }}#}
+{#                            {{ form.first_name.label_tag }}#}
+{#                            {{ form.first_name }}#}
+{#                        </div>#}
+{#                        <div class="col-md-6 col-sm-6" display="column">#}
+                            {#                                        <div class="fieldWrapper">#}
+                            {#                                            {{ form.last_name.errors }}#}
+                            {#                                            <label for="{{ form.last_name.id_for_label }}">Your last name:</label>#}
+{#                            {{ form.last_name.errors }}#}
+{#                            {{ form.last_name.label_tag }}#}
+{#                            {{ form.last_name }}#}
+{#                        </div>#}
+{#                    </form>#}
+{#                </div>#}
+{#                <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">#}
+{#                    <input type="submit" class="form-control" value="SAVE">#}
+{#                </div>#}
+{##}
+{##}
+{#            </div>#}
+{##}
+{#        </div>#}
+{#        </div>#}
+{#    </section>#}
+<html>
+<head>
+    <title>Slide Navbar</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/profile_edit.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="main">
+{#    <input type="checkbox" id="chk" aria-hidden="true">#}
+
+        <div class="signup">
+{#            <form action="{% url 'profile-edit' %}" method="post">#}
+            <form action="{% url 'profile-edit' request.user.pk %}" method="post" class="wow fadeInUp">
+{#                <label for="chk" aria-hidden="true">Save</label>#}
+                <div class="col-md-6 col-sm-6" display="row">
+                        {{ form.username.errors }}
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                    </div>
+                    <div class="col-md-6 col-sm-6" display="row">
+                            {{ form.email.errors }}
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                        </div>
+                        <div class="col-md-6 col-sm-6" display="row">
+                                {{ form.first_name.errors }}
+                                {{ form.first_name.label_tag }}
+                                {{ form.first_name }}
+                            </div>
+                            <div class="col-md-6 col-sm-6" display="row">
+                                    {{ form.last_name.errors }}
+                                    {{ form.last_name.label_tag }}
+                                    {{ form.last_name }}
+                                </div>
+{#                            <div class="col-md-6 col-sm-6" display="row">#}
+{#                                    {{ form.new_password1.errors }}#}
+{#                                    {{ form.new_password1.label_tag }}#}
+{#                                    {{ form.new_password1 }}#}
+{#                            </div>#}
+{#                            <div class="col-md-6 col-sm-6" display="row">#}
+{#                                    {{ form.new_password2.errors }}#}
+{#                                    {{ form.new_password2.label_tag }}#}
+{#                                    {{ form.new_password2 }}#}
+                    <form action="{% url 'profile-details' request.user.pk %}" method="get" class="wow fadeInUp">
+                    <input type="submit" class="form-control" value="SAVE">
+                {% csrf_token %}
+                    </form>
+                    <form action="{% url 'password_change' request.user.pk %}" method="post" class="wow fadeInUp">
+                        <input type="submit" class="form-control" value="CHANGE PASSWORD">
+                {% csrf_token %}
+                    </form>
+            </form>
+            </div>
+        </div>
+        </div>
+
+            </form>
+        </div>
+ </div>
+</body>
+</html>
+
+{% endblock %}

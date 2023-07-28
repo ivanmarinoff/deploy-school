@@ -37,4 +37,4 @@ class User(auth_models.AbstractUser):
         return None
 
     def get_absolute_url(self):
-        return reverse("profile-details", kwargs={"pk": self.pk})
+        return reverse("profile-details", kwargs={"pk": self.objects.pk})
