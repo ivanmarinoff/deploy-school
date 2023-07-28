@@ -1,6 +1,4 @@
 from django import forms
-from django.contrib.auth.decorators import login_required
-
 from sova_school.content.models import Content
 
 

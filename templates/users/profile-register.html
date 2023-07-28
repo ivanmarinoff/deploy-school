@@ -20,10 +20,10 @@
                 {{ form.email|placeholder:"Email" }}
                 {{ form.password1|placeholder:"Password" }}
                 {{ form.password2 |placeholder:"Confirm Password" }}
-                <input type="text" name="txt" placeholder="User name" required="">
-                <input type="email" name="email" placeholder="Email" required="">
-                <input type="password" name="pswd1" placeholder="Password" required="">
-                <input type="password" name="pswd2" placeholder="Confirm Password" required="">
+{#                <input type="text" name="txt" placeholder="User name" required="">#}
+{#                <input type="email" name="email" placeholder="Email" required="">#}
+{#                <input type="password" name="pswd1" placeholder="Password" required="">#}
+{#                <input type="password" name="pswd2" placeholder="Confirm Password" required="">#}
                 <button>Sign up</button>
             {% csrf_token %}
             </form>

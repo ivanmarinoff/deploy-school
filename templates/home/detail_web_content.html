@@ -1,0 +1,52 @@
+{% extends 'content/content_navbar.html' %}
+
+{% block navbar_content %}
+    <div class="container" id="content">
+        <div class="row">
+            <div class="col-12 row text align-fa-align-center" >
+                <form action="{% url 'details_web_content' pk=request.user.pk %}" method="post"></form>
+                {#        <thead>#}
+                {#        <tr>#}
+                {#            <th><p>Title</p></th>#}
+                {#            <th><p>Content</p></th>#}
+                {#            <th>Menu</th>#}
+                {#        </tr>#}
+                {#        </thead>#}
+                <tbody>
+                <td>
+                        <p>
+                            {{ object.image }}
+                        </p>
+                    </td>
+                <tr>
+                    <td>
+                        <h2>
+                            {{ object.title }}
+                        </h2>
+                    </td>
+                    <td>
+                        <p>
+                            {{ object.text }}
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </div>
+
+{##}
+{##}
+{#                <form action="{% url 'delete-content' request.user.pk %}" method="post"></form>#}
+{##}
+{#                <a href="{% url 'edit-content' content.pk %}" class="smoothScroll">#}
+{#                    <button>Edit</button>#}
+{#                </a>#}
+{#                <a href="{% url 'delete-content' content.pk %}" class="smoothScroll">#}
+{#                    <button>Delete</button>#}
+{#                </a>#}
+
+                <button onclick="history.back()">Go Back</button>
+
+            </div>
+        </div>
+    </div>
+{% endblock navbar_content %}

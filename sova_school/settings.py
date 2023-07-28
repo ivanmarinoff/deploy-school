@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "sova_school.content",
     "sova_school.users",
     "sova_school.global_content",
-    "crispy_forms",
+
 ]
 
 MIDDLEWARE = [

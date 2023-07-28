@@ -17,12 +17,12 @@
     <link rel="stylesheet" href="{% static 'css/component.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
-    <link rel="stylesheet" href="{% static 'css/vegas.min.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/vegas.min.css' %}">#}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    {#    <link rel="stylesheet" href="{% static 'css/signup.css' %}">#}
-    {#    <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">#}
-    {#    <link rel="stylesheet" href="{% static 'css/change_password.css' %}">#}
+        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">
+        <link rel="stylesheet" href="{% static 'css/change_password.css' %}">
 
 
     <!-- Navigation section  -->
@@ -56,10 +56,10 @@
                         </li>
                         <li><a href="{% url 'logout_user' %}" class="smoothScroll"><span>Logout</span></a></li>
                     {% else %}
-                        <li><a href="#top" class="smoothScroll"><span>Home</span></a></li>
-                        <li><a href="#about" class="smoothScroll"><span>About</span></a></li>
-                        <li><a href="#gallery" class="smoothScroll"><span>Gallery</span></a></li>
-                        <li><a href="#contact" class="smoothScroll"><span>Contact</span></a></li>
+                        <li><a href="{% url 'index' %}#top" class="smoothScroll"><span>Home</span></a></li>
+                        <li><a href="{% url 'index' %}#about" class="smoothScroll"><span>About</span></a></li>
+                        <li><a href="{% url 'index' %}#gallery" class="smoothScroll"><span>Gallery</span></a></li>
+                        <li><a href="{% url 'index' %}#contact" class="smoothScroll"><span>Contact</span></a></li>
                         <li><a href="{% url 'login_user' %}" class="smoothScroll"><span>Login</span></a></li>
                         <li><a href="{% url 'register_user' %}" class="smoothScroll"><span>Sign Up</span></a></li>
                     {% endif %}
@@ -70,13 +70,13 @@
     </div>
     </body>
     {% block navbar_content %}
-    {% endblock %}
+    {% endblock navbar_content%}
 </head>
 </html>
 
 <script src="{% static 'js/jquery.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/vegas.min.js' %}"></script>
+{#<script src="{% static 'js/vegas.min.js' %}"></script>#}
 <script src="{% static 'js/modernizr.custom.js' %}"></script>
 <script src="{% static 'js/toucheffects.js' %}"></script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>

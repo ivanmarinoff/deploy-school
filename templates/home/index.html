@@ -72,7 +72,7 @@
                         related to
                         our functioning as people and individuals.
                         Thank you.</p>
-                   <a href="#about" class="smoothScroll btn btn-success btn-lg wow fadeInUp" data-wow-delay="1.2s"><span>Learn
+                   <a href="{% url 'read_web_content' %}" class="smoothScroll btn btn-success btn-lg wow fadeInUp" data-wow-delay="1.2s"><span>Learn
                         more</span></a>
                 </div>
 
@@ -171,32 +171,33 @@
 
                 <div class="col-md-offset-2 col-md-8 col-sm-12 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="section-title">
-                        <h1>Gallery</h1>
-                        <p>Nullam scelerisque, quam nec iaculis vulputate, arcu ligula sollicitudin nisl, ac volutpat
-                            erat
-                            nulla a arcu.</p>
+                        <h1>WHAT IS A "SCHOOL OF PSYCHOLOGY"?</h1>
+                        <p>The course includes 12 modules, selected from the various branches of psychology,
+                            so that students can get the broadest idea of the influence and application of psychology in our daily lives.</p>
                     </div>
                 </div>
 
                 <ul class="grid cs-style-4">
                     <li class="col-md-6 col-sm-6">
                         <figure>
-                            <div><img src="{% static 'pictures/prospectus/програма-училищеd0fa.png' %}" alt="image 1"></div>
+                            <div><img src="{% static 'pictures/prospectus/level_1.png' %}" alt="image 1"></div>
                             <figcaption>
-                                <h1>Sapien arcu</h1>
-                                <small>Cum sociis natoque penatibus et magnis dis parturient montes.</small>
-                                <a href="{% url 'school_program' %}">Read More</a>
+                                <h1>LEVEL I</h1>
+                                <small>WHAT ARE THE MODULES IN THE LEVEL I SCHOOL OF PSYCHOLOGY?</small>
+                                <a href="{% url 'school_program_level_1' %}#level_1">Read More</a>
+                                <input type="submit" id="level_1" value="{{ school_program_level_1 }}">
                             </figcaption>
                         </figure>
                     </li>
 
                     <li class="col-md-6 col-sm-6">
                         <figure>
-                            <div><img src="{% static 'pictures/prospectus/ниво-2d0fa.png' %}" alt="image 2"></div>
+                            <div><img src="{% static 'pictures/prospectus/level_2.png' %}" alt="image 2"></div>
                             <figcaption>
-                                <h1>Aliquam erat</h1>
-                                <small>Suspendisse venenatis quam sed libero euismod feugiat.</small>
-                                <a href="#">Details</a>
+                                <h1>LEVEL II</h1>
+                                <small>WHAT ARE THE MODULES IN THE LEVEL II SCHOOL OF PSYCHOLOGY?</small>
+                                <a href="{% url 'school_program_level_2' %}#level_2">Read More</a>
+                                <input type="submit" id="level_2" value="{{ school_program_level_2 }}">
                             </figcaption>
                         </figure>
                     </li>
