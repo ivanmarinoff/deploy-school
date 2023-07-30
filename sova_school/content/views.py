@@ -1,6 +1,8 @@
 from django.db.models import Q
 
-from sova_school.content.forms import ContentModelForm, ContentEditForm, ContentDeleteForm, ContentReadForm
+from sova_school.content.forms import ContentModelForm, ContentAnswerForm, ContentDeleteForm, ContentReadForm, \
+    ContentEditForm
+from sova_school.content.mixins.user_permition_mixin import UserRequiredMixin
 from sova_school.content.models import Content
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -26,6 +28,27 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = Content
     template_name = "content/edit_content.html"
     # fields = ['title', 'text']
+    form_class = ContentAnswerForm
+    success_url = reverse_lazy('read-content')
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.instance.user = self.request.user
+        return form
+
+    def get_success_url(self):
+        return reverse_lazy('read-content', kwargs={'pk': self.object.pk})
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     queryset = queryset.filter(user=self.request.user)
+    #     return queryset
+
+
+class EditAnswerView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.UpdateView):
+    model = Content
+    template_name = "content/edit_content.html"
+    # fields = ['title', 'text']
     form_class = ContentEditForm
     success_url = reverse_lazy('read-content')
 
@@ -38,12 +61,12 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
         return reverse_lazy('read-content', kwargs={'pk': self.object.pk})
 
 
-class ReadContentView(auth_mixins.LoginRequiredMixin, views.ListView):
+class ReadContentView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.ListView):
     model = Content
     template_name = 'content/read_content.html'
     # form_class = ContentReadForm
     success_url = reverse_lazy('read-content')
-    paginate_by = 5
+    paginate_by = 10
     context_object_name = 'content'
 
     # queryset = Content.objects.all()

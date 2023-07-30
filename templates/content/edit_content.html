@@ -1,34 +1,50 @@
 {% extends 'content/content_navbar.html' %}
 {% block navbar_content %}
-{#    <div class="container" id="content">#}
-        <div class="row">
-            <div class="col-12 row text align-fa-align-center">
-                <br><br><br><br>
-                <h1>
-                    <p>Edit this content!</p>
-                    <form action="{% url 'edit-content' content.pk %}" method="post">
+    {#    <div class="container" id="content">#}
+    <div class="row">
+        <div class="col-12 row text align-fa-align-center">
+            <br><br><br><br>
+            <h1>
+                {% if user.is_staff %}
+                    <form action="{% url 'edit-answer' content.pk %}" method="post">
                         <div class="col-12">
-{#                            <tbody>#}
                             <table class="table table-bordered">
                                 {% for text in form %}
-{#                                <tr>#}
-                                    <h1>{{ title }}</h1>
-                                    <h1>{{ text }}</h1>
-{#                                </tr>#}
-                            {% endfor %}
-{#                            </tbody>#}
+                                    <h1>{{ title }}{{ text }}</h1>
+                                {% endfor %}
                             </table>
-{#                            </tbody>#}
                         </div>
-                            {% csrf_token %}
-
-                    <button type="submit">Save</button>
-                    <button onclick="history.back()">Go Back</button>
-</form>
-                </h1>
-            </div>
+                        {% csrf_token %}
+                        <button type="submit">Save</button>
+                    </form>
+                {% elif user.is_superuser %}
+                    <form action="{% url 'edit-answer' content.pk %}" method="post">
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                {% for text in form %}
+                                    <h1>{{ title }}{{ text }}</h1>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        {% csrf_token %}
+                        <button type="submit">Save</button>
+                    </form>
+                {% else %}
+                    <form action="{% url 'edit-content' content.pk %}" method="post">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            {% for text in form %}
+                                <h1>{{ title }}{{ text }}{{ form.checkbox }}</h1>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% csrf_token %}
+                    <button type="submit">Submit</button>
+                {% endif %}
+                <button onclick="history.back()">Go Back</button>
+                </form>
+            </h1>
         </div>
-{#    </div>#}
-
+    </div>
 
 {% endblock navbar_content %}

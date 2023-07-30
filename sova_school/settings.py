@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
 # from django.forms.renderers import TemplatesSetting
 from pathlib import Path
 
@@ -21,12 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-dk+(n58i$&0ny)ib*u&hyqj=s#2txhsqq35l%t15-5sj355id0"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -76,6 +75,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "sova_school.wsgi.application"
 
+SECRET_KEY = "django-insecure-dk+(n58i$&0ny)ib*u&hyqj=s#2txhsqq35l%t15-5sj355id0"
+
+DEBUG = True
+
+ALLOWED_HOSTS = []
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 

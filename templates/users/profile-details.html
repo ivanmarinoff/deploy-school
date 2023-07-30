@@ -20,7 +20,7 @@
         <h2><p>Last name</p>{{ request.user.last_name }}</h2>
     {% csrf_token %}
     </form>
-    <form action="{% url 'profile-edit' pk=user.pk %}" method="get" class="wow fadeInUp">
+    <form action="{% url 'profile-edit' request.user.pk %}" method="get" class="wow fadeInUp">
             <input type="submit" class="form-control" value="Edit Profile">
     {% csrf_token %}
         </form>
