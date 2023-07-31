@@ -41,16 +41,42 @@ class ContentModelForm(PlaceholderMixin, forms.ModelForm):
 
 # class SearchForm(forms.Form):
 #     content = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Search content...'}))
+# class ContentAnswerChoiceForm(forms.ModelForm):
+#     class Meta:
+#         model = UserAnswers
+#         fields = ['user_choices']
+#         # widgets = {
+#         #     'answer': CheckboxInput(attrs={'class': 'required checkbox form control'}),
+#         # }
+#
+#     def save(self, commit=True):
+#         if commit:
+#             self.instance.save()
+#         return self.instance
 
 
 class ContentAnswerForm(DisabledFormMixin, ContentModelForm):
     class Meta:
         model = Content
-        # fields = '__all__'
+        # fields = ['user_choices']
         exclude = ['user', 'slug', 'created_at', 'updated_at']
         widgets = {
             'answer': CheckboxInput(attrs={'class': 'required checkbox form control'}),
         }
+
+        # # class ContentAnswerChoiceForm(UserAnswers):
+        # class Meta:
+        #     model = UserAnswers
+        #     # model = UserAnswers
+        #     fields = ['user_choices']
+        #     widgets = {
+        #         'answer': CheckboxInput(attrs={'class': 'required checkbox form control'}),
+        #     }
+
+        # def save(self, commit=True):
+        #     if commit:
+        #         self.instance.save()
+        #     return self.instance
 
     disabled_fields = ('title', 'text')
 

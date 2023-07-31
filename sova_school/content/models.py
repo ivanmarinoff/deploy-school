@@ -1,7 +1,8 @@
 from datetime import datetime
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
-from django.utils.text import slugify
+from django.contrib.contenttypes.models import ContentType
 
 UserModel = get_user_model()
 
@@ -17,6 +18,7 @@ class Choices(models.Model):
 class Content(models.Model):
     class Meta:
         ordering = ['-updated_at']
+
 
     title = models.CharField(
         max_length=100,
@@ -34,29 +36,31 @@ class Content(models.Model):
         UserModel,
         on_delete=models.DO_NOTHING,
     )
-    slug = models.SlugField(
-        unique=True,
-        blank=True,
-        null=True,
-    )
+    # slug = models.SlugField(
+    #     unique=True,
+    #     blank=True,
+    #     null=True,
+    # )
 
     user_choices = models.CharField(
         max_length=20,
         choices=Choices.UserChoices.choices,
         blank=True,
-        null=True,
+        null=False,
         # default=Choices.UserChoices.CHOICE_ANSWER
     )
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     return super().save(*args, **kwargs)
 
-        if not self.slug:
-            self.slug = slugify(f'{self.user}-{self.id}')
-        return super().save(*args, **kwargs)
 
-    def __str__(self) -> str:
-        return f'{self.text}'
+    #     if not self.slug:
+    #         self.slug = slugify(f'{self.user}-{self.id}')
+    #     return super().save(*args, **kwargs)
+
+    # def __str__(self) -> str:
+    #     return f'{self.title}'
 
     # def get_absolute_url(self):
     #     if self.pk:
@@ -65,20 +69,33 @@ class Content(models.Model):
 
 
 class UserAnswers(models.Model):
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.DO_NOTHING,
+    )
 
-    user_answers = models.ForeignKey(
+    content = models.ManyToManyField(
         Content,
-        on_delete=models.CASCADE,
-        null=False,
-        blank=False,
     )
-    updated = models.DateTimeField(
-        auto_now=True,
-    )
+
+        # user_answers = models.OneToOneField(
+    #     Content,
+    #     on_delete=models.DO_NOTHING,
+    #     # null=False,
+    #     # blank=False,
+    # )
+    # user_choices = models.CharField(
+    #     max_length=20,
+    #     choices=Choices.UserChoices.choices,
+    #     blank=True,
+    #     null=True,
+    #     # default=Choices.UserChoices.CHOICE_ANSWER
+    # )
+    updated = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         return super().save(*args, **kwargs)
 
-    # def __str__(self):
-    #     return self.user_answers
+    # def __str__(self) -> str:
+    #     return f'{self.content}'
