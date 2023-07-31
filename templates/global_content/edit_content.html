@@ -13,14 +13,11 @@
                             {#                            <tbody>#}
                             <table class="table table-bordered">
                             {% if  request.user.is_superuser %}
-{#                                {% for text in form %}#}
+                                {% for text in form %}
                                     {#                                <tr>#}
-                                    <h1>{{ form.title }}</h1>
-                                    <h1>{{ form.text }}</h1>
-                                    <h1>{{ form.image }}</h1>
-                                    <h1>{{ form.photo }}</h1>
+                                    <h1>{{ title }}{{ text }}{{ image }}{{ photo }}</h1>
                                     {#                                </tr>#}
-{#                                {% endfor %}#}
+                                {% endfor %}
                                 {#                            </tbody>#}
                             </table>
                             {#                            </tbody>#}

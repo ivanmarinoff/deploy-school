@@ -34,6 +34,7 @@ class GlobalContent(models.Model):
     )
 
     photos = models.ImageField(
+        upload_to='images',
         blank=True,
         null=True,
     )
