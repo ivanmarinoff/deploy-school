@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
+from django.utils.text import slugify
 
 UserModel = get_user_model()
 
@@ -12,13 +13,12 @@ class Choices(models.Model):
         YES = 'Yes'
         NO = 'No'
         I_AM_NOT_SURE = "I am not sure"
-        # CHOICE_ANSWER = "Choice answer:"
+        CHOICE_ANSWER = "Choice answer:"
 
 
 class Content(models.Model):
     class Meta:
         ordering = ['-updated_at']
-
 
     title = models.CharField(
         max_length=100,
@@ -36,28 +36,25 @@ class Content(models.Model):
         UserModel,
         on_delete=models.DO_NOTHING,
     )
-    # slug = models.SlugField(
-    #     unique=True,
-    #     blank=True,
-    #     null=True,
-    # )
 
     user_choices = models.CharField(
         max_length=20,
         choices=Choices.UserChoices.choices,
         blank=True,
         null=False,
-        # default=Choices.UserChoices.CHOICE_ANSWER
+        default=Choices.UserChoices.CHOICE_ANSWER
+    )
+    slug = models.SlugField(
+        unique=True,
+        blank=True,
+        null=True,
     )
 
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     return super().save(*args, **kwargs)
-
-
-    #     if not self.slug:
-    #         self.slug = slugify(f'{self.user}-{self.id}')
-    #     return super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(f'{self.user}-{self.id}')
+        return super().save(*args, **kwargs)
 
     # def __str__(self) -> str:
     #     return f'{self.title}'
@@ -78,7 +75,7 @@ class UserAnswers(models.Model):
         Content,
     )
 
-        # user_answers = models.OneToOneField(
+    # user_answers = models.OneToOneField(
     #     Content,
     #     on_delete=models.DO_NOTHING,
     #     # null=False,

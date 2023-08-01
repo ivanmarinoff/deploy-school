@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.http import request
 from django.utils.text import slugify
 
 UserModel = get_user_model()
@@ -23,6 +24,7 @@ class GlobalContent(models.Model):
         UserModel,
         on_delete=models.DO_NOTHING,
     )
+
     slug = models.SlugField(
         unique=True,
         blank=True,
@@ -34,14 +36,13 @@ class GlobalContent(models.Model):
     )
 
     photos = models.ImageField(
-        upload_to='images',
+        upload_to='media',
         blank=True,
         null=True,
     )
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-
         if not self.slug:
             self.slug = slugify(f'{self.user}-{self.id}')
         return super().save(*args, **kwargs)

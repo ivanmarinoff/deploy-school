@@ -1,6 +1,6 @@
 from django.contrib.auth import views as auth_views, authenticate
 from django.contrib.auth.forms import PasswordChangeForm
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -10,25 +10,21 @@ from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditFor
 UserModel = get_user_model()
 
 
-# class OnlyAnonymousMixin:
-#     def dispatch(self, request, *args, **kwargs):
-#         if request.user.is_authenticated:
-#             return HttpResponseRedirect(self.getsuccess_url)
-#         return super().dispatch(self.request, *args, **kwargs)
+class OnlyAnonymousMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(self.getsuccess_url)
+        return super().dispatch(self.request, *args, **kwargs)
 
 
-# Bear minimum on RegisterUserView!
-class RegisterUserView(views.CreateView):
+class RegisterUserView(OnlyAnonymousMixin, views.CreateView):
     model = UserModel
     template_name = 'home/signup.html'
     form_class = RegisterUserForm
     success_url = reverse_lazy('login_user')
     class_name = 'signup'
 
-    # def form_valid(self, form):
-    #     result = super().form_valid(form)
-    #     login(self.request, self.object)
-    #     return result
+
 
     def form_valid(self, form):
         valid = super(RegisterUserView, self).form_valid(form)
@@ -85,7 +81,12 @@ class LoginUserView(auth_views.LoginView):
 
 
 class LogoutUserView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
-    pass
+    def form_valid(self, form):
+        result = super().get_context_data()
+        save_changes = self.request.GET.get('save_changes')
+        if save_changes:
+            save_changes.save()
+        return result
 
 
 class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):

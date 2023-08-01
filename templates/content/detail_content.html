@@ -45,9 +45,9 @@
                         <button>Delete</button>
                     </a>
                 {% else %}
-                    <form action="{% url 'edit-content' content.pk %}" method="post"></form>{#request.user.pk#}
+                    <form action="{% url 'edit-content' slug=content.slug %}" method="post"></form>{#request.user.pk#}
 
-                    <a href="{% url 'edit-content' content.pk %}" class="smoothScroll">
+                    <a href="{% url 'edit-content' slug=content.slug %}" class="smoothScroll">
                         <button>Edit</button>
                     </a>
 

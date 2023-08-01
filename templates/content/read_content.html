@@ -51,12 +51,12 @@
 {#                            </td>#}
 {##}
 {#                        {% endif %}#}
-                    {% if user.pk == content.user.pk %}
+                    {% if user.is_authenticated %}
                         <tr>
                             <td>
                                 <h2>
 
-                                    <a href="{% url 'detail-content' content.pk %}">
+                                    <a href="{% url 'detail-content' slug=content.slug %}">
                                         {{ content.title|truncatechars:20 }}
                                     </a>
                                 </h2>
@@ -68,7 +68,7 @@
                             </td>
                             <td>
                                 <p>
-                                    {{ content.user_choices }}
+                                    {{ content.user_choices|choices }}
                                 </p>
                             </td>
                         </tr>

@@ -30,11 +30,11 @@
                         <button type="submit">Save</button>
                     </form>
                 {% else %}
-                    <form action="{% url 'edit-content' content.pk %}" method="post">
+                    <form action="{% url 'edit-content' slug=content.slug %}" method="post">
                     <div class="col-12">
                         <table class="table table-bordered">
                             {% for text in form %}
-                                <h1>{{ title }}{{ text }}{{ form.checkbox }}</h1>
+                                <h1>{{ title }}{{ text }}{{ form.request.checkbox }}</h1>
                             {% endfor %}
                         </table>
                     </div>

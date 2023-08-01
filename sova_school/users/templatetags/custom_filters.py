@@ -22,3 +22,10 @@ def form_field_class(form_field, className):
 def sorting_filter():
     sorting = Content.objects.filter().order_by('-created_at')
     return sorting
+
+
+@register.filter
+def choices(user_choices):
+    if user_choices is None:
+        return ""
+    return user_choices
