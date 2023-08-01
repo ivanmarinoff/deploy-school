@@ -64,20 +64,6 @@ class ContentAnswerForm(DisabledFormMixin, ContentModelForm):
             'answer': CheckboxInput(attrs={'class': 'required checkbox form control'}),
         }
 
-        # # class ContentAnswerChoiceForm(UserAnswers):
-        # class Meta:
-        #     model = UserAnswers
-        #     # model = UserAnswers
-        #     fields = ['user_choices']
-        #     widgets = {
-        #         'answer': CheckboxInput(attrs={'class': 'required checkbox form control'}),
-        #     }
-
-        # def save(self, commit=True):
-        #     if commit:
-        #         self.instance.save()
-        #     return self.instance
-
     disabled_fields = ('title', 'text')
 
     def __init__(self, *args, **kwargs):

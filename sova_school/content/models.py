@@ -34,14 +34,14 @@ class Content(models.Model):
 
     user = models.ForeignKey(
         UserModel,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
     )
 
     user_choices = models.CharField(
         max_length=20,
         choices=Choices.UserChoices.choices,
         blank=True,
-        null=False,
+        null=True,
         default=Choices.UserChoices.CHOICE_ANSWER
     )
     slug = models.SlugField(

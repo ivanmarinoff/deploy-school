@@ -161,3 +161,5 @@ class ProfileDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
 
     def post(self, *args, pk):
         self.request.user.delete()
+
+        return HttpResponseRedirect(self.next_page)

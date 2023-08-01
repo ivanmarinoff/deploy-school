@@ -52,9 +52,9 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 
     def form_valid(self, form):
         result = super().form_valid(form)
-        save_changes = self.request.GET.get('save_changes')
+        save_changes = self.request.POST.get('save_changes')
         if save_changes:
-            self.object.save()
+            self.object.save(commit=True)
         return result
 
 
@@ -157,13 +157,14 @@ class UserAnswersView(auth_mixins.LoginRequiredMixin, views.CreateView):
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)
         form.instance.user = self.request.user
+        form.save(commit=True)
         return form
 
     def form_valid(self, form):
         result = super().form_valid(form)
         save_changes = self.request.GET.get('save_changes')
         if save_changes:
-            self.object.save()
+            self.object.save(commit=True)
         return result
 
     def get_success_url(self):
