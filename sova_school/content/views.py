@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.http import HttpResponseRedirect, Http404
 
 from sova_school.content.forms import ContentModelForm, ContentDeleteForm, ContentEditForm
 from sova_school.content.mixins.user_permition_mixin import UserRequiredMixin
@@ -55,6 +56,18 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     #     if save_changes:
     #         self.object.save(commit=True)
     #     return result
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post'] = self.get_object()
+        return context
+
+    def test_func(self):
+        return self.get_object().user.pk == self.request.user.pk or self.request.user.is_superuser \
+            or self.request.user.is_staff
+
+    def handle_no_permission(self):
+        raise Http404()
+
     def form_valid(self, form):
         self.object = form.save(commit=True)
         self.object.user = self.request.user
@@ -146,16 +159,22 @@ class DetailContentView(auth_mixins.LoginRequiredMixin, views.DetailView):
 class DeleteContentView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     model = Content
     template_name = 'content/delete_content.html'
-    success_url = reverse_lazy('read-content')
+    # success_url = reverse_lazy('read-content')
     form_class = ContentDeleteForm
 
-    def get_form(self, *args, **kwargs):
-        form = super().get_form(*args, **kwargs)
-        form.instance.user = self.request.user
+    def get_form_kwargs(self):
+        instance = self.get_object()
+        form = super().get_form_kwargs()
+        form.update(instance=instance)
         return form
 
+    # def get_form(self, *args, **kwargs):
+    #     form = super().get_form(*args, **kwargs)
+    #     form.instance.user = self.request.user
+    #     return form
+
     def get_success_url(self):
-        return reverse_lazy('read-content', kwargs={'pk': self.object.pk})
+        return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
 
 class UserAnswersView(auth_mixins.LoginRequiredMixin, views.CreateView):

@@ -92,15 +92,20 @@ class ContentModelForm(PlaceholderMixin, forms.ModelForm):
     #     return form.__str__()
 
 
-class ContentEditForm(ContentModelForm):
+class ContentEditForm(DisabledFormMixin, ContentModelForm):
     class Meta:
         model = Content
-        fields = ['title', 'text', 'user_choices']
+        disabled_fields = ('title', 'text')
+        exclude = ('user', 'slug', 'updated_at', 'user_choices',)
+        # fields = ['title', 'text', 'user_choices']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._disable_fields()
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         return super().save(*args, **kwargs)
-
 
 
     def __str__(self):
@@ -137,7 +142,10 @@ class ContentDeleteForm(ContentModelForm):
     #     super().__init__(*args, **kwargs)
     #     self._disable_fields()
 
-    def save(self, commit=True):
-        if commit:
-            self.instance.delete()
-        return self.instance
+    # def save(self, commit=True):
+    #     if commit:
+    #         self.instance.delete()
+    #     return self.instance
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)

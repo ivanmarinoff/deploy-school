@@ -32,11 +32,13 @@
                 {% else %}
                     <form action="{% url 'edit-content' slug=content.slug %}" method="post">
                     <div class="col-12">
-                        <table class="table table-bordered">
+{#                        <table class="table table-bordered">#}
                             {% for text in form %}
-                                <h1>{{ title }}{{ text }}{{ form.request.checkbox }}</h1>
+                                    <h1>{{ title }}
+                                    {{ text }}
+                                    {{ checkbox }}</h1>
                             {% endfor %}
-                        </table>
+{#                        </table>#}
                     </div>
                     {% csrf_token %}
                     <button type="submit">Submit</button>

@@ -30,7 +30,7 @@
                         <form action="{% url 'create-content' request.user.pk %}" method="get">
                             <input type="submit" class="form-control" value="Create content"></form>
                     {% elif user.is_superuser %}
-                        <form action="{% url 'create-content' request.user.pk %}" method="get">
+                        <form action="{% url 'create-content' content.pk %}" method="get">
                             <input type="submit" class="form-control" value="Create content"></form>
                     {% endif %}
 
@@ -68,7 +68,7 @@
                             </td>
                             <td>
                                 <p>
-                                    {{ content.user_choices|choices }}
+                                    {{ content.user_choices }}
                                 </p>
                             </td>
                         </tr>
