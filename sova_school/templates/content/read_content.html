@@ -1,4 +1,5 @@
 {% extends 'content/content_navbar.html' %}
+{% load custom_filters %}
 {#<style>#}
 {#    .list {#}
 {#        display: flex;#}
@@ -10,29 +11,68 @@
         <div class="row">
             <div class="col-12">
                 <br><br><br><br>
-                <table class="table table-bordered">
+                <table class="table table-bordered" style="list-style-type:upper-roman" aria-sort="descending">
                     <thead>
                     <tr>
                         <th><p>Title</p></th>
                         <th><p>Content</p></th>
+                        <th><p>Answer</p></th>
                         {#            <th>Menu</th>#}
                     </tr>
                     </thead>
                     <tbody>
                     <form action="{% url 'read-content' request.user.pk %}" method="get">
                         <input type="text" class="form-control" name="search" placeholder="Search by content..."
-                               value="{{ request.GET.title }}">
+                               value="{{ request.GET.text }}">
                         <input type="submit" class="form-control" value="Search">
                     </form>
-                    <form action="{% url 'create-content' request.user.pk %}" method="get">
-                        <input type="submit" class="form-control" value="Create content"></form>
-                    {% for content in object_list reversed %}
-                            <tr>
-                                <td>
-                                    <h2><a href="{% url 'detail-content' content.pk %}">{{ content.title|truncatechars:20 }}</a></h2>
-                                </td>
-                                <td><p>{{ content.text|truncatechars:200 }}</p></td>
-                            </tr>
+                    {% if user.is_staff %}
+                        <form action="{% url 'create-content' request.user.pk %}" method="get">
+                            <input type="submit" class="form-control" value="Create content"></form>
+                    {% elif user.is_superuser %}
+                        <form action="{% url 'create-content' request.user.pk %}" method="get">
+                            <input type="submit" class="form-control" value="Create content"></form>
+                    {% endif %}
+
+                    {% for content in object_list %}
+{#                        {% if user.is_authenticated %}#}
+{#                            <tr>#}
+{#                            <td>#}
+{#                                <h2>#}
+{#                                    <a href="{% url 'detail-content' content.pk %}">#}
+{#                                        {{ content.title|truncatechars:20 }}#}
+{#                                    </a>#}
+{#                                </h2>#}
+{#                            </td>#}
+{#                            <td>#}
+{#                                <p>#}
+{#                                    {{ content.text|truncatechars:200 }}#}
+{#                                </p>#}
+{#                            </td>#}
+{##}
+{#                        {% endif %}#}
+                    {% if user.is_authenticated %}
+                        <tr>
+                            <td>
+                                <h2>
+
+                                    <a href="{% url 'detail-content' slug=content.slug %}">
+                                        {{ content.title|truncatechars:20 }}
+                                    </a>
+                                </h2>
+                            </td>
+                            <td>
+                                <p>
+                                    {{ content.text|truncatechars:200 }}
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    {{ content.user_choices|choices }}
+                                </p>
+                            </td>
+                        </tr>
+                    {% endif %}
                     {% endfor %}
 
                     </tbody>

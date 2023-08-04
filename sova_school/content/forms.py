@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import CheckboxInput
-from sova_school.content.models import Content
+from sova_school.content.models import Content, UserAnswers
 
 
 class DisabledFormMixin:
@@ -32,7 +32,11 @@ class PlaceholderMixin:
 class ContentModelForm(PlaceholderMixin, forms.ModelForm):
     class Meta:
         model = Content
-        fields = ['title', 'text']
+        fields = ['title', 'text', 'user_choices']
+        # widget = forms.CheckboxSelectMultiple,
+        widgets = {
+            'choices': CheckboxInput(attrs={'class': 'required checkbox form control'}),
+        }
         # widgets = {
         #     # 'title': forms.Textarea(attrs={'placeholder': 'Add title...'}),
         #     'text': forms.Textarea(attrs={'placeholder': 'Add content...'}),
@@ -55,36 +59,65 @@ class ContentModelForm(PlaceholderMixin, forms.ModelForm):
 #         return self.instance
 
 
-class ContentAnswerForm(DisabledFormMixin, ContentModelForm):
-    class Meta:
-        model = Content
-        # fields = ['user_choices']
-        exclude = ['user', 'slug', 'created_at', 'updated_at']
-        widgets = {
-            'answer': CheckboxInput(attrs={'class': 'required checkbox form control'}),
-        }
+# class ContentAnswerForm(ContentModelForm):
+#     class Meta:
+#         model = UserAnswers
+#         fields = ['user']
+        # widgets = {
+        #     'answer': CheckboxInput(attrs={'class': 'required checkbox form control'}),
+        # }
 
-    disabled_fields = ('title', 'text')
+    # disabled_fields = ('title', 'text')
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._disable_fields()
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self._disable_fields()
+    #
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     return super().save(*args, **kwargs)
 
-    def save(self, commit=True):
-        if commit:
-            self.instance.save()
-        return self.instance
+    # def save(self, commit=True):
+    #     new_instance = super().save(commit=False)
+    #     if commit:
+    #         self.instance = new_instance
+    #         new_instance.save()
+    #         self.save_m2m()
+    #         # self.instance.choices = self.cleaned_data['choices']
+    #         # return new_instance
+    #     return new_instance
+
+    # def __str__(self):
+    #     form = self.instance
+    #     return form.__str__()
 
 
 class ContentEditForm(ContentModelForm):
     class Meta:
         model = Content
-        fields = ['title', 'text']
+        fields = ['title', 'text', 'user_choices']
 
-    def save(self, commit=True):
-        if commit:
-            self.instance.save()
-        return self.instance
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
+
+
+
+    def __str__(self):
+        form = self.instance
+        return form.__str__()
+
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     return super().save(*args, **kwargs)
+    #
+    # def __str__(self):
+    #     return f'{self.title}'
+
+    # def save(self, commit=True):
+    #     if commit:
+    #         self.instance.save()
+    #     return self.instance
 
 
 class ContentReadForm(ContentModelForm):

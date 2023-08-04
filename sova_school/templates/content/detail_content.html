@@ -3,39 +3,55 @@
 {% block navbar_content %}
     <div class="container" id="content">
         <div class="row">
-            <div class="col-12 row text align-fa-align-center" >
-                {#        <thead>#}
-                {#        <tr>#}
-                {#            <th><p>Title</p></th>#}
-                {#            <th><p>Content</p></th>#}
-                {#            <th>Menu</th>#}
-                {#        </tr>#}
-                {#        </thead>#}
+            <div class="col-12 row text align-fa-align-center">
                 <tbody>
+{#                {% for content in object_list %}#}
+{#                        {% if request.user.pk == content.pk %}#}
                 <tr>
                     <td>
                         <h2>
-                            {{ object.title }}
+{#                            <a href="{% url 'read-content' user.pk %}"></a>#}
+                            {{ content.title }}
                         </h2>
                     </td>
                     <td>
                         <p>
-                            {{ object.text }}
+                            {{ content.text }}
                         </p>
                     </td>
+
                 </tr>
+{#                    {% endif %}#}
+{#                {% endfor %}#}
                 </tbody>
-                <form action="{% url 'edit-content' request.user.pk %}" method="post"></form>
+                 {% if user.is_staff %}
+                    <form action="{% url 'edit-answer' request.user.pk %}" method="post"></form>
+                    <a href="{% url 'edit-answer' content.pk %}" class="smoothScroll">
+                        <button>Edit Test</button>
+                    </a>
 
+                    <form action="{% url 'delete-content' request.user.pk %}" method="post"></form>
+                    <a href="{% url 'delete-content' content.pk %}" class="smoothScroll">
+                        <button>Delete</button>
+                    </a>
+                     {% elif user.is_superuser %}
+                       <form action="{% url 'edit-answer' request.user.pk %}" method="post"></form>
+                    <a href="{% url 'edit-answer' content.pk %}" class="smoothScroll">
+                        <button>Edit Test</button>
+                    </a>
 
-                <form action="{% url 'delete-content' request.user.pk %}" method="post"></form>
+                    <form action="{% url 'delete-content' request.user.pk %}" method="post"></form>
+                    <a href="{% url 'delete-content' content.pk %}" class="smoothScroll">
+                        <button>Delete</button>
+                    </a>
+                {% else %}
+                    <form action="{% url 'edit-content' slug=content.slug %}" method="post"></form>{#request.user.pk#}
 
-                <a href="{% url 'edit-content' content.pk %}" class="smoothScroll">
-                    <button>Edit</button>
-                </a>
-                <a href="{% url 'delete-content' content.pk %}" class="smoothScroll">
-                    <button>Delete</button>
-                </a>
+                    <a href="{% url 'edit-content' slug=content.slug %}" class="smoothScroll">
+                        <button>Edit</button>
+                    </a>
+
+                {% endif %}
 
                 <button onclick="history.back()">Go Back</button>
 

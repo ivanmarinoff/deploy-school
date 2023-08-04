@@ -1,19 +1,42 @@
 from datetime import datetime
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.utils.text import slugify
 
 UserModel = get_user_model()
 
+# class UserChoices(models.Model):
+#     CHOICES = (
+#         ('CHOICE_ANSWER', 'Choice answer'),
+#         ('OK', 'Okay'),
+#         ('NO', 'No'),
+#         ('I_AM_NOT_SURE', 'I am not sure'),
+#     )
+#     choices = models.CharField(
+#         max_length=20,
+#         choices=CHOICES,
+#         blank=True,
+#         null=True,
+#         default='CHOICE_ANSWER',
+#     )
+#
+#
+#     def save(self, *args, **kwargs):
+#         super().save(*args, **kwargs)
+#         if commit:
+#             self.choices = self.choices.upper()
+#         return self.choices
+#
+#     def __str__(self):
+#         return f'{self.choices}'
 
-class Choices(models.Model):
-    class UserChoices(models.TextChoices):
-        YES = 'Yes'
-        NO = 'No'
-        I_AM_NOT_SURE = "I am not sure"
-        CHOICE_ANSWER = "Choice answer:"
+CHOICES = (
+    ('CHOICE ANSWER', 'Choice answer'),
+    ('OK', 'Okay'),
+    ('NO', 'No'),
+    ('I AM NOT SURE', 'I am not sure'),
+)
 
 
 class Content(models.Model):
@@ -39,11 +62,12 @@ class Content(models.Model):
 
     user_choices = models.CharField(
         max_length=20,
-        choices=Choices.UserChoices.choices,
+        choices=CHOICES,
         blank=True,
         null=True,
-        default=Choices.UserChoices.CHOICE_ANSWER
+        default='CHOICE_ANSWER',
     )
+
     slug = models.SlugField(
         unique=True,
         blank=True,
@@ -56,43 +80,45 @@ class Content(models.Model):
             self.slug = slugify(f'{self.user}-{self.id}')
         return super().save(*args, **kwargs)
 
-    # def __str__(self) -> str:
-    #     return f'{self.title}'
-
-    # def get_absolute_url(self):
-    #     if self.pk:
-    #         return reverse_lazy('content-details', kwargs={'pk': self.pk})
-    #     return reverse_lazy('read-content', kwargs={'pk': self.pk})
+    def __str__(self):
+        return f'{self.title} :\n {self.text} :\n {self.user_choices}'
 
 
 class UserAnswers(models.Model):
     user = models.ForeignKey(
-        UserModel,
+        to=UserModel,
         on_delete=models.DO_NOTHING,
     )
 
-    content = models.ManyToManyField(
-        Content,
-    )
-
-    # user_answers = models.OneToOneField(
-    #     Content,
+    # user_choices = models.ForeignKey(
+    #     to=Content,
     #     on_delete=models.DO_NOTHING,
-    #     # null=False,
-    #     # blank=False,
+    #     related_name='choices',
+    #     # default=1,
     # )
-    # user_choices = models.CharField(
-    #     max_length=20,
-    #     choices=Choices.UserChoices.choices,
-    #     blank=True,
+
+    # content = models.ForeignKey(
+    #     to=Content,
+    #     on_delete=models.DO_NOTHING,
+    #     # related_name='answers',
     #     null=True,
-    #     # default=Choices.UserChoices.CHOICE_ANSWER
+    #     blank=True,
+    #     # default=1,
     # )
+
     updated = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        # if commit:
+        #     self.user.save()
+        #     self.user_choices.save()
+        #     self.content.save()
+        #     self.user = self.user
+        #     self.content = self.content
+        #     self.user_choices = self.user_choices
+
         return super().save(*args, **kwargs)
 
-    # def __str__(self) -> str:
-    #     return f'{self.content}'
+    def __str__(self):
+        return f'{self.user} '

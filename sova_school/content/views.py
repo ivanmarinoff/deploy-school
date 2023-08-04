@@ -1,7 +1,6 @@
 from django.db.models import Q
 
-from sova_school.content.forms import ContentModelForm, ContentAnswerForm, ContentDeleteForm, ContentReadForm, \
-    ContentEditForm
+from sova_school.content.forms import ContentModelForm, ContentDeleteForm, ContentEditForm
 from sova_school.content.mixins.user_permition_mixin import UserRequiredMixin
 from sova_school.content.models import Content, UserAnswers
 from django.urls import reverse_lazy
@@ -21,14 +20,14 @@ class CreateContentView(auth_mixins.LoginRequiredMixin, views.CreateView):
         return form
 
     def get_success_url(self):
-        return reverse_lazy('read-content', kwargs={'pk': self.object.pk})
+        return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
 
 class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = Content
     template_name = "content/edit_content.html"
     # fields = ['title', 'text']
-    form_class = ContentAnswerForm
+    form_class = ContentEditForm
     success_url = reverse_lazy('read-content')
 
     def get_form(self, *args, **kwargs):
@@ -44,18 +43,23 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     #     queryset = queryset.filter(user=self.request.user)
     #     return queryset
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        if hasattr(self, "object"):
-            kwargs.update({"instance": self.object})
-        return kwargs
+    # def get_form_kwargs(self):
+    #     kwargs = super().get_form_kwargs()
+    #     if hasattr(self, "object"):
+    #         kwargs.update({"instance": self.object})
+    #     return kwargs
 
+    # def form_valid(self, form):
+    #     result = super().form_valid(form)
+    #     save_changes = self.request.POST.get('save_changes')
+    #     if save_changes:
+    #         self.object.save(commit=True)
+    #     return result
     def form_valid(self, form):
-        result = super().form_valid(form)
-        save_changes = self.request.POST.get('save_changes')
-        if save_changes:
-            self.object.save(commit=True)
-        return result
+        self.object = form.save(commit=True)
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 
 class EditAnswerView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.UpdateView):
@@ -65,24 +69,30 @@ class EditAnswerView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.Up
     form_class = ContentEditForm
     success_url = reverse_lazy('read-content')
 
-    def get_form(self, *args, **kwargs):
-        form = super().get_form(*args, **kwargs)
-        form.instance.user = self.request.user
-        return form
+    # def get_form(self, *args, **kwargs):
+    #     form = super().get_form(*args, **kwargs)
+    #     form.instance.user = self.request.user
+    #     return form
 
     def get_success_url(self):
-        return reverse_lazy('read-content', kwargs={'pk': self.object.pk})
+        return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
+    def form_valid(self, form):
+        self.object = form.save(commit=True)
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 class ReadContentView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.ListView):
     model = Content
     template_name = 'content/read_content.html'
     # form_class = ContentReadForm
     success_url = reverse_lazy('read-content')
-    paginate_by = 10
+    paginate_by = 5
     context_object_name = 'content'
 
     # queryset = Content.objects.all()
+
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -94,6 +104,8 @@ class ReadContentView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.L
         context = super().get_context_data(*args, **kwargs)
         context['search'] = self.request.GET.get('search', '')
         return context
+
+
 
     # def get_form(self, *args, **kwargs):
     #     form = super().get_form(*args, **kwargs)
