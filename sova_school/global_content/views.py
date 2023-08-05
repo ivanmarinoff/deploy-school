@@ -45,12 +45,9 @@ class ReadGlobalContentView(views.ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-
         search = self.request.GET.get('search', '')
-
-        queryset = queryset.filter(
-            title__icontains=search
-        )
+        queryset = queryset.filter(title__icontains=search)
+        # queryset = queryset.filter(text__icontains=search)  # TODO New added text???
         return queryset
 
     def get_context_data(self, *args, **kwargs):
@@ -65,10 +62,10 @@ class DetailGlobalContentView(views.DetailView):
     def get_success_url(self):
         return reverse_lazy('global-read-content', kwargs={'pk': self.object.slug})
 
-    def get_form(self, *args, **kwargs):
-        form = super().get_form(*args, **kwargs)
-        form.instance.user = self.request.user
-        return form
+    # def get_form(self, *args, **kwargs):
+    #     form = super().get_form(*args, **kwargs)
+    #     form.instance.user = self.request.user
+    #     return form
 
 
 class DeleteGlobalContentView(views.DeleteView):

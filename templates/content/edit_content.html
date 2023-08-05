@@ -1,4 +1,4 @@
-{% extends 'content/content_navbar.html' %}
+{#{% extends 'content/content_navbar.html' %}#}
 {% block navbar_content %}
 {#        <div class="container" id="content">#}
     <div class="row">
@@ -34,7 +34,9 @@
                     <div class="col-12">
                         <table class="table table-bordered">
                             {% for text in form %}
-                                <h1>{{ title }}{{ text }}{{ form.request.checkbox }}</h1>
+                                    <h1>{{ title }}
+                                    {{ text }}
+                                    {{ form.request.checkbox }}</h1>
                             {% endfor %}
                         </table>
                     </div>

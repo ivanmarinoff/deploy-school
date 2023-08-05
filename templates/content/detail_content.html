@@ -5,12 +5,9 @@
         <div class="row">
             <div class="col-12 row text align-fa-align-center">
                 <tbody>
-{#                {% for content in object_list %}#}
-{#                        {% if request.user.pk == content.pk %}#}
                 <tr>
                     <td>
                         <h2>
-{#                            <a href="{% url 'read-content' user.pk %}"></a>#}
                             {{ content.title }}
                         </h2>
                     </td>
@@ -21,8 +18,6 @@
                     </td>
 
                 </tr>
-{#                    {% endif %}#}
-{#                {% endfor %}#}
                 </tbody>
                  {% if user.is_staff %}
                     <form action="{% url 'edit-answer' request.user.pk %}" method="post"></form>
@@ -48,7 +43,7 @@
                     <form action="{% url 'edit-content' slug=content.slug %}" method="post"></form>{#request.user.pk#}
 
                     <a href="{% url 'edit-content' slug=content.slug %}" class="smoothScroll">
-                        <button>Edit</button>
+                        <button>Answer</button>
                     </a>
 
                 {% endif %}

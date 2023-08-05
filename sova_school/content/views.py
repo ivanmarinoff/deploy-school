@@ -1,7 +1,7 @@
-from django.db.models import Q
-from django.http import HttpResponseRedirect, Http404
+from django import forms
+from django.http import Http404
 
-from sova_school.content.forms import ContentModelForm, ContentDeleteForm, ContentEditForm
+from sova_school.content.forms import ContentModelForm, ContentDeleteForm, ContentEditForm, DisabledFormMixin
 from sova_school.content.mixins.user_permition_mixin import UserRequiredMixin
 from sova_school.content.models import Content, UserAnswers
 from django.urls import reverse_lazy
@@ -27,14 +27,16 @@ class CreateContentView(auth_mixins.LoginRequiredMixin, views.CreateView):
 class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = Content
     template_name = "content/edit_content.html"
-    # fields = ['title', 'text']
-    form_class = ContentEditForm
-    success_url = reverse_lazy('read-content')
+    # fields = ['title', 'text', 'user_choices']
 
-    def get_form(self, *args, **kwargs):
-        form = super().get_form(*args, **kwargs)
-        form.instance.user = self.request.user
-        return form
+    form_class = ContentEditForm
+    # success_url = reverse_lazy('read-content')
+
+    # def get_form(self, *args, **kwargs):
+    #     form = super().get_form(*args, **kwargs)
+    #     form.instance.user = self.request.user
+    #     return form
+
 
     def get_success_url(self):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
@@ -56,10 +58,10 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     #     if save_changes:
     #         self.object.save(commit=True)
     #     return result
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['post'] = self.get_object()
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['contents'] = Content.objects.all() # TODO Changed...Content.objects.all()
+    #     return context
 
     def test_func(self):
         return self.get_object().user.pk == self.request.user.pk or self.request.user.is_superuser \
@@ -68,18 +70,18 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     def handle_no_permission(self):
         raise Http404()
 
-    def form_valid(self, form):
-        self.object = form.save(commit=True)
-        self.object.user = self.request.user
-        self.object.save()
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     self.object = form.save(commit=True)
+    #     self.object.user = self.request.user
+    #     self.object.save()
+    #     return super().form_valid(form)
 
 
 class EditAnswerView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.UpdateView):
     model = Content
     template_name = "content/edit_content.html"
-    # fields = ['title', 'text']
-    form_class = ContentEditForm
+    fields = ['title', 'text']
+    # form_class = ContentEditForm
     success_url = reverse_lazy('read-content')
 
     # def get_form(self, *args, **kwargs):

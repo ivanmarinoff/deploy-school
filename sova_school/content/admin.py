@@ -19,6 +19,7 @@ class role_inline(admin.TabularInline):
 
 @admin.register(Content)
 class ContentAdmin(admin.ModelAdmin):
+    readonly_fields = ('title', 'text')
     list_display = ["title", "user", "user_choices", "created_at"]
     list_filter = ["user"]
     # search_fields = ['user_choices']
@@ -50,7 +51,7 @@ class UserAnswersAdmin(admin.ModelAdmin):
     # filter_horizontal = ["user_choices"]
     list_display = ["user"]
     list_filter = ["user"]
-    fieldsets = [(None, {"fields": ["user","user_choices"]}),
+    fieldsets = [(None, {"fields": ["user", "user_choices"]}),
                  ("Content", {'fields': ['updated']}), ]
 
 

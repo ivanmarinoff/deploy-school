@@ -95,41 +95,24 @@ class ContentModelForm(PlaceholderMixin, forms.ModelForm):
 class ContentEditForm(DisabledFormMixin, ContentModelForm):
     class Meta:
         model = Content
-        disabled_fields = ('title', 'text')
-        exclude = ('user', 'slug', 'updated_at', 'user_choices',)
-        # fields = ['title', 'text', 'user_choices']
+        # disabled_fields = ('title', 'text')
+        exclude = ('user', 'slug', 'updated_at')
+        fields = ['title', 'text', 'user_choices']
+        widgets = {
+            'title': forms.Textarea(attrs={'readonly': 'readonly'}),
+            'text': forms.Textarea(attrs={'readonly': 'readonly'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._disable_fields()
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        return super().save(*args, **kwargs)
 
-
-    def __str__(self):
-        form = self.instance
-        return form.__str__()
-
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     return super().save(*args, **kwargs)
-    #
-    # def __str__(self):
-    #     return f'{self.title}'
-
-    # def save(self, commit=True):
-    #     if commit:
-    #         self.instance.save()
-    #     return self.instance
 
 
 class ContentReadForm(ContentModelForm):
     pass
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self._disable_fields()
+
 
 
 class ContentDeleteForm(ContentModelForm):
