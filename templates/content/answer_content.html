@@ -1,0 +1,40 @@
+{% extends 'content/content_navbar.html' %}
+{% load custom_filters %}
+{#<style>#}
+{#    .list {#}
+{#        display: flex;#}
+{#    }#}
+{#</style>#}
+{% block navbar_content %}
+
+
+
+ <div class="row">
+        <div class="col-12 row text align-fa-align-center">
+        <br><br><br><br>
+        <h1>
+                <tbody>
+                <form action="{% url 'answer-content' pk=object.pk %}" method="post">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            {% for text in form %}
+                                <h1>{{ title }}
+                                    {{ text }}
+                                    {{ form.request.checkbox }}</h1>
+                            {% endfor %}
+
+                            {% csrf_token %}
+
+                            <button type="submit">Submit</button>
+                            <button onclick="history.back()">Go Back</button>
+                        </table>
+                    </div>
+                </form>
+                </tbody>
+                </h1>
+            </div>
+    </div>
+
+
+
+{% endblock %}

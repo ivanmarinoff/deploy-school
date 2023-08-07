@@ -1,3 +1,5 @@
+import os
+
 from django import forms
 
 from sova_school.global_content.models import GlobalContent
@@ -26,15 +28,12 @@ class PlaceholderMixin:
             field = self.fields.get(field_name)
             field.widget.attrs.update({'placeholder': field.label})
 
+
 class GlobalContentModelForm(PlaceholderMixin, forms.ModelForm):
     class Meta:
         model = GlobalContent
         fields = ['title', 'text', 'image_url', 'photos', 'slug']
-
-
-
-# class GlobalSearchForm(forms.Form):
-#     content = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Search content...'}))
+        ordering = ['title']
 
 
 class GlobalContentEditForm(GlobalContentModelForm):
@@ -46,7 +45,6 @@ class GlobalContentReadForm(GlobalContentModelForm):
 
 
 class GlobalContentDeleteForm(GlobalContentModelForm):
-    def save(self, commit=True):
-        if commit:
-            self.instance.delete()
-        return self.instance
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)

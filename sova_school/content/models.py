@@ -85,8 +85,8 @@ class Content(models.Model):
 
 
 class UserAnswers(models.Model):
-    user = models.ForeignKey(
-        to=UserModel,
+    user = models.OneToOneField(
+        to=Content,
         on_delete=models.DO_NOTHING,
     )
 

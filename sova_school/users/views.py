@@ -1,11 +1,10 @@
 from django.contrib.auth import views as auth_views, authenticate
-from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins, get_user_model, login
-from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditForm
+from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditForm, UserPasswordChangeForm
 
 UserModel = get_user_model()
 
@@ -23,8 +22,6 @@ class RegisterUserView(OnlyAnonymousMixin, views.CreateView):
     form_class = RegisterUserForm
     success_url = reverse_lazy('login_user')
     class_name = 'signup'
-
-
 
     def form_valid(self, form):
         valid = super(RegisterUserView, self).form_valid(form)
@@ -71,10 +68,8 @@ class LoginUserView(auth_views.LoginView):
 
     def form_invalid(self, form):
         form.errors.clear()
-        form.add_error(None, 'Invalid Username or password')
+        form.add_error(None, '   Invalid Username or password')
         return super().form_invalid(form)
-
-
 
     def get_success_url(self, *args, **kwargs):
         return reverse_lazy('profile-details', kwargs={'pk': self.request.user.pk})
@@ -120,30 +115,37 @@ class ProfileEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
         return result
 
 
-class PasswordChangeView(auth_mixins.UserPassesTestMixin, auth_mixins.LoginRequiredMixin,
-                         auth_views.PasswordChangeView):
-    form_class = PasswordChangeForm
+class PasswordChangeView(auth_mixins.LoginRequiredMixin, auth_views.PasswordChangeView):
+    form_class = UserPasswordChangeForm
     template_name = 'users/profile_password_change.html'
 
     # def get_success_url(self):
     #     user_pk = self.kwargs['pk']
     #     return reverse_lazy('password_change_done', kwargs={'pk': user_pk})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user'] = self.get_object()
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['user'] = self.get_object()
+    #     return context
+    #
+    # def get_object(self):
+    #     pk = self.kwargs.get('pk')
+    #     obj = get_object_or_404(UserModel, pk=pk)
+    #     return obj
+    #
+    # def test_func(self):
+    #     return self.get_object().pk == self.request.user.pk or self.request.user.is_superuser
+    #
+    # def handle_no_permission(self):
+    #     raise Http404()
 
-    def get_object(self):
-        pk = self.kwargs.get('pk')
-        obj = get_object_or_404(UserModel, pk=pk)
-        return obj
-
-    def test_func(self):
-        return self.get_object().pk == self.request.user.pk or self.request.user.is_superuser
-
-    def handle_no_permission(self):
-        raise Http404()
+    # def form_invalid(self, form):
+    #     if form.errors:
+    #         form.errors.clear()
+    #         form.add_error(None, 'Your Password cannot be changed!')
+    #         return super().form_invalid(form)
+        # else:
+        #     return f'{"Password changed successfully"}'
 
 
 class PasswordChangeDoneView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):

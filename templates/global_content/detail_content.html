@@ -1,11 +1,11 @@
 {% extends 'global_content/global_navbar.html' %}
-
+{% load static %}
 {% block global_navbar_content %}
     <div class="container" id="content">
         <div class="row">
             <div class="col-12 row text align-fa-align-center" >
 
-                    <form action="{% url 'global-read-content' %}" method="get"></form>
+                    <form action="{% url 'global-read-content' %}" enctype="multipart/form-data" method="get"></form>
                 {#        <thead>#}
                 {#        <tr>#}
                 {#            <th><p>Title</p></th>#}
@@ -27,12 +27,9 @@
                     </td>
                     <td>
                         <p>
-                            {{ object.image_url }}
+                            <img src="{{ globalcontent.image_url }}" style="width:50%" alt="Image_url">
                         </p>
                     </td><td>
-                        <p>
-                            {{ object.photo.url }}
-                        </p>
                     </td>
                 </tr>
                 </tbody>

@@ -1,7 +1,5 @@
-from datetime import datetime
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.http import request
 from django.utils.text import slugify
 
 UserModel = get_user_model()
@@ -17,8 +15,8 @@ class GlobalContent(models.Model):
         blank=True,
         null=True,
     )
-    created_at = models.DateTimeField(default=datetime.now(), blank=True)
-    updated_at = models.DateTimeField(default=datetime.now(), blank=True)
+    created_at = models.DateTimeField(auto_now=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True)
 
     user = models.ForeignKey(
         UserModel,
@@ -36,7 +34,7 @@ class GlobalContent(models.Model):
     )
 
     photos = models.ImageField(
-        upload_to='media',
+        upload_to='photos',
         blank=True,
         null=True,
     )
@@ -47,8 +45,11 @@ class GlobalContent(models.Model):
             self.slug = slugify(f'{self.user}-{self.id}')
         return super().save(*args, **kwargs)
 
+
+
+
     def __str__(self) -> str:
-        return f'{self.text}'
+        return f'{self.text} - {self.title} - {self.user} - {self.slug} - {self.image_url} - {self.photos}'
 
     # def get_absolute_url(self):
     #     if self.pk:

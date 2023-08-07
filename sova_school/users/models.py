@@ -1,7 +1,9 @@
+from django.core.validators import validate_email
 from django.db import models
 from django.contrib.auth import models as auth_models
 from django.core import validators
 from django.urls import reverse
+from django.views import defaults
 
 
 def validate_only_alphabetical(value):
@@ -28,7 +30,9 @@ class User(auth_models.AbstractUser):
     )
     email = models.EmailField(
         unique=True,
+        validators=[validate_email],
     )
+
 
     @property
     def full_name(self):

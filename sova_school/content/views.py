@@ -30,13 +30,13 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     # fields = ['title', 'text', 'user_choices']
 
     form_class = ContentEditForm
+
     # success_url = reverse_lazy('read-content')
 
     # def get_form(self, *args, **kwargs):
     #     form = super().get_form(*args, **kwargs)
     #     form.instance.user = self.request.user
     #     return form
-
 
     def get_success_url(self):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
@@ -98,6 +98,7 @@ class EditAnswerView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.Up
         self.object.save()
         return super().form_valid(form)
 
+
 class ReadContentView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.ListView):
     model = Content
     template_name = 'content/read_content.html'
@@ -105,9 +106,6 @@ class ReadContentView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.L
     success_url = reverse_lazy('read-content')
     paginate_by = 5
     context_object_name = 'content'
-
-    # queryset = Content.objects.all()
-
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -121,41 +119,9 @@ class ReadContentView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.L
         return context
 
 
-
-    # def get_form(self, *args, **kwargs):
-    #     form = super().get_form(*args, **kwargs)
-    #     form.instance.user = self.request.user
-    #     return form
-
-
 class DetailContentView(auth_mixins.LoginRequiredMixin, views.DetailView):
     model = Content
     template_name = 'content/detail_content.html'
-
-    # def get_success_url(self):
-    #     return reverse_lazy('read-content', kwargs={'pk': self.object.user.pk})
-
-
-# class ContentDetailsView(views.DetailView):
-#     model = Content
-#     template_name = 'content/content_details.html'
-# slug_field = Content.slug
-# pk_url_kwarg = 'id'
-
-# fields = ['text']
-
-
-#
-# def get_form(self, *args, **kwargs):
-#     form = super().get_form(*args, **kwargs)
-#     form.instance.user = self.request.user
-#     return form
-#
-# def get_context_data(self, **kwargs):
-#     context = super().get_context_data(**kwargs)
-#     context['content'] = self.request.user.content_set.all()
-#     context['query'] = self.request.GET.get('query')
-#     return context
 
 
 class DeleteContentView(auth_mixins.LoginRequiredMixin, views.DeleteView):
@@ -179,26 +145,26 @@ class DeleteContentView(auth_mixins.LoginRequiredMixin, views.DeleteView):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
 
-class UserAnswersView(auth_mixins.LoginRequiredMixin, views.CreateView):
+class UserAnswersView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = UserAnswers
     template_name = 'content/read_content.html'
     # form_class = ContentReadForm
-    success_url = reverse_lazy('read-content')
+    # success_url = reverse_lazy('read-content')
 
     # queryset = Content.objects.all()
 
-    def get_form(self, *args, **kwargs):
-        form = super().get_form(*args, **kwargs)
-        form.instance.user = self.request.user
-        form.save(commit=True)
-        return form
-
-    def form_valid(self, form):
-        result = super().form_valid(form)
-        save_changes = self.request.GET.get('save_changes')
-        if save_changes:
-            self.object.save(commit=True)
-        return result
+    # def get_form(self, *args, **kwargs):
+    #     form = super().get_form(*args, **kwargs)
+    #     form.instance.user = self.request.user
+    #     form.save(commit=True)
+    #     return form
+    #
+    # def form_valid(self, form):
+    #     result = super().form_valid(form)
+    #     save_changes = self.request.GET.get('save_changes')
+    #     if save_changes:
+    #         self.object.save(commit=True)
+    #     return result
 
     def get_success_url(self):
         return reverse_lazy('read-content', kwargs={'pk': self.object.pk})

@@ -1,4 +1,4 @@
-{#{% extends 'content/content_navbar.html' %}#}
+{% extends 'content/content_navbar.html' %}
 {% block navbar_content %}
 {#        <div class="container" id="content">#}
     <div class="row">
@@ -18,7 +18,7 @@
                         <button type="submit">Save</button>
                     </form>
                 {% elif user.is_superuser %}
-                    <form action="{% url 'edit-answer' content.pk %}" method="post">
+                    <form action="{% url 'edit-content' content.pk %}" method="post">
                         <div class="col-12">
                             <table class="table table-bordered">
                                 {% for text in form %}

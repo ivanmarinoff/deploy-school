@@ -19,10 +19,11 @@
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
 {#    <link rel="stylesheet" href="{% static 'css/vegas.min.css' %}">#}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
-    <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">
-    <link rel="stylesheet" href="{% static 'css/change_password.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global_content.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/login.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/signup.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/change_password.css' %}">#}
 
 
     <!-- Navigation section  -->
@@ -42,7 +43,7 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     {% if request.user.is_authenticated %}
-                        <li><a href="{% url 'read-content' slug=user.pk %}"
+                        <li><a href="{% url 'read-content' slug=request.user.pk %}"
                                class="smoothScroll"><span>Content</span></a></li>
                         <li><a href="{% url 'profile-details' pk=request.user.pk %}"
                                class="smoothScroll"><span>Profile Details</span></a></li>

@@ -7,6 +7,12 @@ class DisabledFormMixin:
     disabled_fields = ()
     fields = {}
 
+
+    #def get_form(self, *args, **kwargs):  # TODO diesabled mixin form fields widout witgets
+        # form = super().get_form(*args, **kwargs)
+        #     for field in self.disabled_fields:
+        #         form.fields[field].widget.attrs['disabled'] = 'disabled'
+        #     return form
     def _disable_fields(self):
         if self.disabled_fields == '__all__':
             fields = self.fields.keys()
@@ -112,11 +118,19 @@ class ContentEditForm(DisabledFormMixin, ContentModelForm):
 
 class ContentReadForm(ContentModelForm):
     pass
-
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self._disable_fields()
 
 
 class ContentDeleteForm(ContentModelForm):
     # disabled_fields = '__all__'
+
+    # def get_form(self, *args, **kwargs): # TODO diesabled fields
+    #     form = super().get_form(*args, **kwargs)
+    #     for field in self.disabled_fields:
+    #         form.fields[field].widget.attrs['disabled'] = 'disabled'
+    #     return form
 
     # fields = {'title': forms.TextInput(attrs={'disabled': 'disabled'}),
     #           'text': forms.Textarea(attrs={'disabled': 'disabled'})}

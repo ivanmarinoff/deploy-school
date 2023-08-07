@@ -2,22 +2,22 @@
 
 {% block user_content %}
 
-    <li>
-        <p>This is profile details page!</p>
-
-    </li>
     <form action="{% url 'profile-details' request.user.pk %}" method="get" class="wow fadeInUp">
 
 
         <h2><p>User Name:</p> {{ request.user.username }}</h2>
+        <br>
 
 
         <h2><p>E-mail:</p>{{ request.user.email }}</h2>
+        <br>
 
 
         <h2><p>First name</p>{{ request.user.first_name }}</h2>
+        <br>
 
         <h2><p>Last name</p>{{ request.user.last_name }}</h2>
+        <br>
     {% csrf_token %}
     </form>
     <form action="{% url 'profile-edit' request.user.pk %}" method="get" class="wow fadeInUp">
