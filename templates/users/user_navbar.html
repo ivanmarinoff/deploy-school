@@ -40,8 +40,7 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-
-                    {% if request.user.is_authenticated %}
+                       {% if request.user.is_authenticated %}
 
                         <li><a href="{% url 'read-content' slug=user.pk %}" class="smoothScroll"><span>Content</span></a></li>
                         <li><a href="{% url 'global-read-content' %}" class="smoothScroll"><span>Global Content</span></a></li>

@@ -46,7 +46,8 @@
                                class="smoothScroll"><span>Global Content</span></a></li>
                         <li><a href="{% url 'profile-details' pk=request.user.pk %}" class="smoothScroll"><span>Profile Details</span></a>
                         </li>
-                        <li><a href="{% url 'logout_user' %}" class="smoothScroll"><span>Logout: {{ request.user }}</span></a></li>
+                        <li><a href="{% url 'logout_user' %}"
+                               class="smoothScroll"><span>Logout: {{ request.user }}</span></a></li>
                     {% else %}
                         <li><a href="#top" class="smoothScroll"><span>Home</span></a></li>
                         <li><a href="#about" class="smoothScroll"><span>About</span></a></li>
@@ -62,7 +63,7 @@
         </div>
     </div>
     </body>
-<!-- Javascript  -->
+    <!-- Javascript  -->
     <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/vegas.min.js' %}"></script>

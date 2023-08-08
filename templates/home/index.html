@@ -72,7 +72,8 @@
                         related to
                         our functioning as people and individuals.
                         Thank you.</p>
-                   <a href="{% url 'read_web_content' %}" class="smoothScroll btn btn-success btn-lg wow fadeInUp" data-wow-delay="1.2s"><span>Learn
+                    <a href="{% url 'read_web_content' %}" class="smoothScroll btn btn-success btn-lg wow fadeInUp"
+                       data-wow-delay="1.2s"><span>Learn
                         more</span></a>
                 </div>
 
@@ -86,7 +87,7 @@
     <section id="about">
         <div class="container">
             <div class="row">
-                   <div class="col-md-12 col-sm-12 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-md-12 col-sm-12 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="section-title text-center">
                         <h1>Leaders of "SCHOOL OF PSYCHOLOGY"</h1>
                         <p class="description">This is our team that will train you!</p>
@@ -99,19 +100,22 @@
                     <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.4s">
                         <div class="team-thumb">
                             <div class="image-holder">
-                                <img src="{% static 'images/team/svetlana.png' %}" class="img-responsive img-circle"
-                                     alt="Svetlana">
+                                <a rel="nofollow" href="{% url 'bio_s_s' %}">
+                                    <img src="{% static 'images/team/svetlana.png' %}" class="img-responsive img-circle"
+                                         alt="Svetlana"></a>
                             </div>
                             <h2 class="heading">Sotirova, Svetlana</h2>
                             <p class="description">Therapeutic, family consultant.</p>
+
                         </div>
                     </div>
 
                     <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.6s">
                         <div class="team-thumb">
                             <div class="image-holder">
-                                <img src="{% static 'images/team/emilia.png' %}" class="img-responsive img-circle"
-                                     alt="Emilia">
+                                <a rel="nofollow" href="{% url 'bio_e_s' %}">
+                                    <img src="{% static 'images/team/emilia.png' %}" class="img-responsive img-circle"
+                                         alt="Emilia"></a>
                             </div>
                             <h2 class="heading">Sotirova, Emilia</h2>
                             <p class="description">Psychologist, family therapeutic, psychodrama teacher.</p>
@@ -121,8 +125,9 @@
                     <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">
                         <div class="team-thumb">
                             <div class="image-holder">
-                                <img src="{% static 'images/team/rositza.png' %}" class="img-responsive img-circle"
-                                     alt="Rositza">
+                                <a rel="nofollow" href="{% url 'bio_r_s' %}"><img
+                                        src="{% static 'images/team/rositza.png' %}" class="img-responsive img-circle"
+                                        alt="Rositza"></a>
                             </div>
                             <h2 class="heading">Slavova, Rositza</h2>
                             <p class="description">Therapeutic, family consultant.</p>
@@ -132,8 +137,9 @@
                     <div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">
                         <div class="team-thumb">
                             <div class="image-holder">
-                                <img src="{% static 'images/team/monika.png' %}" class="img-responsive img-circle"
-                                     alt="Monika">
+                                <a rel="nofollow" href="{% url 'bio_m_r' %}"><img
+                                        src="{% static 'images/team/monika.png' %}" class="img-responsive img-circle"
+                                        alt="Monika"></a>
                             </div>
                             <h2 class="heading">Roideva, Monika</h2>
                             <p class="description">Psychologist MSc, Project Manager.</p>
@@ -144,7 +150,8 @@
                 <div class="col-md-9 col-sm-8 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="about-thumb">
                         <h1>WHO IS "SCHOOL OF PSYCHOLOGY" FOR?</h1>
-                        <p>The course is suitable for amateurs, students or students <a rel="nofollow">(over 18 years old)</a> who want to
+                        <p>The course is suitable for amateurs, students or students <a rel="nofollow">(over 18 years
+                            old)</a> who want to
                             understand
                             more about psychology AND the fundamental aspects of psychological science and gain
                             knowledge about
@@ -173,7 +180,8 @@
                     <div class="section-title">
                         <h1>WHAT IS A "SCHOOL OF PSYCHOLOGY"?</h1>
                         <p>The course includes 12 modules, selected from the various branches of psychology,
-                            so that students can get the broadest idea of the influence and application of psychology in our daily lives.</p>
+                            so that students can get the broadest idea of the influence and application of psychology in
+                            our daily lives.</p>
                     </div>
                 </div>
 
@@ -184,8 +192,9 @@
                             <figcaption>
                                 <h1>LEVEL I</h1>
                                 <small>WHAT ARE THE MODULES IN THE LEVEL I SCHOOL OF PSYCHOLOGY?</small>
-                                <a href="{% url 'school_program_level_1' %}#level_1">Read More</a>
-                                <input type="submit" id="level_1" value="{{ school_program_level_1 }}">
+                                <a href="{% url 'school_program_level_1' %}#level_1 {{ school_program_level_1 }}"
+                                   type="button" id="level_1">Read More</a>
+                                {#                                <input type="button" id="level_1" value="{{ school_program_level_1 }}">#}
                             </figcaption>
                         </figure>
                     </li>
@@ -196,8 +205,9 @@
                             <figcaption>
                                 <h1>LEVEL II</h1>
                                 <small>WHAT ARE THE MODULES IN THE LEVEL II SCHOOL OF PSYCHOLOGY?</small>
-                                <a href="{% url 'school_program_level_2' %}#level_2">Read More</a>
-                                <input type="submit" id="level_2" value="{{ school_program_level_2 }}">
+                                <a href="{% url 'school_program_level_2' %}#level_2 {{ school_program_level_2 }}"
+                                   type="button" id="level_2">Read More</a>
+                                {#                                <input type="button" id="level_2" value="{{ school_program_level_2 }}">#}
                             </figcaption>
                         </figure>
                     </li>
@@ -267,13 +277,20 @@
                 <div class="col-md-12 col-sm-12">
 
                     <ul class="social-icon">
-                        <li><a href="https://www.facebook.com/S.O.V.A.psychologist" class="fa fa-facebook wow fadeInUp" data-wow-delay="0.2s"></a></li>
-                        <li><a href="https://twitter.com/sovapsycenter" class="fa fa-twitter wow fadeInUp" data-wow-delay="0.4s"></a></li>
-                        <li><a href="https://www.linkedin.com/company/sova-psychologist" class="fa fa-linkedin wow fadeInUp" data-wow-delay="0.6s"></a></li>
-                        <li><a href="https://www.instagram.com/sova_psy/" class="fa fa-instagram wow fadeInUp" data-wow-delay="0.8s"></a></li>
-                        <li><a href="https://plus.google.com/+SovaPsychologist" class="fa fa-google-plus wow fadeInUp" data-wow-delay="1.0s"></a></li>
-                        <li><a href="https://www.youtube.com/channel/UCd2dYVIA_CY_hoAyNkQ2rLg" class="fa fa-youtube wow fadeInUp" data-wow-delay="1.2s"></a></li>
-                        <li><a href="https://www.pinterest.com/sovapsy" class="fa fa-pinterest wow fadeInUp" data-wow-delay="1.4s"></a></li>
+                        <li><a href="https://www.facebook.com/S.O.V.A.psychologist" class="fa fa-facebook wow fadeInUp"
+                               data-wow-delay="0.2s"></a></li>
+                        <li><a href="https://twitter.com/sovapsycenter" class="fa fa-twitter wow fadeInUp"
+                               data-wow-delay="0.4s"></a></li>
+                        <li><a href="https://www.linkedin.com/company/sova-psychologist"
+                               class="fa fa-linkedin wow fadeInUp" data-wow-delay="0.6s"></a></li>
+                        <li><a href="https://www.instagram.com/sova_psy/" class="fa fa-instagram wow fadeInUp"
+                               data-wow-delay="0.8s"></a></li>
+                        <li><a href="https://plus.google.com/+SovaPsychologist" class="fa fa-google-plus wow fadeInUp"
+                               data-wow-delay="1.0s"></a></li>
+                        <li><a href="https://www.youtube.com/channel/UCd2dYVIA_CY_hoAyNkQ2rLg"
+                               class="fa fa-youtube wow fadeInUp" data-wow-delay="1.2s"></a></li>
+                        <li><a href="https://www.pinterest.com/sovapsy" class="fa fa-pinterest wow fadeInUp"
+                               data-wow-delay="1.4s"></a></li>
                     </ul>
 
                     {#                <p class="wow fadeInUp" data-wow-delay="1s">Copyright &copy; 2016 Snapshot Studio |#}
@@ -290,16 +307,16 @@
     <!-- Back top -->
     <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
 
-{#    <!-- Javascript  -->#}
-{#    <script src="{% static 'js/jquery.js' %}"></script>#}
-{#    <script src="{% static 'js/bootstrap.min.js' %}"></script>#}
-{#    <script src="{% static 'js/vegas.min.js' %}"></script>#}
-{#    <script src="{% static 'js/modernizr.custom.js' %}"></script>#}
-{#    <script src="{% static 'js/toucheffects.js' %}"></script>#}
-{#    <script src="{% static 'js/owl.carousel.min.js' %}"></script>#}
-{#    <script src="{% static 'js/smoothscroll.js' %}"></script>#}
-{#    <script src="{% static 'js/wow.min.js' %}"></script>#}
-{#    <script src="{% static 'js/custom.js' %}"></script>#}
+    {#    <!-- Javascript  -->#}
+    {#    <script src="{% static 'js/jquery.js' %}"></script>#}
+    {#    <script src="{% static 'js/bootstrap.min.js' %}"></script>#}
+    {#    <script src="{% static 'js/vegas.min.js' %}"></script>#}
+    {#    <script src="{% static 'js/modernizr.custom.js' %}"></script>#}
+    {#    <script src="{% static 'js/toucheffects.js' %}"></script>#}
+    {#    <script src="{% static 'js/owl.carousel.min.js' %}"></script>#}
+    {#    <script src="{% static 'js/smoothscroll.js' %}"></script>#}
+    {#    <script src="{% static 'js/wow.min.js' %}"></script>#}
+    {#    <script src="{% static 'js/custom.js' %}"></script>#}
 
     </body>
     </html>

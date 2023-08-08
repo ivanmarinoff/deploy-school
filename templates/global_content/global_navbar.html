@@ -50,10 +50,6 @@
 {#                        <li><a href="{% url 'profile-delete' pk=request.user.pk %}"#}
 {#                               class="smoothScroll"><span>Delete</span></a></li>#}
                         <li><a href="{% url 'logout_user' %}" class="smoothScroll"><span>Logout: {{ request.user }}</span></a></li>
-{#                        <li><a href="{% url 'profile-edit' pk=request.user.pk %}" class="smoothScroll"><span>Edit</span></a>#}
-{#                        </li>#}
-{#                        <li><a href="{% url 'global-read-content' %}"#}
-{#                               class="smoothScroll"><span>Global Content</span></a></li>#}
                     {% else %}
                         <li><a href="#top" class="smoothScroll"><span>Home</span></a></li>
                         <li><a href="#about" class="smoothScroll"><span>About</span></a></li>
