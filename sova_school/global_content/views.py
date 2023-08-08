@@ -24,15 +24,6 @@ class CreateContentView(views.CreateView):
 
 
 
-
-
-
-
-
-
-
-
-
 class EditGlobalContentView(views.UpdateView):
     model = GlobalContent
     template_name = "global_content/edit_content.html"

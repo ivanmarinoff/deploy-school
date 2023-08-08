@@ -1,7 +1,7 @@
 from django import forms
 from django.http import Http404
 
-from sova_school.content.forms import ContentModelForm, ContentDeleteForm, ContentEditForm, DisabledFormMixin
+from sova_school.content.forms import ContentModelForm, ContentDeleteForm, ContentEditForm
 from sova_school.content.mixins.user_permition_mixin import UserRequiredMixin
 from sova_school.content.models import Content, UserAnswers
 from django.urls import reverse_lazy
@@ -24,7 +24,7 @@ class CreateContentView(auth_mixins.LoginRequiredMixin, views.CreateView):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
 
-class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
+class EditContentView(auth_mixins.LoginRequiredMixin, auth_mixins.UserPassesTestMixin, views.UpdateView):
     model = Content
     template_name = "content/edit_content.html"
     # fields = ['title', 'text', 'user_choices']

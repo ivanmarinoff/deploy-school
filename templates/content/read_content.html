@@ -14,15 +14,15 @@
                 <table class="table table-bordered" style="list-style-type:upper-roman" aria-sort="descending">
                     <thead>
                     <tr>
-                        <th><p>Title</p></th>
-                        <th><p>Content</p></th>
-                        <th><p>Answer</p></th>
+                        <th><p1>Title</p1></th>
+                        <th><p1>Content</p1></th>
+                        <th><p1>Answer</p1></th>
                         {#            <th>Menu</th>#}
                     </tr>
                     </thead>
                     <tbody>
                     <form action="{% url 'read-content' request.user.pk %}" method="get">
-                        <input type="text" class="form-control" name="search" placeholder="Search by content..."
+                        <input type="text" class="form-control" name="search" placeholder="Search by text..."
                                value="{{ request.GET.text }}">
                         <input type="submit" class="form-control" value="Search">
                     </form>

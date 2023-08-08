@@ -10,11 +10,12 @@ http://www.templatemo.com/tm-493-snapshot
 ------------------------------------- */
 body {
     background: #ffffff;   
-    font-family: 'Jost', sans-serif;
+    font-family: 'Adobe Fan Heiti Std B', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 300;
     position: relative;
+    display: inline-block;
 }
 
 html,body {
@@ -36,6 +37,16 @@ h1,h2,h3,h4 {
 }
 
 h1 {
+  color: #999999;
+  font-size: 2rem;
+  line-height: 3rem;
+  letter-spacing: 12px;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+}
+
+h9 {
+  color: #333333;
   font-size: 2rem;
   line-height: 3rem;
   letter-spacing: 12px;
@@ -58,9 +69,16 @@ h3 {
 }
 
 p {
-  color: #888;
+  color: #888888;
   font-size: 20px;
-  letter-spacing: 1px;
+  letter-spacing: 3px;
+  line-height: 34px;
+}
+
+p1 {
+  color: #f9f2f4;
+  font-size: 20px;
+  letter-spacing: 3px;
   line-height: 34px;
 }
 
