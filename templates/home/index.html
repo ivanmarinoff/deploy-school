@@ -191,7 +191,9 @@
                             <div><img src="{% static 'pictures/prospectus/cr1_cr.png' %}" alt="image 1"></div>
                             <figcaption>
                                 <h1>LEVEL I</h1>
-                                <small><p1>PRICE: - BGN 370</p1></small>
+                                <small>
+                                    <p1>PRICE: - BGN 370</p1>
+                                </small>
                                 <small>WHAT ARE THE MODULES IN THE LEVEL I SCHOOL OF PSYCHOLOGY?</small>
                                 <a href="{% url 'school_program_level_1' %}#level_1 {{ school_program_level_1 }}"
                                    type="button" id="level_1">Read More</a>
@@ -205,7 +207,9 @@
                             <div><img src="{% static 'pictures/prospectus/cr.png' %}" alt="image 2"></div>
                             <figcaption>
                                 <h1>LEVEL II</h1>
-                                <small><p1>PRICE: - BGN 420</p1></small>
+                                <small>
+                                    <p1>PRICE: - BGN 420</p1>
+                                </small>
                                 <small>WHAT ARE THE MODULES IN THE LEVEL II SCHOOL OF PSYCHOLOGY?</small>
                                 <a href="{% url 'school_program_level_2' %}#level_2 {{ school_program_level_2 }}"
                                    type="button" id="level_2">Read More</a>
@@ -214,27 +218,27 @@
                         </figure>
                     </li>
 
-                    <li class="col-md-6 col-sm-6">
-                        <figure>
-                            <div><img src="{% static 'images/gallery-img3.jpg' %}" alt="image 3"></div>
-                            <figcaption>
-                                <h1>Cras ante sem</h1>
-                                <small>Aenean urna massa, convallis vehicula velit et, dictum pellentesque nisi.</small>
-                                <a href="#">Learn More</a>
-                            </figcaption>
-                        </figure>
-                    </li>
-
-                    <li class="col-md-6 col-sm-6">
-                        <figure>
-                            <div><img src="{% static 'images/gallery-img4.jpg' %}" alt="image 4"></div>
-                            <figcaption>
-                                <h1>Sed ornare</h1>
-                                <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
-                                <a href="#">Full Post</a>
-                            </figcaption>
-                        </figure>
-                    </li>
+{#                    <li class="col-md-6 col-sm-6">#}
+{#                        <figure>#}
+{#                            <div><img src="{% static 'images/gallery-img3.jpg' %}" alt="image 3"></div>#}
+{#                            <figcaption>#}
+{#                                <h1>Cras ante sem</h1>#}
+{#                                <small>Aenean urna massa, convallis vehicula velit et, dictum pellentesque nisi.</small>#}
+{#                                <a href="#">Learn More</a>#}
+{#                            </figcaption>#}
+{#                        </figure>#}
+{#                    </li>#}
+{##}
+{#                    <li class="col-md-6 col-sm-6">#}
+{#                        <figure>#}
+{#                            <div><img src="{% static 'images/gallery-img4.jpg' %}" alt="image 4"></div>#}
+{#                            <figcaption>#}
+{#                                <h1>Sed ornare</h1>#}
+{#                                <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>#}
+{#                                <a href="#">Full Post</a>#}
+{#                            </figcaption>#}
+{#                        </figure>#}
+{#                    </li>#}
                 </ul>
 
             </div>
@@ -308,7 +312,6 @@
 
     <!-- Back top -->
     <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
-
     {#    <!-- Javascript  -->#}
     {#    <script src="{% static 'js/jquery.js' %}"></script>#}
     {#    <script src="{% static 'js/bootstrap.min.js' %}"></script>#}
