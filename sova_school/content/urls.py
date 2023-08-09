@@ -1,7 +1,8 @@
 from django.urls import path
 
+from sova_school.content.admin import UserAnswersAdmin
 from sova_school.content.views import ReadContentView, CreateContentView, EditContentView, DeleteContentView, \
-    DetailContentView, EditAnswerView
+    DetailContentView, EditAnswerView, UserAnswersView
 
 urlpatterns = (
     path('read_content/<slug:slug>/', ReadContentView.as_view(), name='read-content'),

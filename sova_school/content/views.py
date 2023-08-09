@@ -17,14 +17,14 @@ class CreateContentView(auth_mixins.LoginRequiredMixin, views.CreateView):
 
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)
-        form.instance.user = self.request.user
+        form.instance.content = self.object.save()
         return form
 
     def get_success_url(self):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
 
-class EditContentView(auth_mixins.LoginRequiredMixin, auth_mixins.UserPassesTestMixin, views.UpdateView):
+class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = Content
     template_name = "content/edit_content.html"
     # fields = ['title', 'text', 'user_choices']
@@ -63,12 +63,13 @@ class EditContentView(auth_mixins.LoginRequiredMixin, auth_mixins.UserPassesTest
     #     context['contents'] = Content.objects.all() # TODO Changed...Content.objects.all()
     #     return context
 
-    def test_func(self):
-        return self.get_object().user.pk == self.request.user.pk or self.request.user.is_superuser \
-            or self.request.user.is_staff
+    # def test_func(self):
+    #     return self.get_object().user.pk == self.request.user.pk or self.request.user.is_superuser \
+    #         or self.request.user.is_staff
 
-    def handle_no_permission(self):
-        raise Http404()
+
+    # def handle_no_permission(self):
+    #     raise Http404()
 
     # def form_valid(self, form):
     #     self.object = form.save(commit=True)

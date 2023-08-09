@@ -53,12 +53,12 @@ class Content(models.Model):
         null=True,
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(default=datetime.now, blank=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
 
-    user = models.ForeignKey(
-        UserModel,
-        on_delete=models.CASCADE,
-    )
+    # user = models.ForeignKey(
+    #     UserModel,
+    #     on_delete=models.CASCADE,
+    # )
 
     user_choices = models.CharField(
         max_length=20,
@@ -77,7 +77,7 @@ class Content(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if not self.slug:
-            self.slug = slugify(f'{self.user}-{self.id}')
+            self.slug = slugify(f'{self.title}-{self.id}')
         return super().save(*args, **kwargs)
 
     def __str__(self):
@@ -85,17 +85,16 @@ class Content(models.Model):
 
 
 class UserAnswers(models.Model):
-    user = models.OneToOneField(
-        to=Content,
+    user = models.ForeignKey(
+        to=UserModel,
         on_delete=models.DO_NOTHING,
     )
 
-    # user_choices = models.ForeignKey(
-    #     to=Content,
-    #     on_delete=models.DO_NOTHING,
-    #     related_name='choices',
-    #     # default=1,
-    # )
+    choices = models.ManyToManyField(
+        to=Content,
+        related_name='choices',
+        # default=1,
+    )
 
     # content = models.ForeignKey(
     #     to=Content,

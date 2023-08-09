@@ -6,7 +6,7 @@
             <br><br><br><br>
             <h1>
                 {% if user.is_staff %}
-                    <form action="{% url 'edit-answer' content.pk %}" method="post">
+                    <form action="{% url 'edit-answer' request.user.pk %}" method="post">
                         <div class="col-12">
                             <table class="table table-bordered">
                                 {% for text in form %}
