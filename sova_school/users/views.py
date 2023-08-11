@@ -44,16 +44,6 @@ class RegisterUserView(OnlyAnonymousMixin, views.CreateView):
     def get_success_url(self):
         return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #
-    #     context['next'] = self.request.GET.get('next', '')
-    #
-    #     return context
-    #
-    # def get_success_url(self):
-    #     return self.request.POST.get('next', self.success_url)
-
 
 class LoginUserView(auth_views.LoginView):
     form_class = LoginUserForm
@@ -122,34 +112,6 @@ class ProfileEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 class PasswordChangeView(auth_mixins.LoginRequiredMixin, auth_views.PasswordChangeView):
     form_class = UserPasswordChangeForm
     template_name = 'users/profile_password_change.html'
-
-    # def get_success_url(self):
-    #     user_pk = self.kwargs['pk']
-    #     return reverse_lazy('password_change_done', kwargs={'pk': user_pk})
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['user'] = self.get_object()
-    #     return context
-    #
-    # def get_object(self):
-    #     pk = self.kwargs.get('pk')
-    #     obj = get_object_or_404(UserModel, pk=pk)
-    #     return obj
-    #
-    # def test_func(self):
-    #     return self.get_object().pk == self.request.user.pk or self.request.user.is_superuser
-    #
-    # def handle_no_permission(self):
-    #     raise Http404()
-
-    # def form_invalid(self, form):
-    #     if form.errors:
-    #         form.errors.clear()
-    #         form.add_error(None, 'Your Password cannot be changed!')
-    #         return super().form_invalid(form)
-        # else:
-        #     return f'{"Password changed successfully"}'
 
 
 class PasswordChangeDoneView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):

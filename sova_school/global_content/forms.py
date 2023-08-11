@@ -5,21 +5,6 @@ from django import forms
 from sova_school.global_content.models import GlobalContent
 
 
-# class DisabledFormMixin:
-#     disabled_fields = ()
-#     fields = {}
-#
-#     def _disable_fields(self):
-#         if self.disabled_fields == '__all__':
-#             fields = self.fields.keys()
-#         else:
-#             fields = self.disabled_fields
-#
-#         for field_name in fields:
-#             if field_name in self.fields:
-#                 field = self.fields[field_name]
-#                 field.widget.attrs['disabled'] = 'disabled'
-
 class PlaceholderMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

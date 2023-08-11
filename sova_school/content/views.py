@@ -20,19 +20,6 @@ class CreateContentView(auth_mixins.LoginRequiredMixin, views.CreateView):
         form.instance.user = self.request.user
         return form
 
-    # def form_valid(self, form):
-    #     form.instance.user = self.request.user
-    #     form.instance.content = Content.objects.filter(pk=self.kwargs['pk']).get()
-    #     if self.request.POST.get('save_changes'):
-    #         form.save(commit=True)
-    #     return super().form_valid(form)
-
-    # def form_valid(self, form):
-    #     result = super().form_valid(form)
-    #     save_changes = self.request.POST.get('save_changes')
-    #     if save_changes:
-    #         self.object.save(commit=True)
-    #     return result
 
     def get_success_url(self):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
@@ -45,12 +32,6 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 
     form_class = ContentEditForm
 
-    # success_url = reverse_lazy('read-content')
-
-    # def get_form(self, *args, **kwargs):
-    #     form = super().get_form(*args, **kwargs)
-    #     form.instance.user = self.request.user
-    #     return form
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -58,64 +39,6 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
-
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     queryset = queryset.filter(user=self.request.user)
-    #     return queryset
-
-    # def get_form_kwargs(self):
-    #     kwargs = super().get_form_kwargs()
-    #     if hasattr(self, "object"):
-    #         kwargs.update({"instance": self.object})
-    #     return kwargs
-
-    # def form_valid(self, form):
-    #     result = super().form_valid(form)
-    #     save_changes = self.request.POST.get('save_changes')
-    #     if save_changes:
-    #         self.object.save(commit=True)
-    #     return result
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['contents'] = Content.objects.all() # TODO Changed...Content.objects.all()
-    #     return context
-
-    # def test_func(self):
-    #     return self.get_object().user.pk == self.request.user.pk or self.request.user.is_superuser \
-    #         or self.request.user.is_staff
-
-
-    # def handle_no_permission(self):
-    #     raise Http404()
-
-    # def form_valid(self, form):
-    #     self.object = form.save(commit=True)
-    #     self.object.user = self.request.user
-    #     self.object.save()
-    #     return super().form_valid(form)
-
-
-# class EditAnswerView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.UpdateView):
-#     model = Content
-#     template_name = "content/edit_content.html"
-#     fields = ['title', 'text']
-#     # form_class = ContentEditForm
-#     success_url = reverse_lazy('read-content')
-#
-#     # def get_form(self, *args, **kwargs):
-#     #     form = super().get_form(*args, **kwargs)
-#     #     form.instance.user = self.request.user
-#     #     return form
-#
-#     def get_success_url(self):
-#         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
-#
-#     def form_valid(self, form):
-#         self.object = form.save(commit=True)
-#         self.object.user = self.request.user
-#         self.object.save()
-#         return super().form_valid(form)
 
 
 class ReadContentView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.ListView):
@@ -168,10 +91,6 @@ class DeleteContentView(auth_mixins.LoginRequiredMixin, views.DeleteView):
         form.update(instance=instance)
         return form
 
-    # def get_form(self, *args, **kwargs):
-    #     form = super().get_form(*args, **kwargs)
-    #     form.instance.user = self.request.user
-    #     return form
 
     def get_success_url(self):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})

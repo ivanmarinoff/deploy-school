@@ -51,7 +51,3 @@ class GlobalContent(models.Model):
     def __str__(self) -> str:
         return f'{self.text} - {self.title} - {self.user} - {self.slug} - {self.image_url} - {self.photos}'
 
-    # def get_absolute_url(self):
-    #     if self.pk:
-    #         return reverse_lazy('content-details', kwargs={'pk': self.pk})
-    #     return reverse_lazy('read-content', kwargs={'pk': self.pk})

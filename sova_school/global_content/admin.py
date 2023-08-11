@@ -10,4 +10,3 @@ class imageAdmin(admin.ModelAdmin):
     ordering = ['-created_at']
 
 
-# admin.site.register(GlobalContent, imageAdmin)
