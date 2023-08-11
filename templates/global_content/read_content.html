@@ -1,92 +1,101 @@
 {% extends 'global_content/global_navbar.html' %}
 {% block global_navbar_content %}
-   <div class="container">
+    <div class="container">
         <div class="row">
-             <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <br><br><br><br>
-                <table class="table table-bordered" style="list-style-type:upper-roman" aria-sort="descending">
-                    <thead>
-                    <tr>
-                        <th><p1>Title</p1></th>
-                        <th><p1>Content</p1></th>
-                        <th><p1>Photos</p1></th>
-                        {#            <th>Menu</th>#}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <form action="{% url 'global-read-content' %}" method="get">
-                        <input type="text" class="form-control" name="search" placeholder="Search by title..."
-                               value="{{ request.GET.title }}"><br>
-                        <input type="submit" class="form-control" value="Search">
-                    </form>
-                    <br>
-                    {% if request.user.is_superuser %}
-                    <form action="{% url 'global-create-content' %}" method="get">
-                        <input type="submit" class="form-control" value="Create content"></form><br>
-                    {% endif %}
-                    {% for content in object_list reversed %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <br><br><br><br>
+                        <table class="table table-bordered" style="list-style-type:upper-roman" aria-sort="descending">
+                            <thead>
                             <tr>
-                                <td>
-                                    <h2><a href="{% url 'global-detail-content' slug=content.slug %}">
-                                        {{ content.title|truncatechars:20 }}</a></h2>
-                                </td>
-                                <td><p>{{ content.text|truncatechars:100 }}</p></td>
-                                <td><p><img src="{{ content.image_url }}" style="width:20%"></p></td>
-{#                                <td><p><img src="{{ content.photos }}" style="width:15%"></p></td>#}
+                                <th>
+                                    <p1>Title</p1>
+                                </th>
+                                <th>
+                                    <p1>Content</p1>
+                                </th>
+                                <th>
+                                    <p1>Photos</p1>
+                                </th>
                             </tr>
-                    {% endfor %}
-
-                    </tbody>
-                </table>
-                {% csrf_token %}
-
-                {% if is_paginated %}
-
-                    <h2>
-                        <div class="pagination">
-                            {% if page_obj.has_previous %}
-
-                                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-
-                            {% else %}
-
-                                <li class="disabled"><span>&laquo;</span></li>
-
+                            </thead>
+                            <tbody>
+                            <form action="{% url 'global-read-content' %}" method="get">
+                                <input type="text" class="form-control" name="search" placeholder="Search by title..."
+                                       value="{{ request.GET.title }}"><br>
+                                <input type="submit" class="form-control" value="Search">
+                            </form>
+                            <br>
+                            {% if request.user.is_superuser %}
+                                <form action="{% url 'global-create-content' %}" method="get"
+                                      enctype="multipart/form-data">
+                                    <input type="submit" class="form-control" value="Create content"></form><br>
                             {% endif %}
-
-                            {% for i in paginator.page_range %}
-
-                                {% if page_obj.number == i %}
-
-                                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-
-                                {% else %}
-
-                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
-
-                                {% endif %}
-
+                            {% for content in object_list reversed %}
+                                <tr>
+                                    <td>
+                                        <h2><a href="{% url 'global-detail-content' slug=content.slug %}">
+                                            {{ content.title|truncatechars:20 }}</a></h2>
+                                    </td>
+                                    <td><p>{{ content.text|truncatechars:100 }}</p></td>
+                                    <td><p><img src="{{ content.image_url }}" style="width:20%"></p></td>
+                                    {#                                <td><p><img src="{{ content.photos }}" style="width:15%"></p></td>#}
+                                </tr>
                             {% endfor %}
 
-                            {% if page_obj.has_next %}
+                            </tbody>
+                        </table>
+                        {% csrf_token %}
 
-                                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                        {% if is_paginated %}
 
-                            {% else %}
+                            <h2>
+                                <div class="pagination">
+                                    {% if page_obj.has_previous %}
 
-                                <li class="disabled"><span>&raquo;</span></li>
+                                        <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
 
-                            {% endif %}
+                                    {% else %}
 
-                        </div>
+                                        <li class="disabled"><span>&laquo;</span></li>
 
-                    </h2>
-                {% endif %}
+                                    {% endif %}
 
+                                    {% for i in paginator.page_range %}
+
+                                        {% if page_obj.number == i %}
+
+                                            <li class="active"><span>{{ i }} <span
+                                                    class="sr-only">(current)</span></span></li>
+
+                                        {% else %}
+
+                                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                    {% if page_obj.has_next %}
+
+                                        <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+
+                                    {% else %}
+
+                                        <li class="disabled"><span>&raquo;</span></li>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </h2>
+                        {% endif %}
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-{% endblock global_navbar_content%}
+{% endblock global_navbar_content %}

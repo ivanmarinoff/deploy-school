@@ -21,6 +21,16 @@ class UserModelAdmin(admin.ModelAdmin):
         )
     )
 
+    def formfield_for_choice_field(self, db_field, request, **kwargs):
+        if db_field.name == "Superuser status":
+            kwargs["choices"] = [
+                ("accepted", "Accepted"),
+                ("denied", "Denied"),
+            ]
+            if request.user.is_superuser:
+                kwargs["choices"].append(("ready", "Ready for deployment"))
+        return super().formfield_for_choice_field(db_field, request, **kwargs)
+
     def save_formset(self, request, form, formset, change):
         for object in formset.save():
             object.name = object.name.upper()

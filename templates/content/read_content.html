@@ -1,11 +1,6 @@
 {% extends 'content/content_navbar.html' %}
+{% load static %}
 {% load custom_filters %}
-{#<style>#}
-{#    .list {#}
-{#        display: flex;#}
-{#    }#}
-{#</style>#}
-
 {% block navbar_content %}
     <div class="container">
         <div class="row">
@@ -14,10 +9,18 @@
                 <table class="table table-bordered" style="list-style-type:upper-roman" aria-sort="descending">
                     <thead>
                     <tr>
-                        <th><p1>Title</p1></th>
-                        <th><p1>Content</p1></th>
-                        <th><p1>Answer</p1></th>
-                        {#            <th>Menu</th>#}
+                        <th>
+                            <p1>Title</p1>
+                        </th>
+                        <th>
+                            <p1>Content</p1>
+                        </th>
+                        <th>
+                            <p1>Image</p1>
+                        </th>
+                        <th>
+                            <p1>Username</p1>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -26,64 +29,71 @@
                                value="{{ request.GET.text }}">
                         <input type="submit" class="form-control" value="Search">
                     </form>
-                    {% if user.is_staff %}
-                        <form action="{% url 'create-content' request.user.pk %}" method="get">
-                            <input type="submit" class="form-control" value="Create content"></form>
-                    {% elif user.is_superuser %}
-                        <form action="{% url 'create-content' content.pk %}" method="get">
-                            <input type="submit" class="form-control" value="Create content"></form>
-                    {% endif %}
 
+                    <form action="{% url 'create-content' request.user.pk %}" method="get">
+                        <input type="submit" class="form-control" value="Create content"></form>
+                    {# slug #}
+
+                    {#                    {% if user.is_authenticated %}#}
                     {% for content in object_list %}
-{#                        {% if user.is_authenticated %}#}
-{#                            <tr>#}
-{#                            <td>#}
-{#                                <h2>#}
-{#                                    <a href="{% url 'detail-content' content.pk %}">#}
-{#                                        {{ content.title|truncatechars:20 }}#}
-{#                                    </a>#}
-{#                                </h2>#}
-{#                            </td>#}
-{#                            <td>#}
-{#                                <p>#}
-{#                                    {{ content.text|truncatechars:200 }}#}
-{#                                </p>#}
-{#                            </td>#}
-{##}
-{#                        {% endif %}#}
-                    {% if user.is_authenticated %}
-                        <tr>
-                            <td>
-                                <h2>
+                        {% if user.is_superuser %}
+                            <tr>
+                                <td>
+                                    <h2>
+                                        <a href="{% url 'detail-content' slug=content.slug %}">
+                                            {{ content.title|truncatechars:50 }}</a>
+                                    </h2>
+                                </td>
+                                <td>
+                                    <p>
+                                        {{ content.text|truncatechars:200 }}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                       <img src="{{ content.image_url }}" style="width:20%" alt="Image_url">
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        {{ content.user.username }}
+                                    </p>
+                                </td>
+                            </tr>
+                        {% elif user.pk == content.user.pk %}
+                            <tr>
+                                <td>
+                                    <h2>
+                                        <a href="{% url 'detail-content' slug=content.slug %}">
+                                            {{ content.title|truncatechars:20 }}</a>
+                                    </h2>
+                                </td>
+                                <td>
+                                    <p>
+                                        {{ content.text|truncatechars:200 }}
 
-                                    <a href="{% url 'detail-content' slug=content.slug %}">
-                                        {{ content.title|truncatechars:20 }}
-                                    </a>
-                                </h2>
-                            </td>
-                            <td>
-                                <p>
-                                    {{ content.text|truncatechars:200 }}
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    {{ content.user_choices }}
-                                </p>
-                            </td>
-                        </tr>
-                    {% endif %}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <img src="{{ content.image_url }}" style="width:20%" alt="Image_url">
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        {{ request.user.username }}
+                                    </p>
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
-
                     </tbody>
                 </table>
-
                 {% csrf_token %}
-
                 {% if is_paginated %}
 
                     <h2>
-                        <ul class="pagination">
+                        <div class="pagination">
                             {% if page_obj.has_previous %}
 
                                 <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
@@ -117,9 +127,7 @@
                                 <li class="disabled"><span>&raquo;</span></li>
 
                             {% endif %}
-
-                        </ul>
-
+                        </div>
                     </h2>
                 {% endif %}
 

@@ -33,9 +33,9 @@ $(document).ready(function() {
   $(function() {
     $('body').vegas({
         slides: [
-            { src: '../static/images/sova-slide1.jpg' },
-            { src: '../static/images/imagec957.png' },
-            { src: '../static/images/barnowl3__880-e149848454255631bc.jpg' }
+            { src: 'static/images/sova-slide1.jpg' },
+            { src: 'static/images/peakpx.jpg' },
+            { src: 'static/images/barnowl3__880-e149848454255631bc.jpg' }
         ],
         timer: false,
         transition: [ 'zoomIn', ],

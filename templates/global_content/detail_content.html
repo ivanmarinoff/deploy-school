@@ -5,17 +5,11 @@
         <div class="row">
             <div class="col-12">
                 <br><br><br><br>
-                <div class="centered" data-wow-delay="0.2s">
+                <div class="text-center" data-wow-delay="0.2s">
                     <div class="about-thumb">
                         <form action="{% url 'global-read-content' %}" enctype="multipart/form-data"
                               method="get"></form>
-                        {#        <thead>#}
-                        {#        <tr>#}
-                        {#            <th><p>Title</p></th>#}
-                        {#            <th><p>Content</p></th>#}
-                        {#            <th>Menu</th>#}
-                        {#        </tr>#}
-                        {#        </thead>#}
+
                         <tbody>
                         <tr>
                             <td>
@@ -38,10 +32,11 @@
                         </tr>
                         </tbody>
                         {% if request.user.is_superuser %}
-                            <form action="{% url 'global-edit-content' slug=object.slug %}" method="post"></form>
+                            <form action="{% url 'global-edit-content' slug=object.slug %}" method="post"
+                                  enctype="multipart/form-data"></form>
 
-
-                            <form action="{% url 'global-delete-content' slug=object.slug %}" method="post"></form>
+                            <form action="{% url 'global-delete-content' slug=object.slug %}" method="post"
+                                  enctype="multipart/form-data"></form>
 
                             <a href="{% url 'global-edit-content' slug=object.slug %}" class="smoothScroll">
                                 <button>Edit</button>
@@ -56,4 +51,6 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 {% endblock global_navbar_content %}

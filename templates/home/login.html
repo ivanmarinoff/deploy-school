@@ -11,7 +11,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
     </head>
     <body>
-
+    <p>
+        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
+    </p>
     <div class="main">
         <input type="checkbox" id="chk" aria-hidden="false">
 
@@ -22,10 +26,6 @@
                 {{ email }}
                 {{ password1 }}
                 {{ password2 }}
-                {#                <input type="text" name="txt" placeholder="User name" value="{{ form.username }}">#}
-                {#                <input type="email" name="email" placeholder="Email" value="{{ form.email }}">#}
-                {#                <input type="password" name="pswd1" placeholder="Password" value="{{ form.password1 }}">#}
-                {#                <input type="password" name="pswd2" placeholder="Confirm Password" value="{{ form.password2 }}">#}
                 <button type="submit">Sign up</button>
                 {% csrf_token %}
             </form>
@@ -36,11 +36,7 @@
                 <label for="chk">Login</label>
                 {{ form.username|placeholder:'Username' }}
                 {{ form.password|placeholder:'Password' }}
-                <p>
-                    {% for error in form.non_field_errors %}
-                        {{ error }}
-                    {% endfor %}
-                </p>
+
                 <button type="submit">Login</button>
                 {% csrf_token %}
             </form>

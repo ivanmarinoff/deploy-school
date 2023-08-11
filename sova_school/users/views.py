@@ -29,8 +29,12 @@ class RegisterUserView(OnlyAnonymousMixin, views.CreateView):
             'username'), form.cleaned_data.get('password1')
         new_user = authenticate(username=username, password=password)
         login(self.request, new_user)
-
         return valid
+
+    def form_invalid(self, form):
+        form.errors.clear()
+        form.add_error(None, '   Invalid Email or Password')
+        return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -68,7 +72,7 @@ class LoginUserView(auth_views.LoginView):
 
     def form_invalid(self, form):
         form.errors.clear()
-        form.add_error(None, '   Invalid Username or password')
+        form.add_error(None, '   Invalid Username or Password')
         return super().form_invalid(form)
 
     def get_success_url(self, *args, **kwargs):

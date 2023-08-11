@@ -1,50 +1,25 @@
 {% extends 'content/content_navbar.html' %}
 {% block navbar_content %}
-{#        <div class="container" id="content">#}
     <div class="row">
         <div class="col-12 row text align-fa-align-center">
             <br><br><br><br>
             <h1>
-                {% if user.is_staff %}
-                    <form action="{% url 'edit-answer' request.user.pk %}" method="post">
-                        <div class="col-12">
-                            <table class="table table-bordered">
-                                {% for text in form %}
-                                    <h1>{{ title }}{{ text }}</h1>
-                                {% endfor %}
-                            </table>
-                        </div>
-                        {% csrf_token %}
-                        <button type="submit">Save</button>
-                    </form>
-                {% elif user.is_superuser %}
-                    <form action="{% url 'edit-content' content.pk %}" method="post">
-                        <div class="col-12">
-                            <table class="table table-bordered">
-                                {% for text in form %}
-                                    <h1>{{ title }}{{ text }}</h1>
-                                {% endfor %}
-                            </table>
-                        </div>
-                        {% csrf_token %}
-                        <button type="submit">Save</button>
-                    </form>
-                {% else %}
-                    <form action="{% url 'edit-content' slug=content.slug %}" method="post">
+
+                <form action="{% url 'edit-content' slug=content.slug %}" method="post"> {# content.pk #}
                     <div class="col-12">
                         <table class="table table-bordered">
-                            {% for text in form %}
-                                    <h1>{{ title }}
-                                    {{ text }}
-                                    {{ form.request.checkbox }}</h1>
-                            {% endfor %}
-                        </table>
-                    </div>
-                    {% csrf_token %}
-                    <button type="submit">Submit</button>
-                {% endif %}
-                <button onclick="history.back()">Go Back</button>
-                </form>
+                            {% if user.is_authenticated %}
+                                {% for text in form %}
+                                    <h1>{{ title }}{{ text }}{{ image_url }}</h1>
+                                {% endfor %}
+                                </table>
+                                </div>
+                                {% csrf_token %}
+
+                                <button type="submit">Save</button>
+                                <button onclick="history.back()">Go Back</button>
+                                </form>
+                            {% endif %}
             </h1>
         </div>
     </div>

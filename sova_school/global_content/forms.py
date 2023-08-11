@@ -33,7 +33,7 @@ class GlobalContentModelForm(PlaceholderMixin, forms.ModelForm):
     class Meta:
         model = GlobalContent
         fields = ['title', 'text', 'image_url', 'photos', 'slug']
-        ordering = ['title']
+        ordering = ['-created_at']
 
 
 class GlobalContentEditForm(GlobalContentModelForm):

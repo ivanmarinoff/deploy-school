@@ -6,6 +6,7 @@ from django.utils.text import slugify
 
 UserModel = get_user_model()
 
+
 # class UserChoices(models.Model):
 #     CHOICES = (
 #         ('CHOICE_ANSWER', 'Choice answer'),
@@ -31,17 +32,14 @@ UserModel = get_user_model()
 #     def __str__(self):
 #         return f'{self.choices}'
 
-CHOICES = (
-    ('CHOICE ANSWER', 'Choice answer'),
-    ('OK', 'Okay'),
-    ('NO', 'No'),
-    ('I AM NOT SURE', 'I am not sure'),
-)
-
-
 class Content(models.Model):
     class Meta:
         ordering = ['-updated_at']
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+    )
 
     title = models.CharField(
         max_length=100,
@@ -55,17 +53,9 @@ class Content(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
-    # user = models.ForeignKey(
-    #     UserModel,
-    #     on_delete=models.CASCADE,
-    # )
-
-    user_choices = models.CharField(
-        max_length=20,
-        choices=CHOICES,
+    image_url = models.URLField(
         blank=True,
         null=True,
-        default='CHOICE_ANSWER',
     )
 
     slug = models.SlugField(
@@ -81,43 +71,42 @@ class Content(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.title} :\n {self.text} :\n {self.user_choices}'
+        return f'{self.user} :\n {self.title} :\n {self.text}, :\n {self.image_url}'
 
-
-class UserAnswers(models.Model):
-    user = models.ForeignKey(
-        to=UserModel,
-        on_delete=models.DO_NOTHING,
-    )
-
-    choices = models.ManyToManyField(
-        to=Content,
-        related_name='choices',
-        # default=1,
-    )
-
-    # content = models.ForeignKey(
-    #     to=Content,
-    #     on_delete=models.DO_NOTHING,
-    #     # related_name='answers',
-    #     null=True,
-    #     blank=True,
-    #     # default=1,
-    # )
-
-    updated = models.DateTimeField(auto_now=True)
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        # if commit:
-        #     self.user.save()
-        #     self.user_choices.save()
-        #     self.content.save()
-        #     self.user = self.user
-        #     self.content = self.content
-        #     self.user_choices = self.user_choices
-
-        return super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f'{self.user} '
+# class UserAnswers(models.Model):
+#     user = models.ForeignKey(
+#         to=UserModel,
+#         on_delete=models.DO_NOTHING,
+#     )
+#
+#     choices = models.ManyToManyField(
+#         to=Content,
+#         related_name='choices',
+#         # default=1,
+#     )
+#
+#     # content = models.ForeignKey(
+#     #     to=Content,
+#     #     on_delete=models.DO_NOTHING,
+#     #     # related_name='answers',
+#     #     null=True,
+#     #     blank=True,
+#     #     # default=1,
+#     # )
+#
+#     updated = models.DateTimeField(auto_now=True)
+#
+#     def save(self, *args, **kwargs):
+#         super().save(*args, **kwargs)
+#         # if commit:
+#         #     self.user.save()
+#         #     self.user_choices.save()
+#         #     self.content.save()
+#         #     self.user = self.user
+#         #     self.content = self.content
+#         #     self.user_choices = self.user_choices
+#
+#         return super().save(*args, **kwargs)
+#
+#     def __str__(self):
+#         return f'{self.user} '

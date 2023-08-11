@@ -39,7 +39,7 @@ INSTALLED_APPS = [
 
     "sova_school.web",
     "sova_school.content",
-    "sova_school.users",
+    "sova_school.users.apps.UsersConfig",
     "sova_school.global_content",
 
 ]
@@ -152,9 +152,10 @@ LOGIN_URL = reverse_lazy("login_user")
 AUTH_USER_MODEL = "users.User"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-#
-# class CustomFormRenderer(TemplatesSetting):
-#     form_template_name = "index.html"
-#
-#
-# FORM_RENDERER = "sova_school.settings.CustomFormRenderer"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'ivanmarinoff.studio6@gmail.com'
+EMAIL_HOST_PASSWORD = 'szerqxislelnjiqh'

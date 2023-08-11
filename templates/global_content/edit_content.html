@@ -8,19 +8,14 @@
                 <p>Edit this content!</p>
 
 
-                    <form action="{% url 'global-edit-content' slug=object.slug %}" method="post">
+                    <form action="{% url 'global-edit-content' slug=object.slug %}" method="post" enctype="multipart/form-data">
                         <div class="col-12">
-                            {#                            <tbody>#}
                             <table class="table table-bordered">
                             {% if  request.user.is_superuser %}
                                 {% for text in form %}
-                                    {#                                <tr>#}
                                     <h1>{{ title }}{{ text }}{{ image }}{{ photo }}</h1>
-                                    {#                                </tr>#}
                                 {% endfor %}
-                                {#                            </tbody>#}
                             </table>
-                            {#                            </tbody>#}
                         </div>
                         {% csrf_token %}
 

@@ -1,9 +1,10 @@
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
 from django.urls import path, include, reverse_lazy
 from sova_school.users.views import RegisterUserView, LoginUserView, LogoutUserView, ProfileEditView, ProfileDeleteView, \
     ProfileDetailsView, PasswordChangeView, PasswordChangeDoneView
 
-# app_name = 'users'
+UserModel = get_user_model()
 
 urlpatterns = [
     path('register/', RegisterUserView.as_view(success_url=reverse_lazy('register_user')), name='register_user'),
@@ -20,3 +21,4 @@ urlpatterns = [
 
 
     ]))]
+

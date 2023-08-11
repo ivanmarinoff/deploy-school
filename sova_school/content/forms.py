@@ -1,29 +1,23 @@
 from django import forms
 from django.forms import CheckboxInput
-from sova_school.content.models import Content, UserAnswers
+from sova_school.content.models import Content
 
 
-class DisabledFormMixin:
-    disabled_fields = ()
-    fields = {}
-
-
-    #def get_form(self, *args, **kwargs):  # TODO diesabled mixin form fields widout witgets
-        # form = super().get_form(*args, **kwargs)
-        #     for field in self.disabled_fields:
-        #         form.fields[field].widget.attrs['disabled'] = 'disabled'
-        #     return form
-    def _disable_fields(self):
-        if self.disabled_fields == '__all__':
-            fields = self.fields.keys()
-        else:
-            fields = self.disabled_fields
-
-        for field_name in fields:
-            if field_name in self.fields:
-                field = self.fields[field_name]
-                # field.widget.attrs['disabled'] = 'disabled'
-                field.widget.attrs['readonly'] = 'readonly'
+# class DisabledFormMixin:
+#     disabled_fields = ()
+#     fields = {}
+#
+#     def _disable_fields(self):
+#         if self.disabled_fields == '__all__':
+#             fields = self.fields.keys()
+#         else:
+#             fields = self.disabled_fields
+#
+#         for field_name in fields:
+#             if field_name in self.fields:
+#                 field = self.fields[field_name]
+#                 # field.widget.attrs['disabled'] = 'disabled'
+#                 field.widget.attrs['readonly'] = 'readonly'
 
 
 class PlaceholderMixin:
@@ -38,89 +32,42 @@ class PlaceholderMixin:
 class ContentModelForm(PlaceholderMixin, forms.ModelForm):
     class Meta:
         model = Content
-        fields = ['title', 'text', 'user_choices']
+        fields = ['title', 'text', "image_url"]
         # widget = forms.CheckboxSelectMultiple,
-        widgets = {
-            'choices': CheckboxInput(attrs={'class': 'required checkbox form control'}),
-        }
+        # widgets = {
+        #     'choices': CheckboxInput(attrs={'class': 'required checkbox form control'}),
+        # }
         # widgets = {
         #     # 'title': forms.Textarea(attrs={'placeholder': 'Add title...'}),
         #     'text': forms.Textarea(attrs={'placeholder': 'Add content...'}),
         # }
 
 
-# class SearchForm(forms.Form):
-#     content = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Search content...'}))
-# class ContentAnswerChoiceForm(forms.ModelForm):
-#     class Meta:
-#         model = UserAnswers
-#         fields = ['user_choices']
-#         # widgets = {
-#         #     'answer': CheckboxInput(attrs={'class': 'required checkbox form control'}),
-#         # }
-#
-#     def save(self, commit=True):
-#         if commit:
-#             self.instance.save()
-#         return self.instance
 
 
-# class ContentAnswerForm(ContentModelForm):
-#     class Meta:
-#         model = UserAnswers
-#         fields = ['user']
-        # widgets = {
-        #     'answer': CheckboxInput(attrs={'class': 'required checkbox form control'}),
-        # }
-
-    # disabled_fields = ('title', 'text')
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self._disable_fields()
-    #
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     return super().save(*args, **kwargs)
-
-    # def save(self, commit=True):
-    #     new_instance = super().save(commit=False)
-    #     if commit:
-    #         self.instance = new_instance
-    #         new_instance.save()
-    #         self.save_m2m()
-    #         # self.instance.choices = self.cleaned_data['choices']
-    #         # return new_instance
-    #     return new_instance
-
-    # def __str__(self):
-    #     form = self.instance
-    #     return form.__str__()
-
-
-class ContentEditForm(DisabledFormMixin, ContentModelForm):
+class ContentEditForm(ContentModelForm):
     class Meta:
         model = Content
         # disabled_fields = ('title', 'text')
         exclude = ('user', 'slug', 'updated_at')
-        fields = ['title', 'text', 'user_choices']
-        widgets = {
-            'title': forms.Textarea(attrs={'readonly': 'readonly'}),
-            'text': forms.Textarea(attrs={'readonly': 'readonly'}),
-        }
+        fields = ['title', 'text', "image_url"]
+        # widgets = {
+        #     'title': forms.Textarea(attrs={'readonly': 'readonly'}),
+        #     'text': forms.Textarea(attrs={'readonly': 'readonly'}),
+        # }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._disable_fields()
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self._disable_fields()
 
 
 
 
 class ContentReadForm(ContentModelForm):
-    pass
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self._disable_fields()
+    class Meta:
+        model = Content
+        fields = ['title', 'text', "image_url"]
+
 
 
 class ContentDeleteForm(ContentModelForm):
