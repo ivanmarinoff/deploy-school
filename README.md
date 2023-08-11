@@ -5,36 +5,52 @@ This is a S.O.V.A-school site project built with  **Django** that includes a pub
 > Actively supported by [ S.O.V.A](http://www.sovapsychologist.com") Many thanks `S.O.V.A`.
 
 <br>
+
 ## This is a site `Home page`
+![home_page](https://github.com/ivanmarinoff/S.O.V.A-school/assets/107050101/28745df3-30d3-4065-97b6-1ab414735f5a)
 
-![home](file:///static/images/screenshots/home_page.png)
 <br />
+
 ## This is a `Signup` page
-![home](file:///static/images/screenshots/signup.png)
+![signup](https://github.com/ivanmarinoff/S.O.V.A-school/assets/107050101/4b6c2d47-02c1-4f06-acbe-7d68e0e2d7dc)
+
 <br />
+
 ## This is a `email answer` view
-![home](file:///static/images/screenshots/email_answer.png)
+![email_answer](https://github.com/ivanmarinoff/S.O.V.A-school/assets/107050101/2305c55a-80c9-4343-8899-d4a6853f85ae)
+
 <br />
+
 ## This is a `Login page`
+![login](https://github.com/ivanmarinoff/S.O.V.A-school/assets/107050101/ca22a941-afd2-4814-a4d2-98ce4ba4a771)
 
-![login](file:///static/images/screenshots/login.png)
 <br />
+
 ## This is a `Profile page`
-![home](file:///static/images/screenshots/profile_details.png)
-<br />
-## This is a `Profile edit` page
-![home](file:///static/images/screenshots/profile_edit.png)
-<br />
-## This is a `Global content` page for all registered users
-![home](file:///static/images/screenshots/global_content.png)
-<br />
-## This is a `User content` page for personal content created by users
-![home](file:///static/images/screenshots/user_content.png)
-<br />
-## This is a `ChatBot` form for private messages without registration
+![profile_details](https://github.com/ivanmarinoff/S.O.V.A-school/assets/107050101/c7b4e4c3-7077-4c43-b529-a7d72d9282bd)
 
-![home](file:///static/images/screenshots/chatbot.png)
 <br />
+
+## This is a `Profile edit` page
+![profile_edit](https://github.com/ivanmarinoff/S.O.V.A-school/assets/107050101/66014645-d165-4073-9882-111c4e390c33)
+
+<br />
+
+## This is a `Global content` page for all registered users
+![global_content](https://github.com/ivanmarinoff/S.O.V.A-school/assets/107050101/294729d5-87df-4223-9ef4-2781e2c3bd21)
+
+<br />
+
+## This is a `User content` page for personal content created by users
+![user_content](https://github.com/ivanmarinoff/S.O.V.A-school/assets/107050101/41c82907-a821-4abd-8a3c-f519a38fd406)
+
+<br />
+
+## This is a `ChatBot` form for private messages without registration
+![chatbot](https://github.com/ivanmarinoff/S.O.V.A-school/assets/107050101/84712541-cdf1-438d-84a7-090ad040f63b)
+
+<br />
+
 - **Sections Covered**: 
   - `Admin Section`, reserved for `superusers`
   - `All pages` managed by `Django.contrib.AUTH`
