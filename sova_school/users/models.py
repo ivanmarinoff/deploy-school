@@ -33,7 +33,6 @@ class User(auth_models.AbstractUser):
         validators=[validate_email],
     )
 
-
     @property
     def full_name(self):
         if self.first_name and self.last_name:
@@ -42,3 +41,13 @@ class User(auth_models.AbstractUser):
 
     def get_absolute_url(self):
         return reverse("profile-details", kwargs={"pk": self.objects.pk})
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return f'{self.user.email} - {self.user.first_name} - {self.user.last_name} - {self.user.username} - {self.user.password}'

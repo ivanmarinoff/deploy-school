@@ -44,6 +44,15 @@ INSTALLED_APPS = [
 
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND':
+            'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION':
+            'app_cache_table',
+    }
+}
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -59,8 +68,7 @@ ROOT_URLCONF = "sova_school.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates']
-        ,
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -75,24 +83,38 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "sova_school.wsgi.application"
 
-SECRET_KEY = os.getenv('SECRET_KEY', None)
+SECRET_KEY = os.environ.get('SECRET_KEY', None)
 
 DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
+
+# ALLOWED_HOSTS = ['127.0.0.1'] if DEBUG == False else [os.environ.get('ALLOWED_HOSTS', None)]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(' ')
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv('DB_NAME', None),
-        "USER": os.getenv('DB_USER', None),
-        "PASSWORD": os.getenv('DB_PASSWORD', None),
-        "HOST": os.getenv('DB_HOST', None),
-        "PORT": os.getenv('DB_PORT', None),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.getenv('DB_HOST', None),
+        'PORT': os.getenv('DB_PORT', '5432'),
+        'NAME': os.getenv('DB_NAME', None),
+        'USER': os.getenv('DB_USER', None),
+        'PASSWORD': os.getenv('DB_PASSWORD', None),
     }
 }
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "sova_db",
+#         "USER": "postgres-user",
+#         "PASSWORD": "password",
+#         "HOST": "127.0.0.1",
+#         "PORT": "5432",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -131,6 +153,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+# STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'static')
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
@@ -156,4 +179,3 @@ EMAIL_PORT = os.getenv('EMAIL_PORT', None)
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', None)
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', None)
-

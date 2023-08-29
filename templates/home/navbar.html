@@ -39,10 +39,6 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     {% if request.user.is_authenticated %}
-                        {#                        <li><a href="{% url 'profile-details' pk=request.user.pk %}"#}
-                        {#                               class="smoothScroll"><span>Profile Details</span></a></li>#}
-                        {#                        <li><a href="{% url 'profile-delete' pk=request.user.pk %}"#}
-                        {#                               class="smoothScroll"><span>Delete</span></a></li>#}
                         <li><a href="{% url 'read-content' user.pk %}"
                                class="smoothScroll"><span>Content</span></a></li>
                         <li><a href="{% url 'global-read-content' %}"
@@ -58,14 +54,12 @@
                         <li><a href="#contact" class="smoothScroll"><span>Contact</span></a></li>
                         <li><a href="{% url 'login_user' %}" class="smoothScroll"><span>Login</span></a></li>
                         <li><a href="{% url 'register_user' %}" class="smoothScroll"><span>Sign Up</span></a></li>
-
                     {% endif %}
                 </ul>
             </div>
 
         </div>
     </div>
-    </body>
 <!-- ChatBot section  -->
     <script type="text/javascript">!function (t, e) {
     t.artibotApi = {

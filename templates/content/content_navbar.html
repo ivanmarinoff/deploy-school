@@ -40,23 +40,19 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-
-                    {% if request.user.is_authenticated %}
-                        {#                        <li><a href="{% url 'profile-edit' pk=request.user.pk %}" class="smoothScroll"><span>Edit</span></a></li>#}
-
-{#                        <li><a href="{% url 'create-content' pk=request.user.pk %}"#}
-{#                               class="smoothScroll"><span>Create</span></a></li>#}
-{#                        <li><a href="{% url 'read-content' pk=request.user.pk %}"#}
-{#                               class="smoothScroll"><span>Content</span></a></li>#}
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'read-content' user.pk %}"
+                               class="smoothScroll"><span>Content</span></a></li>
                         <li><a href="{% url 'global-read-content' %}"
                                class="smoothScroll"><span>Global Content</span></a></li>
                         <li><a href="{% url 'profile-details' pk=request.user.pk %}" class="smoothScroll"><span>Profile Details</span></a>
                         </li>
-                        <li><a href="{% url 'logout_user' %}"  class="smoothScroll"><span>Logout: {{ request.user }}</span></a></li>
+                        <li><a href="{% url 'logout_user' %}"
+                               class="smoothScroll"><span>Logout: {{ request.user }}</span></a></li>
                     {% else %}
                         <li><a href="{% url 'index' %}#top" class="smoothScroll"><span>Home</span></a></li>
                         <li><a href="{% url 'index' %}#about" class="smoothScroll"><span>About</span></a></li>
-                        <li><a href="{% url 'index' %}#gallery" class="smoothScroll"><span>Gallery</span></a></li>
+                        <li><a href="{% url 'index' %}#gallery" class="smoothScroll"><span>Introduction</span></a></li>
                         <li><a href="{% url 'index' %}#contact" class="smoothScroll"><span>Contact</span></a></li>
                         <li><a href="{% url 'login_user' %}" class="smoothScroll"><span>Login</span></a></li>
                         <li><a href="{% url 'register_user' %}" class="smoothScroll"><span>Sign Up</span></a></li>

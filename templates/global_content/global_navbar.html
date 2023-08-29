@@ -45,6 +45,8 @@
                     {% if request.user.is_authenticated %}
                         <li><a href="{% url 'read-content' slug=request.user.pk %}"
                                class="smoothScroll"><span>Content</span></a></li>
+                        <li><a href="{% url 'global-read-content' %}"
+                               class="smoothScroll"><span>Global Content</span></a></li>
                         <li><a href="{% url 'profile-details' pk=request.user.pk %}"
                                class="smoothScroll"><span>Profile Details</span></a></li>
 {#                        <li><a href="{% url 'profile-delete' pk=request.user.pk %}"#}
@@ -53,7 +55,7 @@
                     {% else %}
                         <li><a href="#top" class="smoothScroll"><span>Home</span></a></li>
                         <li><a href="#about" class="smoothScroll"><span>About</span></a></li>
-                        <li><a href="#gallery" class="smoothScroll"><span>Gallery</span></a></li>
+                        <li><a href="#gallery" class="smoothScroll"><span>Introduction</span></a></li>
                         <li><a href="#contact" class="smoothScroll"><span>Contact</span></a></li>
                         <li><a href="{% url 'login_user' %}" class="smoothScroll"><span>Login</span></a></li>
                         <li><a href="{% url 'register_user' %}" class="smoothScroll"><span>Sign Up</span></a></li>

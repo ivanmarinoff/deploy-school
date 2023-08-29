@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="SOVA_SCHOOL_DB" uuid="968b8bbd-c1ce-445a-b3fa-c039bf24c192">
+    <data-source source="LOCAL" name="sova_db" uuid="543b6759-573e-4d30-8685-2a7a233a125c">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

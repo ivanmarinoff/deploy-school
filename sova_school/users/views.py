@@ -1,6 +1,7 @@
 from django.contrib.auth import views as auth_views, authenticate
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.core.cache import cache
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins, get_user_model, login
@@ -8,6 +9,17 @@ from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditFor
 
 UserModel = get_user_model()
 
+data_to_cache = {'key': 'value'}
+cache.set('my_key', data_to_cache)
+
+# Retrieve data from the cache
+cached_data = cache.get('my_key')
+
+if cached_data is None:
+    # Data not in cache, fetch from database or perform calculation
+    # and store it in cache
+    cached_data = {'key': 'value'}
+    cache.set('my_key', cached_data)
 
 class OnlyAnonymousMixin:
     def dispatch(self, request, *args, **kwargs):

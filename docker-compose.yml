@@ -6,27 +6,28 @@ version: '3.4'
 # NOTE 2: Copy this file in the same directory as 'docker-compose.yml' file and use your own credentials
 
 services:
+  web:
+    build: .
+    image: sova
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
   postgres:
     image: postgres
     restart: always
     ports:
       - "5432:5432"
+    env_file:
+      - .env
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: postgres-user
-      POSTGRES_DB: SOVA_SCHOOL_DB
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_USER: 'postgres-user'
+      POSTGRES_DB: 'sova_db'
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ./postgresql:/var/lib/postgresql/data
-  pgadmin4:
-    image: dpage/pgadmin4
-    user: "${UID}:${GID}"  # to avoid permission issues
-    environment:
-      PGADMIN_DEFAULT_EMAIL: some@email.com
-      PGADMIN_DEFAULT_PASSWORD: password
-    volumes:
-      - ./pgadmin4:/var/lib/pgadmin
-    ports:
-      - "5433:80"
-    depends_on:
-      - postgres
