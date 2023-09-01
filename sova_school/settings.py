@@ -64,8 +64,8 @@ WSGI_APPLICATION = "sova_school.wsgi.application"
 
 SECRET_KEY = os.environ.get('SECRET_KEY', None)
 DEBUG = os.environ.get('DEBUG', False)
-# ALLOWED_HOSTS = ['127.0.0.1'] if DEBUG == False else [os.environ.get('ALLOWED_HOSTS', None)]
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(' ')
+CSRF_TRUSTED_ORIGINS = [f'http://{x}:81' for x in os.environ.get('ALLOWED_HOSTS', '').split(' ')]
 
 DATABASES = {
     'default': {
@@ -118,7 +118,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-# STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'static')
+STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'static_files')
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
