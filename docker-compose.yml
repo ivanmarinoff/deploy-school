@@ -7,26 +7,22 @@ version: '3.4'
 
 services:
   web:
-    build: .
     image: sova
+    build: .
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     env_file:
       - .env
-    depends_on:
-      - postgres
 
   postgres:
     image: postgres
     restart: always
     ports:
       - "5432:5432"
-    env_file:
-      - .env
     environment:
-      POSTGRES_PASSWORD: 'password'
-      POSTGRES_USER: 'postgres-user'
+      POSTGRES_PASSWORD: 'QWERy75'
+      POSTGRES_USER: 'postgres'
       POSTGRES_DB: 'sova_db'
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
