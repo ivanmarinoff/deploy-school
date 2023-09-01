@@ -9,11 +9,13 @@ services:
   web:
     image: sova
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn sova_school.wsgi:application --bind 0.0.0.0:8000
     ports:
       - "8000:8000"
     env_file:
       - .env
+    volumes:
+      - /tmp/school/static:/app/static_files
 
   postgres:
     image: postgres
@@ -27,3 +29,16 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ./postgresql:/var/lib/postgresql/data
+  nginx:
+    image: nginx
+    ports:
+      - "81:80"
+      - "443:443"
+    volumes:
+      - /tmp/school/static:/home/app/web/staticfiles
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    links:
+      - web

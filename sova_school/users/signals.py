@@ -4,12 +4,8 @@ from django.core.mail import send_mail
 # Best one
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.mail import send_mail
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-
 from sova_school.core.email_utils import send_email_with_template
 
 UserModel = get_user_model()
