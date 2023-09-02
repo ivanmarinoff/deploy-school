@@ -7,7 +7,7 @@ version: '3.4'
 
 services:
   web:
-    image: sova
+    image: ivanmarinoff/sova
     build: .
     command: gunicorn sova_school.wsgi:application --bind 0.0.0.0:8000
     ports:
