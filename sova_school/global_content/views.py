@@ -5,13 +5,18 @@ from django.views import generic as views
 from sova_school.global_content.forms import GlobalContentModelForm, GlobalContentEditForm, GlobalContentReadForm, \
     GlobalContentDeleteForm
 from sova_school.global_content.models import GlobalContent
+from rest_framework import generics
+from .serializers import GlobalContentSerializer
+
+
+class GlobalContentListView(generics.ListCreateAPIView):
+    queryset = GlobalContent.objects.all().order_by('-updated_at')
+    serializer_class = GlobalContentSerializer
 
 
 class CreateContentView(views.CreateView):
-    # model = GlobalContent
     template_name = "global_content/create_content.html"
     form_class = GlobalContentModelForm
-
 
     def get_success_url(self):
         return reverse_lazy('global-read-content')
@@ -22,7 +27,6 @@ class CreateContentView(views.CreateView):
         return form
 
 
-
 class EditGlobalContentView(views.UpdateView):
     model = GlobalContent
     template_name = "global_content/edit_content.html"
@@ -30,7 +34,6 @@ class EditGlobalContentView(views.UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('global-read-content')
-
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -59,8 +62,6 @@ class ReadGlobalContentView(views.ListView):
         return context
 
 
-
-
 class DetailGlobalContentView(views.DetailView):
     model = GlobalContent
     template_name = 'global_content/detail_content.html'
@@ -80,5 +81,3 @@ class DeleteGlobalContentView(views.DeleteView):
         form = super().get_form_kwargs()
         form.update(instance=instance)
         return form
-
-

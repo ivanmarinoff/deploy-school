@@ -1,11 +1,50 @@
-from django.contrib.auth import views as auth_views, authenticate
-from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.contrib.auth import views as auth_views
+from django.http import HttpResponseRedirect
 from django.core.cache import cache
 from django.urls import reverse_lazy
 from django.views import generic as views
-from django.contrib.auth import mixins as auth_mixins, get_user_model, login
+from django.contrib.auth import mixins as auth_mixins, get_user_model
 from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditForm, UserPasswordChangeForm
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from .models import User
+from django.contrib.auth import authenticate, login
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from .serializers import UserSerializer
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def register_user(request):
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        user = serializer.save()
+        # Log the user in after registration
+        login(request, user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginUserView(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            user = serializer.validated_data['user']
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key, 'user_id': user.id})
+        return Response({'detail': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileDetailsView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
 
 UserModel = get_user_model()
 
@@ -20,6 +59,7 @@ if cached_data is None:
     # and store it in cache
     cached_data = {'key': 'value'}
     cache.set('my_key', cached_data)
+
 
 class OnlyAnonymousMixin:
     def dispatch(self, request, *args, **kwargs):

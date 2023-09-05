@@ -1,12 +1,16 @@
-from django import forms
-from django.http import Http404
-
 from sova_school.content.forms import ContentModelForm, ContentDeleteForm, ContentEditForm
 from sova_school.content.mixins.user_permition_mixin import UserRequiredMixin
 from sova_school.content.models import Content
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins
+from rest_framework import generics
+from .serializers import ContentSerializer
+
+
+class ContentListView(generics.ListAPIView):
+    queryset = Content.objects.all().order_by('-updated_at')
+    serializer_class = ContentSerializer
 
 
 class CreateContentView(auth_mixins.LoginRequiredMixin, views.CreateView):
@@ -20,7 +24,6 @@ class CreateContentView(auth_mixins.LoginRequiredMixin, views.CreateView):
         form.instance.user = self.request.user
         return form
 
-
     def get_success_url(self):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
@@ -31,7 +34,6 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     # fields = ['title', 'text', 'user_choices']
 
     form_class = ContentEditForm
-
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -79,6 +81,7 @@ class DetailContentView(auth_mixins.LoginRequiredMixin, views.DetailView):
     def get_success_url(self):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
+
 class DeleteContentView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     model = Content
     template_name = 'content/delete_content.html'
@@ -91,9 +94,5 @@ class DeleteContentView(auth_mixins.LoginRequiredMixin, views.DeleteView):
         form.update(instance=instance)
         return form
 
-
     def get_success_url(self):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
-
-
-
