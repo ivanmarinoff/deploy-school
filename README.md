@@ -1,4 +1,4 @@
-# [ S.O.V.A-school]([https://github.com/SOVASchool]
+ [ S.O.V.A-school]([https://github.com/SOVASchool]
 
 # [AWS deploy][(http://ec2-13-50-69-190.eu-north-1.compute.amazonaws.com))]
 
