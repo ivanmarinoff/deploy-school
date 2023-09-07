@@ -26,11 +26,11 @@ def register_user(request):
         user = serializer.save()
         # Log the user in after registration
         login(request, user)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_302_FOUND)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class LoginUserView(ObtainAuthToken):
+class LoginApiUserView(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         if serializer.is_valid():
@@ -40,10 +40,21 @@ class LoginUserView(ObtainAuthToken):
         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ProfileDetailsView(generics.RetrieveUpdateDestroyAPIView):
+class ProfileApiDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+    #
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
 
 
 UserModel = get_user_model()

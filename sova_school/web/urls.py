@@ -1,9 +1,16 @@
-from django.urls import path
+from django.urls import path, re_path
+from rest_framework.routers import DefaultRouter
+
 from sova_school.web import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+# router = DefaultRouter()
+
+# router.register('web', views.WEBListView, basename='web')
+
 urlpatterns = [
+                  # *router.urls,
                   path('', views.IndexView.as_view(), name='index'),
                   path('program_level_1/', views.SchoolLevel_1View.as_view(), name='school_program_level_1'),
                   path('program_level_2/', views.SchoolLevel_2View.as_view(), name='school_program_level_2'),
@@ -12,5 +19,7 @@ urlpatterns = [
                   path('bio_e_s/', views.BioWEBAutoEView.as_view(), name='bio_e_s'),
                   path('bio_r_s/', views.BioWEBAutoRView.as_view(), name='bio_r_s'),
                   path('bio_m_r/', views.BioWEBAutoMView.as_view(), name='bio_m_r'),
-                  path('web/', views.WEBListView.as_view(), name='web-list'),
+                  re_path(r'^web/$', views.WEBListView.as_view({
+                      'get': 'list',
+                  })),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

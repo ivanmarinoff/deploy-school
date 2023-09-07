@@ -2,11 +2,11 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 from sova_school.web.forms import WEBContentForm, WEBContentReadForm
 from sova_school.web.models import WEBContent
-from rest_framework import generics
+from rest_framework import viewsets
 from .serializers import WebSerializer
 
 
-class WEBListView(generics.ListAPIView):
+class WEBListView(viewsets.ModelViewSet):
     queryset = WEBContent.objects.all()
     serializer_class = WebSerializer
 
