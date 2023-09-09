@@ -13,7 +13,7 @@
                             <table class="table table-bordered">
                             {% if  request.user.is_superuser %}
                                 {% for text in form %}
-                                    <h1>{{ title }}{{ text }}{{ image }}{{ photo }}</h1>
+                                    <h1>{{ title }}{{ text }}{{ image }}{{ photo }} {{ video }}</h1>
                                 {% endfor %}
                             </table>
                         </div>

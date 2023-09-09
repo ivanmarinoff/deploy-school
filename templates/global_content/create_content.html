@@ -7,13 +7,13 @@
             <h1>
                 <p>Create content!</p>
                 {% if request.user.is_superuser %}
-                    <form action="{% url 'global-create-content' %}" method="post">
+                    <form action="{% url 'global-create-content' %}" method="post" enctype="multipart/form-data">
                         <div class="col-12">
                             {#                            <tbody>#}
                             {#                            <table class="table table-bordered">#}
                             {% for text in form %}
                                 {#                                <tr>#}
-                                <h1>{{ title }}{{ text }}{{ image_url }}{{ photos }}</h1>
+                                <h1>{{ title }}{{ text }}{{ image_url }}{{ photos }} {{ video }}</h1>
 
                                 {#                                </tr>#}
                             {% endfor %}
