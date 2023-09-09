@@ -15,6 +15,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    'sova_school.stream.apps.StreamConfig',
+
     "rest_framework",
     "rest_framework.authtoken",
 
@@ -120,7 +123,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "./static",
@@ -129,8 +131,6 @@ STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'static_files')
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
-
-
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

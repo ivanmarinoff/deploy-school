@@ -17,7 +17,7 @@ class PlaceholderMixin:
 class GlobalContentModelForm(PlaceholderMixin, forms.ModelForm):
     class Meta:
         model = GlobalContent
-        fields = ['title', 'text', 'image_url', 'photos', 'slug']
+        fields = ['title', 'text', 'image_url', 'photos', 'video', 'slug']
         ordering = ['-created_at']
 
 

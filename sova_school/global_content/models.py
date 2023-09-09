@@ -37,7 +37,14 @@ class GlobalContent(models.Model):
         upload_to='photos',
         blank=True,
         null=True,
+        default=None,
     )
+    video = models.FileField(
+        upload_to='videos',
+        blank=True,
+        null=True,
+        default=None,
+        )
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -49,5 +56,5 @@ class GlobalContent(models.Model):
 
 
     def __str__(self) -> str:
-        return f'{self.text} - {self.title} - {self.user} - {self.slug} - {self.image_url} - {self.photos}'
+        return f'{self.text} - {self.title} - {self.user} - {self.slug} - {self.image_url} - {self.photos} - {self.video}'
 

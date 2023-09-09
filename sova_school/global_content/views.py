@@ -1,22 +1,24 @@
 import os
 
+from django.core.files.storage import default_storage
 from django.urls import reverse_lazy
 from django.views import generic as views
 from sova_school.global_content.forms import GlobalContentModelForm, GlobalContentEditForm, GlobalContentReadForm, \
     GlobalContentDeleteForm
 from sova_school.global_content.models import GlobalContent
 from rest_framework import generics
-from .serializers import GlobalContentSerializer
+# from .serializers import GlobalContentSerializer
 
 
-class GlobalContentListView(generics.ListCreateAPIView):
-    queryset = GlobalContent.objects.all().order_by('-updated_at')
-    serializer_class = GlobalContentSerializer
+# class GlobalContentListView(generics.ListCreateAPIView):
+#     queryset = GlobalContent.objects.all().order_by('-updated_at')
+#     serializer_class = GlobalContentSerializer
 
 
 class CreateContentView(views.CreateView):
     template_name = "global_content/create_content.html"
     form_class = GlobalContentModelForm
+
 
     def get_success_url(self):
         return reverse_lazy('global-read-content')
@@ -25,6 +27,31 @@ class CreateContentView(views.CreateView):
         form = super().get_form(*args, **kwargs)
         form.instance.user = self.request.user
         return form
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+
+        # Save the form data without saving the files in the database
+        instance = form.save(commit=False)
+
+        # Handle the video and photo files separately
+        video_file = form.cleaned_data.get('video_file')
+        photo_file = form.cleaned_data.get('photo_file')
+
+        # Save the video file to a separate location
+        if video_file:
+            video_path = default_storage.save('videos/' + video_file.name, video_file)
+            instance.video_file = video_path
+
+        # Save the photo file to a separate location
+        if photo_file:
+            photo_path = default_storage.save('photos/' + photo_file.name, photo_file)
+            instance.photo_file = photo_path
+
+        # Save the instance with the updated file paths
+        instance.save()
+
+        return super().form_valid(form)
 
 
 class EditGlobalContentView(views.UpdateView):
