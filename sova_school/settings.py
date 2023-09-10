@@ -16,8 +16,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    'sova_school.stream.apps.StreamConfig',
-
     "rest_framework",
     "rest_framework.authtoken",
 
