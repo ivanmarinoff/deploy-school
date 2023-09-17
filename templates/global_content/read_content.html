@@ -56,12 +56,10 @@
                                     </td>
                                     <td>
                                         {% if content.video %}
-                                            <p>
-                                                <a href="{{ content.video.url }}" target="_blank"
-                                                   rel="noopener noreferrer" type="video">
-                                                    <button>View Video</button>
-                                                </a>
-                                            </p>
+                                            <a href="{{ content.video.url }}" target="_blank" rel="noopener noreferrer"
+                                               type="video">
+                                                <button>View Video</button>
+                                            </a>
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -70,15 +68,6 @@
                             </tbody>
                         </table>
                         {% csrf_token %}
-{#                        <!-- Add a select element for the dropdown menu -->#}
-{#                        <select class="form-control" name="search" id="search">#}
-{#                            <option value="" disabled selected>Search by title...</option>#}
-{#                            {% for content in object_list %}#}
-{#                                <option value="{{ content.title }}">{{ content.title }}</option>#}
-{#                            {% endfor %}#}
-{#                        </select>#}
-{#                        <br>#}
-{#                        <input type="submit" class="form-control" value="Search">#}
 
                         {% if is_paginated %}
 
