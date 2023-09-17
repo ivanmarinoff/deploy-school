@@ -14,4 +14,5 @@ urlpatterns = [
                   path('delete_content/<slug:slug>/', DeleteGlobalContentView.as_view(), name='global-delete-content'),
                   # path('global_content/', GlobalContentListView.as_view(), name='api-global-content-list'),
 
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

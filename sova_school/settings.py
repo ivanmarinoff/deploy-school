@@ -15,9 +15,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-    'sova_school.stream.apps.StreamConfig',
-
+    "channels",
     "rest_framework",
     "rest_framework.authtoken",
 
@@ -27,6 +25,14 @@ INSTALLED_APPS = [
     "sova_school.global_content",
 
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
+
+ASGI_APPLICATION = "sova_school.routing.application"
 
 CACHES = {
     'default': {

@@ -27,5 +27,4 @@ urlpatterns = [
     # path('api/', include('sova_school.global_content.urls')),
     path('api/', include('sova_school.users.urls')),
     path('api/', include('sova_school.web.urls')),
-    path('stream/', include('sova_school.stream.urls')),
 ]

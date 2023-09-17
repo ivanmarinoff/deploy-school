@@ -18,7 +18,7 @@ services:
       - /tmp/school/static:/app/static_files
 
   postgres:
-    image: postgres
+    image: postgres:15
     restart: always
     ports:
       - "5432:5432"
@@ -42,3 +42,11 @@ services:
       - ./certbot/conf/:/etc/nginx/ssl/:ro
     links:
       - web
+  rtmp:
+    build: ./rtmp
+    ports:
+      - "1935:1935"
+      - "8080:8080"
+    container_name: rtmp_server
+    volumes:
+      - ./data:/tmp/hls

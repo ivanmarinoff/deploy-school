@@ -1,13 +1,9 @@
-import os
-
 from django.core.files.storage import default_storage
 from django.urls import reverse_lazy
 from django.views import generic as views
 from sova_school.global_content.forms import GlobalContentModelForm, GlobalContentEditForm, GlobalContentReadForm, \
     GlobalContentDeleteForm
 from sova_school.global_content.models import GlobalContent
-from rest_framework import generics
-# from .serializers import GlobalContentSerializer
 
 
 # class GlobalContentListView(generics.ListCreateAPIView):
@@ -18,7 +14,6 @@ from rest_framework import generics
 class CreateContentView(views.CreateView):
     template_name = "global_content/create_content.html"
     form_class = GlobalContentModelForm
-
 
     def get_success_url(self):
         return reverse_lazy('global-read-content')
