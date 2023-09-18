@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.html import format_html
+
 from .models import Content
 
 
@@ -10,13 +12,18 @@ class role_inline(admin.TabularInline):
 
 @admin.register(Content)
 class ContentAdminForm(admin.ModelAdmin):
-    list_display = ["title", "text", "user", "created_at", "slug"]
+    list_display = ["title", "text", "user", "created_at", "slug", "image_tag" ]
     list_filter = ["title"]
+    def image_tag(self, obj):
+        if obj.image_url:
+            return format_html('<img src="{}" style="max-width:150px; max-height:150px"/>'.format(obj.image_url))
+        return None
 
     fieldsets = [
-        (None, {"fields": ["title", "text"]}),
+        (None, {"fields": ["title", "text", "image_url"]}),
         ("Permissions", {"fields": ["slug", "user"]}),
     ]
+
 
     class Meta:
         model = Content
@@ -33,8 +40,8 @@ class ContentAdminForm(admin.ModelAdmin):
 
 
 
-class ContentAdmin(admin.ModelAdmin):
-    form = ContentAdminForm
-    list_display = ["user", "title", "text", "created_at", "slug"]
+# class ContentAdmin(admin.ModelAdmin):
+#     form = ContentAdminForm
+#     list_display = ["user", "title", "text", "created_at", "slug"]
 
 
