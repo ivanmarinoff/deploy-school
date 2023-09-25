@@ -6,7 +6,7 @@ from .models import GlobalContent
 
 
 class imageAdmin(admin.ModelAdmin):
-    list_display = ["title", "text", "created_at", "video_tag", "image_tag"]
+    list_display = ["title", "text", "created_at", "video_tag", "image_tag", "file"]
     list_filter = ["title", "created_at", "updated_at"]
     search_fields = ['title']
     ordering = ['-created_at']
@@ -21,7 +21,7 @@ class imageAdmin(admin.ModelAdmin):
             return format_html('<video src="{}" style="max-width:150px; max-height:150px"/>'.format(obj.video.url))
         return None
 
-    
+
 
 
 admin.site.register(GlobalContent, imageAdmin)
