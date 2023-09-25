@@ -9,14 +9,18 @@
 
 
                     <form action="{% url 'global-edit-content' slug=object.slug %}" method="post" enctype="multipart/form-data">
-                        <div class="col-12">
-                            <table class="table table-bordered">
+{#                        <div class="col-12">#}
+{#                            <table class="table table-bordered">#}
                             {% if  request.user.is_superuser %}
-                                {% for text in form %}
-                                    <h1>{{ title }}{{ text }}{{ image }}{{ photo }} {{ video }}</h1>
+                                {% for field in form %}
+                                    <h3>{{ field.label_tag }}{{ field }}</h3>
+
+                                    {% if field.name != 'video' and field.name != 'file' %}
+                                        {{ field.help_text }}
+                                    {% endif %}
                                 {% endfor %}
                             </table>
-                        </div>
+{#                        </div>#}
                         {% csrf_token %}
 
                         <button type="submit">Save</button>
