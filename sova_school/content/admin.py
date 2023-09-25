@@ -40,8 +40,4 @@ class ContentAdminForm(admin.ModelAdmin):
 
 
 
-# class ContentAdmin(admin.ModelAdmin):
-#     form = ContentAdminForm
-#     list_display = ["user", "title", "text", "created_at", "slug"]
-
 

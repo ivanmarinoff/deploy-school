@@ -28,9 +28,21 @@
                                 </p>
                             </td>
                             <td>
-                                <video controls>
-                                    <source src="{{ video.url }}" type="video/mp4">
-                                </video>
+                                    {% if object.file %}
+                                        <td>
+                                            <a href="{{ object.file.url }}" target="_blank" rel="noopener noreferrer"
+                                               type="file">
+                                                <button>Read file</button>
+                                            </a>
+                                        </td>
+                                    {% endif %}
+                            <td>
+                                {% if object.video %}
+                                            <a href="{{ object.video.url }}" target="_blank" rel="noopener noreferrer"
+                                               type="video">
+                                                <button>View Video</button>
+                                            </a>
+                                        {% endif %}
                             </td>
                         </tr>
                         </tbody>

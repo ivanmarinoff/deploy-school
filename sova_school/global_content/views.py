@@ -31,7 +31,7 @@ class CreateContentView(views.CreateView):
 
         # Handle the video and photo files separately
         video_file = form.cleaned_data.get('video_file')
-        photo_file = form.cleaned_data.get('photo_file')
+        document_file = form.cleaned_data.get('document_file')
 
         # Save the video file to a separate location
         if video_file:
@@ -39,9 +39,9 @@ class CreateContentView(views.CreateView):
             instance.video_file = video_path
 
         # Save the photo file to a separate location
-        if photo_file:
-            photo_path = default_storage.save('photos/' + photo_file.name, photo_file)
-            instance.photo_file = photo_path
+        if document_file:
+            document_path = default_storage.save('files/' + document_file.name, document_file)
+            instance.document_file = document_path
 
         # Save the instance with the updated file paths
         instance.save()

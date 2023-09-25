@@ -21,7 +21,7 @@ class imageAdmin(admin.ModelAdmin):
             return format_html('<video src="{}" style="max-width:150px; max-height:150px"/>'.format(obj.video.url))
         return None
 
-    # list_display = ['name', 'image_tag', ]
+
 
 
 admin.site.register(GlobalContent, imageAdmin)
