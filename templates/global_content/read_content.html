@@ -15,15 +15,6 @@
                                 <th>
                                     <p1>Content</p1>
                                 </th>
-                                <th>
-                                    <p1>Image</p1>
-                                </th>
-                                <th>
-                                    <p1>Photos</p1>
-                                </th>
-                                <th>
-                                    <p1>Video</p1>
-                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -45,23 +36,6 @@
                                             {{ content.title|truncatechars:20 }}</a></h2>
                                     </td>
                                     <td><p>{{ content.text|truncatechars:100 }}</p></td>
-                                    {% if content.image %}
-                                        <td><p><img src="{{ content.image_url }}" style="width:20%" type="image"></p>
-                                        </td>
-                                    {% endif %}
-                                    <td>
-                                        {% if content.photos %}
-                                            <p><img src="{{ content.photos.url }}" style="width:20%" type="photos"></p>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if content.video %}
-                                            <a href="{{ content.video.url }}" target="_blank" rel="noopener noreferrer"
-                                               type="video">
-                                                <button>View Video</button>
-                                            </a>
-                                        {% endif %}
-                                    </td>
                                 </tr>
                             {% endfor %}
 
