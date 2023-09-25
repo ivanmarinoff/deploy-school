@@ -6,7 +6,7 @@ from .models import GlobalContent
 
 
 class imageAdmin(admin.ModelAdmin):
-    list_display = ["title", "text", "created_at", "video_tag", "image_tag"]
+    list_display = ["title", "text", "created_at", "video_tag", "image_tag", "file"]
     list_filter = ["title", "created_at", "updated_at"]
     search_fields = ['title']
     ordering = ['-created_at']
