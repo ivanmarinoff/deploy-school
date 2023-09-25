@@ -33,8 +33,8 @@ class GlobalContent(models.Model):
         null=True,
     )
 
-    photos = models.ImageField(
-        upload_to='photos',
+    file = models.FileField(
+        upload_to='files',
         blank=True,
         null=True,
         default=None,
@@ -56,5 +56,5 @@ class GlobalContent(models.Model):
 
 
     def __str__(self) -> str:
-        return f'{self.text} - {self.title} - {self.user} - {self.slug} - {self.image_url} - {self.photos} - {self.video}'
+        return f'{self.text} - {self.title} - {self.user} - {self.slug} - {self.image_url} - {self.file} - {self.video}'
 
