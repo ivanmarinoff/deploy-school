@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+
+from django.conf import DEFAULT_STORAGE_ALIAS
 from django.template.context_processors import media
 from django.urls import reverse_lazy
 from dotenv import load_dotenv
@@ -58,7 +60,8 @@ ROOT_URLCONF = "sova_school.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates'],
+        "DIRS": [BASE_DIR / 'templates',
+                 'rtmp'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -149,3 +152,4 @@ LOGIN_URL = reverse_lazy("login_user")
 AUTH_USER_MODEL = "users.User"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+

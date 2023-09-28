@@ -18,6 +18,11 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <form action="{% url 'live-stream' %}" method="get" enctype="multipart/form-data">
+{#                            <form action="http://127.0.0.1:8080/" method="get">#}
+                                <input type="submit" class="form-control" value="Live Stream">
+                            </form>
+                            <br>
                             <form action="{% url 'global-read-content' %}" method="get" enctype="multipart/form-data">
                                 <input type="text" class="form-control" name="search" placeholder="Search by title..."
                                        value="{{ request.GET.title }}"><br>

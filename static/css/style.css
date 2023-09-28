@@ -5,6 +5,16 @@ http://www.templatemo.com/tm-493-snapshot
 
 */
 
+/*!*---------------------------------------*/
+/*    LiveStream Section*/
+/*-----------------------------------------*!*/
+
+/*.video-stream {*/
+/*    transform: scaleX(-1); !* Mirror the video horizontally *!*/
+/*    display: block; !* Ensure the video is block-level element *!*/
+/*    margin: 0 auto; !* Center the video horizontally *!*/
+/*}*/
+
 
 /* Body 
 ------------------------------------- */
