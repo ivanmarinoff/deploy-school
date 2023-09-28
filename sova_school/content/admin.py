@@ -40,4 +40,8 @@ class ContentAdminForm(admin.ModelAdmin):
 
 
 
+ deploy
+
+
+ main
 
