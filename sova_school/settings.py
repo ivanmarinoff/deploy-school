@@ -18,8 +18,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "channels",
-    "rest_framework",
-    "rest_framework.authtoken",
+    # "rest_framework",
+    # "rest_framework.authtoken",
 
     "sova_school.web",
     "sova_school.content",
@@ -100,11 +100,11 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', None)
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', None)
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.TokenAuthentication',
+#     ],
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     # {
@@ -134,7 +134,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
-    BASE_DIR / "./static",
+    BASE_DIR / "static",
 ]
 STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'static_files')
 

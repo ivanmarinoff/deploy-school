@@ -1,61 +1,11 @@
 from django.contrib.auth import views as auth_views
 from django.http import HttpResponseRedirect
 from django.core.cache import cache
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic as views
-from django.contrib.auth import mixins as auth_mixins, get_user_model
+from django.contrib.auth import mixins as auth_mixins, get_user_model, login
 from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditForm, UserPasswordChangeForm
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
-from .models import User
-from django.contrib.auth import authenticate, login
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.authtoken.models import Token
-from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
-from .serializers import UserSerializer
-
-
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def register_user(request):
-    serializer = UserSerializer(data=request.data)
-    if serializer.is_valid():
-        user = serializer.save()
-        # Log the user in after registration
-        login(request, user)
-        return Response(serializer.data, status=status.HTTP_302_FOUND)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class LoginApiUserView(ObtainAuthToken):
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data, context={'request': request})
-        if serializer.is_valid():
-            user = serializer.validated_data['user']
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key, 'user_id': user.id})
-        return Response({'detail': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
-
-
-class ProfileApiDetailsView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
-    #
-    def get(self, request, *args, **kwargs):
-        user = self.request.user
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
-
+from django.contrib.auth import authenticate
 
 UserModel = get_user_model()
 
@@ -77,6 +27,9 @@ class OnlyAnonymousMixin:
         if request.user.is_authenticated:
             return HttpResponseRedirect(self.getsuccess_url)
         return super().dispatch(self.request, *args, **kwargs)
+
+    def get_success_url(self):
+        return self.success_url or reverse('login_user')
 
 
 class RegisterUserView(OnlyAnonymousMixin, views.CreateView):
@@ -133,12 +86,32 @@ class LoginUserView(auth_views.LoginView):
 
 
 class LogoutUserView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
-    def form_valid(self, form):
-        result = super().get_context_data()
-        save_changes = self.request.GET.get('save_changes')
-        if save_changes:
-            save_changes.save()
-        return result
+    next_page = reverse_lazy('index')
+
+    def get_next_page(self):
+        next_page = self.request.GET.get('next')
+        if next_page:
+            return next_page
+        return self.next_page
+
+    def post(self, request, *args, **kwargs):
+        # Perform any custom actions before logout, if needed
+        # For example, saving user activity or updating user status
+
+        # Call the parent class's post method to perform the logout
+        response = super().post(request, *args, **kwargs)
+
+        # Perform any additional actions after logout, if needed
+
+        # Redirect to the next page after logout
+        return HttpResponseRedirect(self.get_next_page())
+
+    # def form_valid(self, form):
+    #     result = super().get_context_data()
+    #     save_changes = self.request.GET.get('save_changes')
+    #     if save_changes:
+    #         save_changes.save()
+    #     return result
 
 
 class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
@@ -159,8 +132,6 @@ class ProfileEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = UserModel
     form_class = UserEditForm
 
-    # fields = ('first_name', 'last_name', 'email', 'username', 'password')
-
     def get_success_url(self):
         return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
 
@@ -177,7 +148,7 @@ class PasswordChangeView(auth_mixins.LoginRequiredMixin, auth_views.PasswordChan
     template_name = 'users/profile_password_change.html'
 
 
-class PasswordChangeDoneView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
+class PasswordChangeDoneView(auth_views.LogoutView):
     template_name = 'users/password_change_done.html'
     success_url = reverse_lazy('password_change_done')
 

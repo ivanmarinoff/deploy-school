@@ -17,13 +17,13 @@
     <link rel="stylesheet" href="{% static 'css/component.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
-{#    <link rel="stylesheet" href="{% static 'css/vegas.min.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'css/vegas.min.css' %}">#}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/global_content.css' %}">
-{#    <link rel="stylesheet" href="{% static 'css/login.css' %}">#}
-{#    <link rel="stylesheet" href="{% static 'css/signup.css' %}">#}
-{#    <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">#}
-{#    <link rel="stylesheet" href="{% static 'css/change_password.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'css/login.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'css/signup.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'css/change_password.css' %}">#}
 
 
     <!-- Navigation section  -->
@@ -49,9 +49,12 @@
                                class="smoothScroll"><span>Global Content</span></a></li>
                         <li><a href="{% url 'profile-details' pk=request.user.pk %}"
                                class="smoothScroll"><span>Profile Details</span></a></li>
-{#                        <li><a href="{% url 'profile-delete' pk=request.user.pk %}"#}
-{#                               class="smoothScroll"><span>Delete</span></a></li>#}
-                        <li><a href="{% url 'logout_user' %}" class="smoothScroll"><span>Logout: {{ request.user }}</span></a></li>
+                        <li>
+                            <form method="POST" action="{% url 'logout_user' %}">
+                                {% csrf_token %}
+                                <a href="#" class="smoothScroll" onclick="this.closest('form').submit(); return false;"><span>Logout</span></a>
+                            </form>
+                        </li>
                     {% else %}
                         <li><a href="#top" class="smoothScroll"><span>Home</span></a></li>
                         <li><a href="#about" class="smoothScroll"><span>About</span></a></li>

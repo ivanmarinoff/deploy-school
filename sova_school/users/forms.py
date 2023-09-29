@@ -53,15 +53,12 @@ class UserEditForm(auth_forms.UserChangeForm):
         }
 
 
-class UserPasswordChangeForm(auth_forms.PasswordChangeForm):  # TODO: Added PlaseholderMixin
+class UserPasswordChangeForm(auth_forms.PasswordChangeForm):
     class Meta:
         model = UserModel
 
     def check_password(self):
-        if self.cleaned_data['old_password'] == self.cleaned_data['new_password2']:
-            return True
-        else:
-            return False
+        return self.cleaned_data['old_password'] == self.cleaned_data['new_password2']
 
 
 
