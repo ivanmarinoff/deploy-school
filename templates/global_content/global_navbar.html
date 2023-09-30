@@ -52,7 +52,7 @@
                         <li>
                             <form method="POST" action="{% url 'logout_user' %}">
                                 {% csrf_token %}
-                                <a href="#" class="smoothScroll" onclick="this.closest('form').submit(); return false;"><span>Logout</span></a>
+                                <a href="#" class="smoothScroll" onclick="this.closest('form').submit(); return false;"><span>Logout: {{ request.user }}</span></a>
                             </form>
                         </li>
                     {% else %}

@@ -18,6 +18,7 @@
 
         <h2><p>Last name</p>{{ request.user.last_name }}</h2>
         <br>
+{#        <img src="{{ request.profile.profile_image }}" alt="image_url" class="img-responsive">#}
     {% csrf_token %}
     </form>
     <form action="{% url 'profile-edit' request.user.pk %}" method="get" class="wow fadeInUp">

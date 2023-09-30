@@ -100,6 +100,10 @@ class LogoutUserView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
 
         # Call the parent class's post method to perform the logout
         response = super().post(request, *args, **kwargs)
+        if response.status_code == 302:
+            response.delete_cookie('csrftoken')
+        elif response.status_code == 200:
+            response.delete_cookie('csrftoken')
 
         # Perform any additional actions after logout, if needed
 

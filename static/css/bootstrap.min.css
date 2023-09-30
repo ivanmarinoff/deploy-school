@@ -1351,7 +1351,7 @@ html {
 }
 
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "DoubleShadow ", DoubleShadow, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;
@@ -4708,7 +4708,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
 @media (min-width: 768px) {
     .navbar-nav {
         float: left;
-        margin: 0
+        margin: revert;
     }
 
     .navbar-nav > li {

@@ -57,7 +57,7 @@ class Profile(models.Model):
     )
 
     def __str__(self):
-        return f"{self.user.username} Profile "
+        return f"{self.image} profile_image"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
