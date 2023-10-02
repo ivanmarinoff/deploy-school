@@ -25,16 +25,20 @@ INSTALLED_APPS = [
     "sova_school.content",
     "sova_school.users.apps.UsersConfig",
     "sova_school.global_content",
+    "sova_school.chat.apps.ChatConfig",
 
 ]
 
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
     },
 }
-
-ASGI_APPLICATION = "sova_school.routing.application"
+WSGI_APPLICATION = "sova_school.wsgi.application"
+ASGI_APPLICATION = "sova_school.asgi.application"
 
 CACHES = {
     'default': {

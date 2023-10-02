@@ -11,6 +11,7 @@ urlpatterns = [
     path('content/', include('sova_school.content.urls')),
     path('users/', include('sova_school.users.urls')),
     path('global_content/', include('sova_school.global_content.urls')),
+    path('chat/', include('sova_school.chat.urls')),
     # path('api/', include('sova_school.content.urls')),
     # path('api/', include('sova_school.global_content.urls')),
     # path('api/', include('sova_school.users.urls')),

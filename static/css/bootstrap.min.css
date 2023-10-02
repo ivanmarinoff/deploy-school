@@ -2947,6 +2947,32 @@ output {
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
 }
+.chat-form-control {
+    display: block;
+    width: 200px;
+    height: 38px;
+    padding: 6px 6px;
+    font-size: 15px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+/* Add CSS styles for the chat and room container */
+/*.col-12.col-md-6 {*/
+/*    padding: 20px; !* Add padding for spacing *!*/
+/*    background-color: #f0f0f0; !* Set background color *!*/
+/*    height: 100%; !* Make it take the full height of the column *!*/
+/*    overflow-y: auto; !* Enable vertical scrolling if content overflows *!*/
+/*}*/
+
 
 .form-control:focus {
     border-color: #66afe9;
@@ -4853,6 +4879,17 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
         margin-left: 15px
     }
 }
+
+/*@media (min-width: 768px) {*/
+/*    .chat-right {*/
+/*        float: right !important*/
+/*        margin-right: -15px;*/
+/*    }*/
+/*    .chat-right ~ .chat-right {*/
+/*        margin-right: 0*/
+/*    }*/
+
+/*}*/
 
 @media (min-width: 768px) {
     .navbar-left {

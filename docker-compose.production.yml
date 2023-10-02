@@ -50,3 +50,11 @@ services:
     container_name: rtmp_server
     volumes:
       - ./data:/tmp/hls
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis:/data
