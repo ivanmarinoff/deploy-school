@@ -1,0 +1,25 @@
+{% load static %}
+<div class="chat-room-container">
+    <div class="room-view">
+        {% if request.user.is_superuser %}
+            <label for="roomInput">Enter a room name to connect to it:</label>
+            br
+            <input type="text" class="chat-form-control" id="roomInput" placeholder="Room name">
+
+            <small id="roomInputHelp" class="form-text text-muted">If the room doesn't exist yet, it
+                will be created for you.</small>
+            <button type="button" id="roomConnect" class="button">Connect</button>
+            <label for="onlineUsers">Online users</label>
+            <select multiple class="chat-form-control" id="onlineUsersSelector"></select>
+            {{ request.user.username|json_script:"roomName" }}
+        {% endif %}
+        <label for="roomSelect">Active rooms</label>
+        <select multiple class="chat-form-control" id="roomSelect">
+            {% for room in rooms %}
+                <option>{{ room.name }}</option>
+            {% endfor %}
+        </select>
+
+    </div>
+</div>
+<script src="{% static 'js/room.js' %}"></script>

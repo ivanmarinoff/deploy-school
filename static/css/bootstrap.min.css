@@ -2950,7 +2950,7 @@ output {
 .chat-form-control {
     display: block;
     width: 200px;
-    height: 38px;
+    height: auto;
     padding: 6px 6px;
     font-size: 15px;
     line-height: 1.42857143;

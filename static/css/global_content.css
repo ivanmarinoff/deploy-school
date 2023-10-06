@@ -41,24 +41,22 @@ label{
 /*Chat room*/
 .chat-room-container {
   position: absolute;
-  right: 0;
+  right: 15px;
   top: initial;
   width: 200px;
-  height: 100%;
-  background-color: white;
+  height: auto;
+  background-color: inherit;
   z-index: 1;
 }
 
 .chat-view {
   height: 50%;
-  width: 100%;
   overflow-y: auto;
 
 }
 
 .room-view {
   height: 50%;
-  width: 100%;
   overflow-y: auto;
 
 }

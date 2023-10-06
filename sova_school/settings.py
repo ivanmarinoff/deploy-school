@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     "sova_school.content",
     "sova_school.users.apps.UsersConfig",
     "sova_school.global_content",
-    "sova_school.chat.apps.ChatConfig",
+    "sova_school.chat",
 
 ]
 
@@ -77,8 +77,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = "sova_school.wsgi.application"
 
 SECRET_KEY = os.environ.get('SECRET_KEY', None)
 DEBUG = os.environ.get('DEBUG', False)
@@ -156,4 +154,3 @@ LOGIN_URL = reverse_lazy("login_user")
 AUTH_USER_MODEL = "users.User"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-

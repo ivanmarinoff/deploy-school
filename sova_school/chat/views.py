@@ -1,12 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Room
 
 
 def index_view(request):
-    return render(request, '../rtmp/index.html', {
-        'rooms': Room.objects.all(),
-    })
+    return redirect('room', room_name='general')
+    # rooms = Room.objects.all()
+    # return render(request, '../rtmp/index.html', {
+    #     'rooms': rooms,
+    # })
 
 
 def room_view(request, room_name):

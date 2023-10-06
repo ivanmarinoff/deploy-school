@@ -44,7 +44,9 @@ chatMessageSend.onclick = function () {
 let chatSocket = null;
 
 function connect() {
-    chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + roomName + "/");
+    chatSocket = new WebSocket("ws://" + window.location.host + "/ws/" + roomName + "/");
+
+    // chatSocket = new WebSocket("ws://localhost:8000/" + "/ws/chat/" + roomName + "/" );
 
     chatSocket.onopen = function (e) {
         console.log("Successfully connected to the WebSocket.");
@@ -101,7 +103,7 @@ function connect() {
         chatSocket.close();
     }
 }
-
+connect();
 // onlineUsersSelector.onchange = function () {
 //     chatMessageInput.value = "/pm " + onlineUsersSelector.value + " ";
 //     onlineUsersSelector.value = null;
@@ -114,4 +116,3 @@ const roomView = document.querySelector('.room-view');
 // Add the chat and room views to the chat-room-container element
 document.querySelector('.chat-room-container').appendChild(roomView);
 document.querySelector('.chat-room-container').appendChild(chatView);
-connect();

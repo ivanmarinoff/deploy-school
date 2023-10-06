@@ -10,14 +10,27 @@ document.querySelector("#roomInput").onkeyup = function(e) {
     }
 };
 
-// redirect to '/room/<roomInput>/'
-document.querySelector("#roomConnect").onclick = function() {
-    let roomName = document.querySelector("#roomInput").value;
-    window.location.pathname = "chat/" + roomName + "/";
-}
+// // redirect to '/room/<roomInput>/'
+// document.querySelector("#roomConnect").onclick = function() {
+//     let roomName = document.querySelector("#roomInput").value;
+//     window.location.pathname = window.location.host + roomName + "/";
+// }
 
 // redirect to '/room/<roomSelect>/'
-document.querySelector("#roomSelect").onchange = function() {
-    let roomName = document.querySelector("#roomSelect").value.split(" (")[0];
-    window.location.pathname = "chat/" + roomName + "/";
-}
+// document.querySelector("#roomSelect").onchange = function() {
+//     let roomName = document.querySelector("#roomSelect").value.split(" (")[0];
+//     window.location.pathname = window.location.host + roomName + "/";
+// }
+
+// document.querySelector("#roomSelect").addEventListener("change", function () {
+//     const selectedRoom = this.value;
+//     if (selectedRoom) {
+//         window.location.pathname = window.location.host + selectedRoom + "/";
+//     }
+// });
+
+// Assuming you have an event listener for the "Live Stream" button
+document.querySelector('#roomConnect').addEventListener('click', function () {
+    // Trigger a click event on the "Join the General Room" link
+    document.querySelector('#joinGeneralRoom').click();
+});

@@ -49,7 +49,12 @@
                                class="smoothScroll"><span>Global Content</span></a></li>
                         <li><a href="{% url 'profile-details' pk=request.user.pk %}"
                                class="smoothScroll"><span>Profile Details</span></a></li>
-                        <li><a href="{% url 'logout_user' %}" class="smoothScroll"><span>Logout: {{ request.user }}</span></a></li>
+                        <li>
+                            <form method="POST" action="{% url 'logout_user' %}">
+                                {% csrf_token %}
+                                <a href="#" class="smoothScroll" onclick="this.closest('form').submit(); return false;"><span>Logout: {{ request.user }}</span></a>
+                            </form>
+                        </li>
                     {% else %}
 {#                        <li><a href="#top" class="smoothScroll"><span>Home</span></a></li>#}
 {#                        <li><a href="#about" class="smoothScroll"><span>About</span></a></li>#}

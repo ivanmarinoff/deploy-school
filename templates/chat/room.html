@@ -1,0 +1,20 @@
+{% load static %}
+
+<div class="chat-room-container">
+    <div class="room-view">
+        {% if request.user.is_superuser %}
+           <div class="chat-view">
+
+            <label for="chatLog">Room: #{{ room.name }}</label>
+                    {{ room.name|json_script:"roomName" }}
+{#            {{ room_name|json_script:"room-name" }}#}
+            <textarea class="chat-form-control" id="chatLog" readonly rows="4" cols="50"></textarea>
+            <br>
+            <input type="text" class="chat-form-control" id="chatMessageInput" autofocus="autofocus"
+                   placeholder="Enter your chat message">
+        {% endif %}
+        <button class="button" id="chatMessageSend" type="button">Send</button>
+    </div>
+    </div>
+</div>
+<script src="{% static 'js/index.js' %}"></script>
