@@ -1,16 +1,13 @@
 import json
-import re
-
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
-
 from .models import Room, Message
-from ..users.models import User
 
 UserModel = get_user_model()
+
 
 class ChatConsumer(WebsocketConsumer):
 
@@ -30,9 +27,9 @@ class ChatConsumer(WebsocketConsumer):
         self.user = self.scope['user']
 
         # Check if the room name is empty or contains invalid characters
-        if not self.is_valid_room_name(self.room_name):
-            self.close()
-            return
+        # if not self.is_valid_room_name(self.room_name):
+        #     self.close()
+        #     return
 
         self.room = get_object_or_404(Room, name=self.room_name)
         self.user = self.scope['user']
@@ -55,7 +52,6 @@ class ChatConsumer(WebsocketConsumer):
         }))
 
         if self.user.is_authenticated:
-
             # send the join event to the room
             async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,
@@ -66,11 +62,10 @@ class ChatConsumer(WebsocketConsumer):
             )
             self.room.online.add(self.user)
 
-    def is_valid_room_name(self, room_name):
-        # Define your validation logic here
-        # For example, check if the room name is not empty and contains only alphanumeric characters
-        return bool(room_name and re.match(r'^[a-zA-Z0-9]+$', room_name))
-
+    # def is_valid_room_name(self, room_name):
+    #     # Define your validation logic here
+    #     # For example, check if the room name is not empty and contains only alphanumeric characters
+    #     return bool(room_name and re.match(r'^[a-zA-Z0-9]+$', room_name))
 
         # if self.user.is_staff:
         #     # Add other staff users to the room
@@ -85,7 +80,6 @@ class ChatConsumer(WebsocketConsumer):
         )
 
         if self.user.is_authenticated:
-
             # send the leave event to the room
             async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,

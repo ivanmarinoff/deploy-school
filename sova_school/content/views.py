@@ -1,19 +1,19 @@
 from sova_school.content.forms import ContentModelForm, ContentDeleteForm, ContentEditForm
-from sova_school.content.mixins.user_permition_mixin import UserRequiredMixin
 from sova_school.content.models import Content
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins
 from rest_framework import generics
 from .serializers import ContentSerializer
+from ..chat.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
 
 
-class ContentListView(generics.ListAPIView):
+class ContentListView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, generics.ListAPIView):
     queryset = Content.objects.all().order_by('-updated_at')
     serializer_class = ContentSerializer
 
 
-class CreateContentView(auth_mixins.LoginRequiredMixin, views.CreateView):
+class CreateContentView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, views.CreateView):
     model = Content
     template_name = "content/create_content.html"
     # fields = ['title', 'text']
@@ -28,7 +28,7 @@ class CreateContentView(auth_mixins.LoginRequiredMixin, views.CreateView):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
 
-class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
+class EditContentView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = Content
     template_name = "content/edit_content.html"
     # fields = ['title', 'text', 'user_choices']
@@ -43,7 +43,7 @@ class EditContentView(auth_mixins.LoginRequiredMixin, views.UpdateView):
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
 
-class ReadContentView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.ListView):
+class ReadContentView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, views.ListView):
     model = Content
     template_name = 'content/read_content.html'
     # form_class = ContentReadForm
@@ -73,7 +73,7 @@ class ReadContentView(auth_mixins.LoginRequiredMixin, UserRequiredMixin, views.L
         return reverse_lazy('read-content', kwargs={'pk': self.request.user.pk})
 
 
-class DetailContentView(auth_mixins.LoginRequiredMixin, views.DetailView):
+class DetailContentView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, views.DetailView):
     model = Content
     template_name = 'content/detail_content.html'
     context_object_name = 'content'

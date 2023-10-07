@@ -3,7 +3,7 @@ URL configuration for sova_school project.
 
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -17,3 +17,5 @@ urlpatterns = [
     # path('api/', include('sova_school.users.urls')),
     # path('api/', include('sova_school.web.urls')),
 ]
+
+

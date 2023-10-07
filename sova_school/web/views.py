@@ -12,7 +12,7 @@ class WEBListView(viewsets.ModelViewSet):
 
 
 class IndexView(views.TemplateView):
-    template_name = 'home/index.html'
+    template_name = 'home/home_page.html'
 
     def get_context_data(self, **kwargs):
         pass

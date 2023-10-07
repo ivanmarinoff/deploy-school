@@ -11,7 +11,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
                   # *router.urls,
-                  path('', views.IndexView.as_view(), name='index'),
+                  path('', views.IndexView.as_view(), name='home_page'),
                   path('program_level_1/', views.SchoolLevel_1View.as_view(), name='school_program_level_1'),
                   path('program_level_2/', views.SchoolLevel_2View.as_view(), name='school_program_level_2'),
                   path('read/', views.ReadWEBContentView.as_view(), name='read_web_content'),

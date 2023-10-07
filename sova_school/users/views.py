@@ -4,6 +4,8 @@ from django.core.cache import cache
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins, get_user_model, login
+
+from sova_school.chat.mixins import ErrorRedirectMixin
 from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditForm, UserPasswordChangeForm
 from django.contrib.auth import authenticate
 
@@ -86,7 +88,7 @@ class LoginUserView(auth_views.LoginView):
 
 
 class LogoutUserView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
-    next_page = reverse_lazy('index')
+    next_page = reverse_lazy('home_page')
 
     def get_next_page(self):
         next_page = self.request.GET.get('next')
@@ -118,7 +120,7 @@ class LogoutUserView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
     #     return result
 
 
-class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
+class ProfileDetailsView(ErrorRedirectMixin, auth_mixins.LoginRequiredMixin, views.DetailView):
     template_name = 'users/profile-details.html'
     model = UserModel
     form_class = UserEditForm
@@ -131,7 +133,7 @@ class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
 
 
-class ProfileEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
+class ProfileEditView(ErrorRedirectMixin, auth_mixins.LoginRequiredMixin, views.UpdateView):
     template_name = 'users/profile-edit-page.html'
     model = UserModel
     form_class = UserEditForm
@@ -163,7 +165,7 @@ class PasswordChangeDoneView(auth_views.LogoutView):
 class ProfileDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     model = UserModel
     template_name = 'users/profile-delete-page.html'
-    next_page = reverse_lazy('index')
+    next_page = reverse_lazy('home_page')
 
     def post(self, *args, pk):
         self.request.user.delete()

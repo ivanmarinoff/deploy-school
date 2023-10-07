@@ -1,6 +1,8 @@
 from django.urls import path
 from sova_school.content.views import ReadContentView, CreateContentView, EditContentView, DeleteContentView, \
     DetailContentView, ContentListView
+from django.urls import path
+
 
 urlpatterns = (
     path('read_content/<slug:slug>/', ReadContentView.as_view(), name='read-content'),
@@ -10,3 +12,5 @@ urlpatterns = (
     path('delete_content/<slug:slug>/', DeleteContentView.as_view(), name='delete-content'),
     path('content/', ContentListView.as_view(), name='content-list'),
 )
+
+

@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     "sova_school.users.apps.UsersConfig",
     "sova_school.global_content",
     "sova_school.chat",
-
 ]
 
 CHANNEL_LAYERS = {
@@ -147,10 +146,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = reverse_lazy("profile-details")
 
-LOGOUT_REDIRECT_URL = reverse_lazy("index")
+LOGOUT_REDIRECT_URL = reverse_lazy("home_page")
 
 LOGIN_URL = reverse_lazy("login_user")
 
 AUTH_USER_MODEL = "users.User"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# ERROR_REDIRECT_URL = reverse_lazy("./templates/errors/404_not_found.html")

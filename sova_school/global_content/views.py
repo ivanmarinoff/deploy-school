@@ -1,6 +1,8 @@
 from django.core.files.storage import default_storage
 from django.urls import reverse_lazy
 from django.views import generic as views, generic
+
+from sova_school.chat.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
 from sova_school.global_content.forms import GlobalContentModelForm, GlobalContentEditForm, GlobalContentReadForm, \
     GlobalContentDeleteForm
 from sova_school.global_content.models import GlobalContent
@@ -11,7 +13,7 @@ from django.http import StreamingHttpResponse
 #     queryset = GlobalContent.objects.all().order_by('-updated_at')
 #     serializer_class = GlobalContentSerializer
 
-class GlobalContentLiveStreamView(generic.TemplateView):
+class GlobalContentLiveStreamView(CustomLoginRequiredMixin, generic.TemplateView):
     template_name = '../rtmp/index.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -21,7 +23,7 @@ class GlobalContentLiveStreamView(generic.TemplateView):
 
 
 
-class CreateContentView(views.CreateView):
+class CreateContentView(CustomLoginRequiredMixin, views.CreateView):
     template_name = "global_content/create_content.html"
     form_class = GlobalContentModelForm
 
@@ -59,7 +61,7 @@ class CreateContentView(views.CreateView):
         return super().form_valid(form)
 
 
-class EditGlobalContentView(views.UpdateView):
+class EditGlobalContentView(CustomLoginRequiredMixin, views.UpdateView):
     model = GlobalContent
     template_name = "global_content/edit_content.html"
     form_class = GlobalContentEditForm
@@ -73,7 +75,7 @@ class EditGlobalContentView(views.UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class ReadGlobalContentView(views.ListView):
+class ReadGlobalContentView(CustomLoginRequiredMixin, views.ListView):
     model = GlobalContent
     template_name = 'global_content/read_content.html'
     form_class = GlobalContentReadForm
@@ -94,7 +96,7 @@ class ReadGlobalContentView(views.ListView):
         return context
 
 
-class DetailGlobalContentView(views.DetailView):
+class DetailGlobalContentView(ErrorRedirectMixin, views.DetailView):
     model = GlobalContent
     template_name = 'global_content/detail_content.html'
 
@@ -102,7 +104,7 @@ class DetailGlobalContentView(views.DetailView):
         return reverse_lazy('global-read-content', kwargs={'slug': self.object.slug})
 
 
-class DeleteGlobalContentView(views.DeleteView):
+class DeleteGlobalContentView(CustomLoginRequiredMixin, views.DeleteView):
     model = GlobalContent
     template_name = 'global_content/delete_content.html'
     success_url = reverse_lazy('global-read-content')
