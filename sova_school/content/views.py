@@ -8,12 +8,12 @@ from .serializers import ContentSerializer
 from ..chat.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
 
 
-class ContentListView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, generics.ListAPIView):
+class ContentListView(ErrorRedirectMixin, auth_mixins.LoginRequiredMixin, generics.ListAPIView):
     queryset = Content.objects.all().order_by('-updated_at')
     serializer_class = ContentSerializer
 
 
-class CreateContentView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, views.CreateView):
+class CreateContentView(ErrorRedirectMixin, auth_mixins.LoginRequiredMixin, views.CreateView):
     model = Content
     template_name = "content/create_content.html"
     # fields = ['title', 'text']
@@ -28,7 +28,7 @@ class CreateContentView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
 
-class EditContentView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, views.UpdateView):
+class EditContentView(ErrorRedirectMixin, auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = Content
     template_name = "content/edit_content.html"
     # fields = ['title', 'text', 'user_choices']
@@ -43,7 +43,7 @@ class EditContentView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, 
         return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
 
 
-class ReadContentView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, views.ListView):
+class ReadContentView(ErrorRedirectMixin, auth_mixins.LoginRequiredMixin, views.ListView):
     model = Content
     template_name = 'content/read_content.html'
     # form_class = ContentReadForm
@@ -73,7 +73,7 @@ class ReadContentView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, 
         return reverse_lazy('read-content', kwargs={'pk': self.request.user.pk})
 
 
-class DetailContentView(CustomLoginRequiredMixin, auth_mixins.LoginRequiredMixin, views.DetailView):
+class DetailContentView(ErrorRedirectMixin, auth_mixins.LoginRequiredMixin, views.DetailView):
     model = Content
     template_name = 'content/detail_content.html'
     context_object_name = 'content'
