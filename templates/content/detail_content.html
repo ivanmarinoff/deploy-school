@@ -4,12 +4,11 @@
     <div class="container" id="content">
         <div class="row">
             <div class="text-center" data-wow-delay="0.9s">
-              <br><br><br><br>
-                <form action="{% url 'read-content' slug=content.slug %}" enctype="multipart/form-data"
+                <br><br><br><br>
+                <form action="{% url 'read-content' %}" enctype="multipart/form-data"
                       method="get"></form>
                 <tbody>
                 <tr>
-
                     <td>
                         <h2>
                             {{ object.title }}
@@ -20,21 +19,37 @@
                             {{ object.text }}
                         </p1>
                     </td>
-                     <td>
+                    <td>
                         <p>
                             <img src="{{ content.image_url }}" style="width:50%" alt="Image_url">
                         </p>
                     </td>
-
+                    <td>
+                        {% if object.file %}
+                            <td>
+                                <a href="{{ object.file.url }}" target="_blank" rel="noopener noreferrer"
+                                   type="file">
+                                    <button>Read file</button>
+                                </a>
+                            </td>
+                        {% endif %}
+                    <td>
+                        {% if object.video %}
+                            <a href="{{ object.video.url }}" target="_blank" rel="noopener noreferrer"
+                               type="video">
+                                <button>View Video</button>
+                            </a>
+                        {% endif %}
+                    </td>
                 </tr>
-                </tbody>
-                {% if user.is_authenticated %}
-                    <form action="{% url 'edit-content' request.user.pk %}" method="post"></form>
+                {% if request.user.is_superuser %}
+                    <form action="{% url 'edit-content' slug=object.slug %}" method="post"
+                          enctype="multipart/form-data"></form>
                     <a href="{% url 'edit-content' content.slug %}" class="smoothScroll">
-                        <button>Edit Content</button>
+                        <button>Edit</button>
                     </a>
-
-                    <form action="{% url 'delete-content' request.user.pk %}" method="post"></form>
+                    <form action="{% url 'delete-content' request.user.pk %}" method="post"
+                          enctype="multipart/form-data"></form>
                     <a href="{% url 'delete-content' content.slug %}" class="smoothScroll">
                         <button>Delete</button>
                     </a>

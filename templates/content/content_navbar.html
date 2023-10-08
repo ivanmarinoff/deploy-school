@@ -42,9 +42,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'read-content' user.pk %}"
-                               class="smoothScroll"><span>Content</span></a></li>
+                               class="smoothScroll"><span>Level 1</span></a></li>
                         <li><a href="{% url 'global-read-content' %}"
-                               class="smoothScroll"><span>Global Content</span></a></li>
+                               class="smoothScroll"><span>Level 2</span></a></li>
                         <li><a href="{% url 'profile-details' pk=request.user.pk %}" class="smoothScroll"><span>Profile Details</span></a>
                         </li>
                         <li>

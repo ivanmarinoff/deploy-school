@@ -4,24 +4,21 @@
         <div class="col-12 row text align-fa-align-center">
             <br><br><br><br>
             <h1>
+                <form action="{% url 'edit-content' slug=content.slug %}" method="post" enctype="multipart/form-data">
+                    {% if request.user.is_superuser %}
+                        {% for field in form %}
+                            <h3>{{ field.label_tag }}{{ field }}</h3>
 
-                <form action="{% url 'edit-content' slug=content.slug %}" method="post"> {# content.pk #}
-                    <div class="col-12">
-                        <table class="table table-bordered">
-                            {% if user.is_authenticated %}
-                                {% for text in form %}
-                                    <h1>{{ title }}{{ text }}{{ image_url }}</h1>
-                                {% endfor %}
-                                </table>
-                                </div>
-                                {% csrf_token %}
-
-                                <button type="submit">Save</button>
-                                <button onclick="history.back()">Go Back</button>
-                                </form>
+                            {% if field.name != 'video' and field.name != 'file' %}
+                                {{ field.help_text }}
                             {% endif %}
+                        {% endfor %}
+                        {% csrf_token %}
+                        <button type="submit">Save</button>
+                        <button onclick="history.back()">Go Back</button>
+                        </form>
+                    {% endif %}
             </h1>
         </div>
     </div>
-
 {% endblock navbar_content %}

@@ -2,7 +2,7 @@ import os
 
 from django import forms
 
-from sova_school.global_content.models import GlobalContent
+from sova_school.global_content.models import Level_2
 
 
 # class PlaceholderMixin:
@@ -16,7 +16,7 @@ from sova_school.global_content.models import GlobalContent
 
 class GlobalContentModelForm(forms.ModelForm):
     class Meta:
-        model = GlobalContent
+        model = Level_2
         fields = ['title', 'text', 'image_url', 'file', 'video', 'slug']
         ordering = ['-created_at']
 

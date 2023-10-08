@@ -1,6 +1,6 @@
 from django import template
 
-from sova_school.content.models import Content
+from sova_school.content.models import Level_1
 
 register = template.Library()
 
@@ -20,7 +20,7 @@ def form_field_class(form_field, className):
 
 @register.filter
 def sorting_filter():
-    sorting = Content.objects.filter().order_by('-created_at')
+    sorting = Level_1.objects.filter().order_by('-created_at')
     return sorting
 
 

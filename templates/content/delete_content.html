@@ -1,40 +1,41 @@
 {% extends 'content/content_navbar.html' %}
-
 {% block navbar_content %}
+    <body>
     <div class="container" id="content">
         <div class="row">
             <div class="text-center" data-wow-delay="0.9s">
-                <p>Are you sure you want to delete this content?</p>
-                <tbody>
-                <tr>
-                    <td>
-                        <h2>
-                            {{ content.title }}
-                        </h2>
-                    </td>
-                    <td>
-                        <p>
-                            {{ content.text }}
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            <img src="{{ content.image_url }}" style="width:50%" alt="Image_url">
-                        </p>
-                    </td>
-                    </td>
-                </tr>
-
-                </tbody>
-
                 <form action="{% url 'delete-content' slug=object.slug %}" method="post">
-                <a href="{% url 'delete-content' slug=object.slug %}" class="smoothScroll">
-                    <button>Delete</button>
-                </a>
-                {% csrf_token %}
-                <button onclick="history.back()">Go Back</button></form>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <h2>
+                                {{ object.title }}
+                            </h2>
+                        </td>
+                        <td>
+                            <p>
+                                {{ object.text }}
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                {{ object.image_url }}
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                {{ object.photos }}
+                            </p>
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% csrf_token %}
+                    <h2>Are you sure you want to delete this content?</h2>
+                    <button type="submit">Yes</button>
+                    <button onclick="history.back()">Go Back</button>
+                </form>
             </div>
         </div>
     </div>
-
+    </body>
 {% endblock navbar_content %}

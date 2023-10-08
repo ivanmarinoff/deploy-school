@@ -8,59 +8,33 @@
                 <br><br><br><br>
                 <table class="table table-bordered" style="list-style-type:upper-roman" aria-sort="descending">
                     <thead>
-                    <tr>
-                        <th>
-                            <p1>Title</p1>
-                        </th>
-                        <th>
-                            <p1>Content</p1>
-                        </th>
-                        <th>
-                            <p1>Image</p1>
-                        </th>
-                        <th>
-                            <p1>Username</p1>
-                        </th>
-                    </tr>
+                   <tr>
+                                <th>
+                                    <p1>Title</p1>
+                                </th>
+                                <th>
+                                    <p1>Content</p1>
+                                </th>
+                            </tr>
                     </thead>
                     <tbody>
-                    <form action="{% url 'read-content' request.user.pk %}" method="get">
-                        <input type="text" class="form-control" name="search" placeholder="Search by text..."
-                               value="{{ request.GET.text }}">
+                      {% if request.user.is_authenticated %}
+                      <form action="{% url 'live-stream' %}" method="get" enctype="multipart/form-data">
+                                <input type="submit" class="form-control" value="Live Stream">
+                            </form>
+                            {% endif %}
+                      <br>
+                    <form action="{% url 'read-content' %}" method="get" enctype="multipart/form-data">
+                        <input type="text" class="form-control" name="search" placeholder="Search by title..."
+                               value="{{ request.GET.title }}">
                         <input type="submit" class="form-control" value="Search">
                     </form>
-
-                    <form action="{% url 'create-content' request.user.pk %}" method="get">
+                      <br>
+                      {% if request.user.is_superuser %}
+                    <form action="{% url 'create-content' %}" method="get"enctype="multipart/form-data">>
                         <input type="submit" class="form-control" value="Create content"></form>
-                    {# slug #}
-
-                    {#                    {% if user.is_authenticated %}#}
-                    {% for content in object_list %}
-                        {% if user.is_superuser %}
-                            <tr>
-                                <td>
-                                    <h2>
-                                        <a href="{% url 'detail-content' slug=content.slug %}">
-                                            {{ content.title|truncatechars:50 }}</a>
-                                    </h2>
-                                </td>
-                                <td>
-                                    <p>
-                                        {{ content.text|truncatechars:200 }}
-                                    </p>
-                                </td>
-                                <td>
-                                    <p>
-                                       <img src="{{ content.image_url }}" style="width:20%" alt="Image_url">
-                                    </p>
-                                </td>
-                                <td>
-                                    <p>
-                                        {{ content.user.username }}
-                                    </p>
-                                </td>
-                            </tr>
-                        {% elif user.pk == content.user.pk %}
+                      {% endif %}
+                    {% for content in object_list reversed %}
                             <tr>
                                 <td>
                                     <h2>
@@ -70,24 +44,12 @@
                                 </td>
                                 <td>
                                     <p>
-                                        {{ content.text|truncatechars:200 }}
-
+                                        {{ content.text|truncatechars:100 }}
                                     </p>
                                 </td>
-                                <td>
-                                    <p>
-                                        <img src="{{ content.image_url }}" style="width:20%" alt="Image_url">
-                                    </p>
-                                </td>
-                                <td>
-                                    <p>
-                                        {{ request.user.username }}
-                                    </p>
-                                </td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                    </tbody>
+                                </tr>
+                      {% endfor %}
+                </tbody>
                 </table>
                 {% csrf_token %}
                 {% if is_paginated %}

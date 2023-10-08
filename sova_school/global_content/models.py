@@ -5,7 +5,7 @@ from django.utils.text import slugify
 UserModel = get_user_model()
 
 
-class GlobalContent(models.Model):
+class Level_2(models.Model):
     title = models.CharField(
         max_length=100,
         blank=True,

@@ -1,12 +1,10 @@
 from django.core.files.storage import default_storage
 from django.urls import reverse_lazy
 from django.views import generic as views, generic
-
 from sova_school.chat.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
 from sova_school.global_content.forms import GlobalContentModelForm, GlobalContentEditForm, GlobalContentReadForm, \
     GlobalContentDeleteForm
-from sova_school.global_content.models import GlobalContent
-from django.http import StreamingHttpResponse
+from sova_school.global_content.models import Level_2
 
 
 # class GlobalContentListView(generics.ListCreateAPIView):
@@ -62,7 +60,7 @@ class CreateContentView(CustomLoginRequiredMixin, views.CreateView):
 
 
 class EditGlobalContentView(CustomLoginRequiredMixin, views.UpdateView):
-    model = GlobalContent
+    model = Level_2
     template_name = "global_content/edit_content.html"
     form_class = GlobalContentEditForm
 
@@ -76,13 +74,13 @@ class EditGlobalContentView(CustomLoginRequiredMixin, views.UpdateView):
 
 
 class ReadGlobalContentView(CustomLoginRequiredMixin, views.ListView):
-    model = GlobalContent
+    model = Level_2
     template_name = 'global_content/read_content.html'
     form_class = GlobalContentReadForm
     success_url = reverse_lazy('global-read-content')
     paginate_by = 5
     context_object_name = 'global_content'
-    object_list = GlobalContent.objects.all().order_by('title')
+    object_list = Level_2.objects.all().order_by('title')
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -97,7 +95,7 @@ class ReadGlobalContentView(CustomLoginRequiredMixin, views.ListView):
 
 
 class DetailGlobalContentView(ErrorRedirectMixin, views.DetailView):
-    model = GlobalContent
+    model = Level_2
     template_name = 'global_content/detail_content.html'
 
     def get_success_url(self):
@@ -105,7 +103,7 @@ class DetailGlobalContentView(ErrorRedirectMixin, views.DetailView):
 
 
 class DeleteGlobalContentView(CustomLoginRequiredMixin, views.DeleteView):
-    model = GlobalContent
+    model = Level_2
     template_name = 'global_content/delete_content.html'
     success_url = reverse_lazy('global-read-content')
     form_class = GlobalContentDeleteForm

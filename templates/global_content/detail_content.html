@@ -9,7 +9,6 @@
                     <div class="about-thumb">
                         <form action="{% url 'global-read-content' %}" enctype="multipart/form-data"
                               method="get"></form>
-
                         <tbody>
                         <tr>
                             <td>
@@ -28,28 +27,27 @@
                                 </p>
                             </td>
                             <td>
-                                    {% if object.file %}
-                                        <td>
-                                            <a href="{{ object.file.url }}" target="_blank" rel="noopener noreferrer"
-                                               type="file">
-                                                <button>Read file</button>
-                                            </a>
-                                        </td>
-                                    {% endif %}
+                                {% if object.file %}
+                                    <td>
+                                        <a href="{{ object.file.url }}" target="_blank" rel="noopener noreferrer"
+                                           type="file">
+                                            <button>Read file</button>
+                                        </a>
+                                    </td>
+                                {% endif %}
                             <td>
                                 {% if object.video %}
-                                            <a href="{{ object.video.url }}" target="_blank" rel="noopener noreferrer"
-                                               type="video">
-                                                <button>View Video</button>
-                                            </a>
-                                        {% endif %}
+                                    <a href="{{ object.video.url }}" target="_blank" rel="noopener noreferrer"
+                                       type="video">
+                                        <button>View Video</button>
+                                    </a>
+                                {% endif %}
                             </td>
                         </tr>
                         </tbody>
                         {% if request.user.is_superuser %}
                             <form action="{% url 'global-edit-content' slug=object.slug %}" method="post"
                                   enctype="multipart/form-data"></form>
-
                             <form action="{% url 'global-delete-content' slug=object.slug %}" method="post"
                                   enctype="multipart/form-data"></form>
 

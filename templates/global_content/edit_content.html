@@ -1,37 +1,25 @@
 {% extends 'global_content/global_navbar.html' %}
 {% block global_navbar_content %}
-    {#    <div class="container" id="content">#}
     <div class="row">
         <div class="col-12 row text align-fa-align-center">
             <br><br><br><br>
             <h1>
-                <p>Edit this content!</p>
+                <form action="{% url 'global-edit-content' slug=object.slug %}" method="post"
+                      enctype="multipart/form-data">
+                    {% if request.user.is_superuser %}
+                        {% for field in form %}
+                            <h3>{{ field.label_tag }}{{ field }}</h3>
 
-
-                    <form action="{% url 'global-edit-content' slug=object.slug %}" method="post" enctype="multipart/form-data">
-{#                        <div class="col-12">#}
-{#                            <table class="table table-bordered">#}
-                            {% if  request.user.is_superuser %}
-                                {% for field in form %}
-                                    <h3>{{ field.label_tag }}{{ field }}</h3>
-
-                                    {% if field.name != 'video' and field.name != 'file' %}
-                                        {{ field.help_text }}
-                                    {% endif %}
-                                {% endfor %}
-                            </table>
-{#                        </div>#}
+                            {% if field.name != 'video' and field.name != 'file' %}
+                                {{ field.help_text }}
+                            {% endif %}
+                        {% endfor %}
                         {% csrf_token %}
-
                         <button type="submit">Save</button>
                         <button onclick="history.back()">Go Back</button>
-                    </form>
-                {% endif %}
-
+                        </form>
+                    {% endif %}
             </h1>
         </div>
     </div>
-    {#    </div>#}
-
-
 {% endblock global_navbar_content %}

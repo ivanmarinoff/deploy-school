@@ -1,33 +1,31 @@
 {% extends 'global_content/global_navbar.html' %}
 {% block global_navbar_content %}
-        <div class="container" id="content">
-    <div class="row">
-        <div class="col-12 row text align-fa-align-center">
-            <br><br><br><br>
-            <h1>
-                <p>Create content!</p>
-                {% if request.user.is_superuser %}
-                <form action="{% url 'global-create-content' %}" method="post" enctype="multipart/form-data">
-                    <div class="custom-create">
-                        {% for field in form %}
-                            <h3>{{ field.label_tag }}{{ field }}</h3>
-
-                            {% if field.name != 'video' and field.name != 'file' %}
-                                {{ field.help_text }}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    {% csrf_token %}
-
-                    <button type="submit">Save</button>
-                    <button onclick="history.back()">Go Back</button>
-                </form>
-            {% endif %}
-            </h1>
+    <div class="container" id="content">
+        <div class="row">
+            <div class="col-12 row text align-fa-align-center">
+                <br><br><br><br>
+                <h1>
+                    <p>Create content!</p>
+                    {% if request.user.is_superuser %}
+                        <form action="{% url 'global-create-content' %}" method="post" enctype="multipart/form-data">
+                            <div class="custom-create">
+                                {% for field in form %}
+                                    <h3>{{ field.label_tag }}{{ field }}</h3>
+                                    {% if field.name != 'video' and field.name != 'file' %}
+                                        {{ field.help_text }}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% csrf_token %}
+                            <button type="submit">Save</button>
+                            <button onclick="history.back()">Go Back</button>
+                        </form>
+                    {% endif %}
+                </h1>
+            </div>
         </div>
     </div>
-        </div>
-<style>
+    <style>
         .custom-create {
             display: table;
             width: 50%;
@@ -35,5 +33,4 @@
             text-align: center;
         }
     </style>
-
 {% endblock global_navbar_content %}

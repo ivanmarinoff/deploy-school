@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import GlobalContent
+from .models import Level_2
 
 
 
@@ -24,4 +24,4 @@ class imageAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(GlobalContent, imageAdmin)
+admin.site.register(Level_2, imageAdmin)

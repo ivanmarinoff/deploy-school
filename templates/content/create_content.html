@@ -1,32 +1,36 @@
 {% extends 'content/content_navbar.html' %}
 {% block navbar_content %}
-{#    <div class="container" id="content">#}
+    <div class="container" id="content">
         <div class="row">
             <div class="col-12 row text align-fa-align-center">
                 <br><br><br><br>
                 <h1>
                     <p>Create content!</p>
-                    <form action="{% url 'create-content' request.user.pk %}" method="post">
-                        <div class="col-12">
-{#                            <tbody>#}
-{#                            <table class="table table-bordered">#}
-                                {% for text in form %}
-{#                                <tr>#}
-                                    <h1>{{ title }}</h1>
-                                    <h1>{{ text }}</h1>
-                                    <h1>{{ image_url }}</h1>
-{#                                </tr>#}
-                            {% endfor %}
-                        </div>
+                    {% if request.user.is_superuser %}
+                        <form action="{% url 'create-content' %}" method="post" enctype="multipart/form-data">
+                            <div class="custom-create">
+                                {% for field in form %}
+                                    <h3>{{ field.label_tag }}{{ field }}</h3>
+                                    {% if field.name != 'video' and field.name != 'file' %}
+                                        {{ field.help_text }}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                             {% csrf_token %}
-
-                    <button type="submit">Save</button>
-                    <button onclick="history.back()">Go Back</button>
-</form>
+                            <button type="submit">Save</button>
+                            <button onclick="history.back()">Go Back</button>
+                        </form>
+                    {% endif %}
                 </h1>
             </div>
         </div>
-{#    </div>#}
-
-
+    </div>
+    <style>
+        .custom-create {
+            display: table;
+            width: 50%;
+            margin: 0 auto;
+            text-align: center;
+        }
+    </style>
 {% endblock navbar_content %}
