@@ -7,7 +7,7 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('read_content/<slug:slug>/', ReadContentView.as_view(), name='read-content'),
+    path('read_content/', ReadContentView.as_view(), name='read-content'),
     path('live_stream/', ContentLiveStreamView.as_view(), name='live-stream'),
     path('detail_content/<slug:slug>/', DetailContentView.as_view(), name='detail-content'),
     path('create_content/', CreateContentView.as_view(), name='create-content'),

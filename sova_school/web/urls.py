@@ -19,7 +19,7 @@ urlpatterns = [
                   path('bio_e_s/', views.BioWEBAutoEView.as_view(), name='bio_e_s'),
                   path('bio_r_s/', views.BioWEBAutoRView.as_view(), name='bio_r_s'),
                   path('bio_m_r/', views.BioWEBAutoMView.as_view(), name='bio_m_r'),
-                  re_path(r'^web/$', views.WEBListView.as_view({
-                      'get': 'list',
-                  })),
+                  # re_path(r'^web/$', views.WEBListView.as_view({
+                  #     'get': 'list',
+                  # })),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

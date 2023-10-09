@@ -110,8 +110,8 @@ code, kbd, pre, samp {
 
 button, input, optgroup, select, textarea {
     margin: 0;
-    font: inherit;
-    color: inherit
+    font: initial;
+    color: initial;
 }
 
 button {
@@ -1360,7 +1360,7 @@ body {
 
 button, input, select, textarea {
     font-family: initial;
-    font-size: smaller;
+    font-size: initial;
     line-height: unset;
 }
 

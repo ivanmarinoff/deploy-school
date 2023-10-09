@@ -19,6 +19,16 @@ class ErrorRedirectMixin(AccessMixin):
     def __init__(self):
         self.request = None
 
+    # def Http404(self, request, *args, **kwargs):
+    #     response = render(request, '../templates/errors/404_not_found.html')
+    #     response.status_code = 404
+    #     return response
+    #
+    # def Http500(self, request, *args, **kwargs):
+    #     response = render(request, '../templates/errors/500_server_error.html')
+    #     response.status_code = 500
+    #     return response
+
     def handle_no_permission(self):
         return render(
             self.request, "../templates/errors/404_not_found.html",

@@ -153,5 +153,3 @@ LOGIN_URL = reverse_lazy("login_user")
 AUTH_USER_MODEL = "users.User"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-# ERROR_REDIRECT_URL = reverse_lazy("./templates/errors/404_not_found.html")

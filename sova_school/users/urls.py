@@ -29,10 +29,8 @@
 
 from django.contrib.auth import get_user_model
 from django.urls import path, include, reverse_lazy, re_path
-
 from sova_school.users.views import RegisterUserView, LoginUserView, LogoutUserView, ProfileEditView, ProfileDeleteView, \
     ProfileDetailsView, PasswordChangeView, PasswordChangeDoneView
-
 
 UserModel = get_user_model()
 

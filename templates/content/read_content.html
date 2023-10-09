@@ -8,7 +8,7 @@
                 <br><br><br><br>
                 <table class="table table-bordered" style="list-style-type:upper-roman" aria-sort="descending">
                     <thead>
-                   <tr>
+                            <tr>
                                 <th>
                                     <p1>Title</p1>
                                 </th>
@@ -23,16 +23,17 @@
                                 <input type="submit" class="form-control" value="Live Stream">
                             </form>
                             {% endif %}
-                      <br>
+
                     <form action="{% url 'read-content' %}" method="get" enctype="multipart/form-data">
                         <input type="text" class="form-control" name="search" placeholder="Search by title..."
                                value="{{ request.GET.title }}">
                         <input type="submit" class="form-control" value="Search">
                     </form>
-                      <br>
+
                       {% if request.user.is_superuser %}
-                    <form action="{% url 'create-content' %}" method="get"enctype="multipart/form-data">>
-                        <input type="submit" class="form-control" value="Create content"></form>
+                    <form action="{% url 'create-content' %}" method="get"
+                          enctype="multipart/form-data">
+                        <input type="submit" class="form-control" value="Create content"></form><br>
                       {% endif %}
                     {% for content in object_list reversed %}
                             <tr>

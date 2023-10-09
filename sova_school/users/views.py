@@ -2,9 +2,8 @@ from django.contrib.auth import views as auth_views
 from django.http import HttpResponseRedirect
 from django.core.cache import cache
 from django.urls import reverse_lazy, reverse
-from django.views import generic as views
+from django.views import generic as views, View
 from django.contrib.auth import mixins as auth_mixins, get_user_model, login
-
 from sova_school.chat.mixins import ErrorRedirectMixin
 from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditForm, UserPasswordChangeForm
 from django.contrib.auth import authenticate
@@ -154,7 +153,7 @@ class PasswordChangeView(auth_mixins.LoginRequiredMixin, auth_views.PasswordChan
     template_name = 'users/profile_password_change.html'
 
 
-class PasswordChangeDoneView(auth_views.LogoutView):
+class PasswordChangeDoneView(ErrorRedirectMixin, auth_views.LogoutView):
     template_name = 'users/password_change_done.html'
     success_url = reverse_lazy('password_change_done')
 

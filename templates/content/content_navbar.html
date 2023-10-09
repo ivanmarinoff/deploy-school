@@ -17,12 +17,13 @@
     <link rel="stylesheet" href="{% static 'css/component.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
-    <link rel="stylesheet" href="{% static 'css/vegas.min.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/vegas.min.css' %}">#}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
-        <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">
-        <link rel="stylesheet" href="{% static 'css/change_password.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global_content.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/login.css' %}">#}
+{#        <link rel="stylesheet" href="{% static 'css/signup.css' %}">#}
+{#        <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">#}
+{#        <link rel="stylesheet" href="{% static 'css/change_password.css' %}">#}
 
 
     <!-- Navigation section  -->
@@ -41,7 +42,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'read-content' user.pk %}"
+                        <li><a href="{% url 'read-content' %}"
                                class="smoothScroll"><span>Level 1</span></a></li>
                         <li><a href="{% url 'global-read-content' %}"
                                class="smoothScroll"><span>Level 2</span></a></li>
@@ -74,7 +75,7 @@
 
 <script src="{% static 'js/jquery.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/vegas.min.js' %}"></script>
+{#<script src="{% static 'js/vegas.min.js' %}"></script>#}
 <script src="{% static 'js/modernizr.custom.js' %}"></script>
 <script src="{% static 'js/toucheffects.js' %}"></script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>

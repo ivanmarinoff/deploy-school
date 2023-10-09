@@ -23,13 +23,13 @@
                                 <input type="submit" class="form-control" value="Live Stream">
                             </form>
                             {% endif %}
-                            <br>
+
                             <form action="{% url 'global-read-content' %}" method="get" enctype="multipart/form-data">
                                 <input type="text" class="form-control" name="search" placeholder="Search by title..."
-                                       value="{{ request.GET.title }}"><br>
+                                       value="{{ request.GET.title }}">
                                 <input type="submit" class="form-control" value="Search">
                             </form>
-                            <br>
+
                             {% if request.user.is_superuser %}
                                 <form action="{% url 'global-create-content' %}" method="get"
                                       enctype="multipart/form-data">
