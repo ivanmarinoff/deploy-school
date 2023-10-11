@@ -1,14 +1,19 @@
+from rest_framework import generics
+
 from sova_school.content.forms import ContentModelForm, ContentDeleteForm, ContentEditForm, ContentReadForm
 from sova_school.content.models import Level_1
 from django.urls import reverse_lazy
 from django.views import generic as views, generic
+
+from .serializers import ContentSerializer
 from ..chat.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
 from django.core.files.storage import default_storage
 
 
-# class ContentListView(ErrorRedirectMixin, auth_mixins.LoginRequiredMixin, generics.ListAPIView):
-#     queryset = Level_1.objects.all().order_by('-updated_at')
-#     serializer_class = ContentSerializer
+class ContentListView(ErrorRedirectMixin, CustomLoginRequiredMixin, generics.ListAPIView):
+    queryset = Level_1.objects.all().order_by('-updated_at')
+    serializer_class = ContentSerializer
+
 
 class ContentLiveStreamView(CustomLoginRequiredMixin, generic.TemplateView):
     template_name = '../rtmp/index.html'

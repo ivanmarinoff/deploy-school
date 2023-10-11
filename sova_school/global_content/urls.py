@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from sova_school.global_content.views import ReadGlobalContentView, CreateContentView, EditGlobalContentView, \
-    DeleteGlobalContentView, DetailGlobalContentView, GlobalContentLiveStreamView
+    DeleteGlobalContentView, DetailGlobalContentView, GlobalContentLiveStreamView, GlobalContentListView
 
 urlpatterns = [
                   path('read_content/', ReadGlobalContentView.as_view(), name='global-read-content'),
@@ -12,6 +12,6 @@ urlpatterns = [
                   path('create_content/', CreateContentView.as_view(), name='global-create-content'),
                   path('edit_content/<slug:slug>/', EditGlobalContentView.as_view(), name='global-edit-content'),
                   path('delete_content/<slug:slug>/', DeleteGlobalContentView.as_view(), name='global-delete-content'),
-                  # path('global_content/', GlobalContentListView.as_view(), name='api-global-content-list'),
+                  path('global_content/', GlobalContentListView.as_view(), name='api-global-content-list'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

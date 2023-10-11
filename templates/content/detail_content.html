@@ -45,12 +45,12 @@
                 {% if request.user.is_superuser %}
                     <form action="{% url 'edit-content' slug=object.slug %}" method="post"
                           enctype="multipart/form-data"></form>
-                    <a href="{% url 'edit-content' content.slug %}" class="smoothScroll">
+                    <a href="{% url 'edit-content' slug=object.slug %}" class="smoothScroll">
                         <button>Edit</button>
                     </a>
-                    <form action="{% url 'delete-content' request.user.pk %}" method="post"
+                    <form action="{% url 'delete-content' slug=object.slug %}" method="post"
                           enctype="multipart/form-data"></form>
-                    <a href="{% url 'delete-content' content.slug %}" class="smoothScroll">
+                    <a href="{% url 'delete-content' slug=object.slug %}" class="smoothScroll">
                         <button>Delete</button>
                     </a>
                 {% endif %}

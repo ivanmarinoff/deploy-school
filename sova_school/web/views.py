@@ -3,12 +3,12 @@ from django.views import generic as views
 from sova_school.web.forms import WEBContentForm, WEBContentReadForm
 from sova_school.web.models import WEBContent
 from rest_framework import viewsets
-# from .serializers import WebSerializer
+from .serializers import WebSerializer
 
 
-# class WEBListView(viewsets.ModelViewSet):
-#     queryset = WEBContent.objects.all()
-#     serializer_class = WebSerializer
+class WEBListView(viewsets.ModelViewSet):
+    queryset = WEBContent.objects.all()
+    serializer_class = WebSerializer
 
 
 class IndexView(views.TemplateView):

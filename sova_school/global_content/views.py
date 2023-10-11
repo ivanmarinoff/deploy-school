@@ -1,24 +1,26 @@
 from django.core.files.storage import default_storage
 from django.urls import reverse_lazy
 from django.views import generic as views, generic
+from rest_framework import generics
+
 from sova_school.chat.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
 from sova_school.global_content.forms import GlobalContentModelForm, GlobalContentEditForm, GlobalContentReadForm, \
     GlobalContentDeleteForm
 from sova_school.global_content.models import Level_2
+from sova_school.global_content.serializers import GlobalContentSerializer
 
 
-# class GlobalContentListView(generics.ListCreateAPIView):
-#     queryset = GlobalContent.objects.all().order_by('-updated_at')
-#     serializer_class = GlobalContentSerializer
+class GlobalContentListView(generics.ListCreateAPIView):
+    queryset = Level_2.objects.all().order_by('-updated_at')
+    serializer_class = GlobalContentSerializer
+
 
 class GlobalContentLiveStreamView(CustomLoginRequiredMixin, generic.TemplateView):
     template_name = '../rtmp/index.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-
-
 
 
 class CreateContentView(CustomLoginRequiredMixin, views.CreateView):

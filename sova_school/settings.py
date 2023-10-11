@@ -18,8 +18,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "channels",
-    # "rest_framework",
-    # "rest_framework.authtoken",
+    "rest_framework",
+    "rest_framework.authtoken",
 
     "sova_school.web",
     "sova_school.content",

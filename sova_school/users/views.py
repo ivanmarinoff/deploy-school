@@ -4,9 +4,18 @@ from django.core.cache import cache
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins, get_user_model, login
+from rest_framework.decorators import permission_classes, api_view
+from .models import User
 from sova_school.chat.mixins import ErrorRedirectMixin
 from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditForm, UserPasswordChangeForm
 from django.contrib.auth import authenticate
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from .serializers import UserSerializer
 
 UserModel = get_user_model()
 
@@ -21,6 +30,46 @@ if cached_data is None:
     # and store it in cache
     cached_data = {'key': 'value'}
     cache.set('my_key', cached_data)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def register_user(request):
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        user = serializer.save()
+        # Log the user in after registration
+        login(request, user)
+        return Response(serializer.data, status=status.HTTP_302_FOUND)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginApiUserView(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            user = serializer.validated_data['user']
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key, 'user_id': user.id})
+        return Response({'detail': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileApiDetailsView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+    #
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
 
 
 class OnlyAnonymousMixin:
