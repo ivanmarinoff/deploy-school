@@ -2,7 +2,7 @@ from django.contrib.auth import views as auth_views
 from django.http import HttpResponseRedirect
 from django.core.cache import cache
 from django.urls import reverse_lazy, reverse
-from django.views import generic as views, View
+from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins, get_user_model, login
 from sova_school.chat.mixins import ErrorRedirectMixin
 from sova_school.users.forms import RegisterUserForm, LoginUserForm, UserEditForm, UserPasswordChangeForm
