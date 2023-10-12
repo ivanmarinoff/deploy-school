@@ -15,8 +15,9 @@ services:
     env_file:
       - .env
     volumes:
-      - /tmp/school/static:/app/static_files
-
+      - /tmp/school/static:/app/static
+    links:
+      - postgres
   postgres:
     image: postgres:15
     restart: always
