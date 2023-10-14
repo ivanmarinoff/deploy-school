@@ -24,9 +24,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: 'QWERy75'
-      POSTGRES_USER: 'postgres'
-      POSTGRES_DB: 'sova_db'
+      POSTGRES_PASSWORD: QWERy75
+      POSTGRES_USER: postgres
+      POSTGRES_DB: sova_db
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ./postgresql:/var/lib/postgresql/data
