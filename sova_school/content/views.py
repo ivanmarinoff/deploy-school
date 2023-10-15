@@ -100,7 +100,7 @@ class DetailContentView(ErrorRedirectMixin, views.DetailView):
     template_name = 'content/detail_content.html'
 
     def get_success_url(self):
-        return reverse_lazy('read-content', kwargs={'slug': self.object.slug})
+        return reverse_lazy('detail-content', kwargs={'slug': self.object.slug})
 
 
 class DeleteContentView(CustomLoginRequiredMixin, views.DeleteView):

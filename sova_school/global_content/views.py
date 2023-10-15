@@ -101,7 +101,7 @@ class DetailGlobalContentView(ErrorRedirectMixin, views.DetailView):
     template_name = 'global_content/detail_content.html'
 
     def get_success_url(self):
-        return reverse_lazy('global-read-content', kwargs={'slug': self.object.slug})
+        return reverse_lazy('global-detail-content', kwargs={'slug': self.object.slug})
 
 
 class DeleteGlobalContentView(CustomLoginRequiredMixin, views.DeleteView):
