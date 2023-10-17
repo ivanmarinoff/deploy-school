@@ -7,7 +7,7 @@
                 <br><br><br><br>
                 <div class="text-center" data-wow-delay="0.2s">
                     <div class="about-thumb">
-                        <form action="{% url 'global-read-content' %}" enctype="multipart/form-data"
+                        <form action="{% url 'global-detail-content' %}" enctype="multipart/form-data"
                               method="get"></form>
                         <tbody>
                         <tr>
@@ -20,10 +20,12 @@
                                 <p1>
                                     {{ object.text }}
                                 </p1>
+
                             </td>
                             <td>
                                 <p>
-                                    <img src="{{ object.image_url }}" style="width:50%" alt="Image_url">
+                                    <div class="fa-image">
+                                    <img src="{{ object.image_url }}" style="width:51%" alt="Image_url"></div>
                                 </p>
                             </td>
                             <td>
