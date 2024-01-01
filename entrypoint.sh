@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "Running collect-static commands"
-python manage.py collectstatic --noinput
+python manage.py collectstatic --noinput &
 
 
 echo "Running app commands"
