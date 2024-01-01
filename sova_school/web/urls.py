@@ -1,16 +1,10 @@
 from django.urls import path, re_path
-from rest_framework.routers import DefaultRouter
-
 from sova_school.web import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-# router = DefaultRouter()
-
-# router.register('web', views.WEBListView, basename='web')
 
 urlpatterns = [
-                  # *router.urls,
                   path('', views.IndexView.as_view(), name='home_page'),
                   path('program_level_1/', views.SchoolLevel_1View.as_view(), name='school_program_level_1'),
                   path('program_level_2/', views.SchoolLevel_2View.as_view(), name='school_program_level_2'),

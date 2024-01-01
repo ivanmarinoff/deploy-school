@@ -129,6 +129,7 @@ env.bak/
 venv.bak/
 postgresql
 static_files
+.vscode
 
 # Spyder project settings
 .spyderproject

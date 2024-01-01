@@ -7,7 +7,7 @@
                 <br><br><br><br>
                 <div class="text-center" data-wow-delay="0.2s">
                     <div class="about-thumb">
-                        <form action="{% url 'global-detail-content' %}" enctype="multipart/form-data"
+                        <form action="{% url 'global-detail-content' slug=object.slug %}" enctype="multipart/form-data"
                               method="get"></form>
                         <tbody>
                         <tr>
@@ -22,12 +22,14 @@
                                 </p1>
 
                             </td>
-                            <td>
-                                <p>
+                            {% if object.image_url %}
+                                <td>
+                                    <p>
                                     <div class="fa-image">
-                                    <img src="{{ object.image_url }}" style="width:51%" alt="Image_url"></div>
-                                </p>
-                            </td>
+                                        <img src="{{ object.image_url }}" style="width:51%" alt="Image_url"></div>
+                                    </p>
+                                </td>
+                            {% endif %}
                             <td>
                                 {% if object.file %}
                                     <td>

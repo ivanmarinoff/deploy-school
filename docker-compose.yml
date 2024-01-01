@@ -7,7 +7,7 @@ version: '3.4'
 
 services:
   web:
-    image: ivanmarinoff/sova
+    image: ivanmarinoff/sova_deploy
     build: .
     command: gunicorn --bind 0.0.0.0:8000 sova_school.wsgi:application
     ports:
@@ -47,7 +47,7 @@ services:
     build: ./rtmp
     ports:
       - "1935:1935"
-      - "8080:8080"
+      - "8081:8081"
     container_name: rtmp_server
     volumes:
       - ./data:/tmp/hls

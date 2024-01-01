@@ -1,16 +1,10 @@
 {% extends 'global_content/stream_navbar.html' %}
 {% load static %}
 {% block stream_navbar_content %}
-
-    {#    <div class="container">#}
-    {#        <div class="row">#}
     <div class="wow fadeInUp">
         <div class="row">
             <div class="col-12 col-md-9">
                 <br><br><br><br>
-
-
-                <h2 class="h2">School Stream !</h2>
                 <!-- Your existing HTML content here -->
                 <video id="video" class="video-stream" width="920" height="540" controls></video>
                 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -41,69 +35,48 @@
                         video.src = videoSrc;
                     }
                 </script>
-                <button onclick="history.back()">Go Back</button>
+                <button onclick="history.back()" class="back-button">Go Back</button>
             </div>
         </div>
     </div>
-    <div class="chat-room-container">
-        <div class="room-view">
-            {% if request.user.is_superuser %}
-{#                <label for="roomInput">Enter a room name to connect to it:</label>#}
-{#                br#}
-{#                <input type="text" class="chat-form-control" id="roomInput" placeholder="Room name">#}
-{##}
-{#                <small id="roomInputHelp" class="form-text text-muted">If the room doesn't exist yet, it#}
-{#                    will be created for you.</small>#}
-{#                <button type="button" id="roomConnect" class="button">Connect</button>#}
-                <label for="onlineUsers">Online users</label>
-                <select multiple class="chat-form-control" id="onlineUsersSelector"></select>
-                {#                {{ request.user.username|json_script:"roomName" }}#}
-            {% endif %}
-            {#            {% if request.user.is_authenticated %}#}
-{#            <label for="roomSelect">Active rooms</label>#}
-{#            <select multiple class="chat-form-control" id="roomSelect">#}
-{#                {% for room in active_rooms %}#}
-{#                    <option value="{{ room.name }}">{{ room.name }}</option>#}
-{#                {% endfor %}#}
-{#            </select>#}
 
-        </div>
-        {% if not room.name %}
-        <div class="chat-view">
-{#            <a id="joinGeneralRoom" href="{% url 'room' room_name='general' %}" data-room="general">Join the General Room</a>#}
-            <form action="{% url 'room' room_name='general' %}" id="joinGeneralRoom" data-room="general">
-                <button class="button" value="Join">Join the General Room</button>
-            </form>
-            {% else %}
-            <label for="chatLog">Room: #{{ room.name }}</label>
-            <textarea class="chat-form-control" id="chatLog" readonly rows="4" cols="50"></textarea>
-            <br>
-            <input type="text" class="chat-form-control" id="chatMessageInput" autofocus="autofocus"
-                   placeholder="Enter your chat message">
-
-            <button class="button" id="chatMessageSend" type="button">Send</button>
-            {% endif %}
-
-
-
-        </div>
-        {{ room.name|json_script:"roomName" }}
-    </div>
+    <iframe src="https://app.sli.do/event/wxaK5dDW6nMBrMUcoTmzTV" class="ep-participant__iframe"
+            style="min-height: 40px;" title="Slido"></iframe>
     <style>
         .video-stream {
             transform: scaleX(1);
             display: block;
-            margin: 0 auto;
+            object-fit: cover;
+            object-position: 20% 20%;
+
         }
     </style>
     <style>
-        .h2 {
+        .back-button {
             text-align: center;
             color: #e44c65;
             text-shadow: 2px 2px 4px #000000;
             text-blink: blink 3s infinite;
         }
     </style>
-    <script src="{% static 'js/index.js' %}"></script>
-    <script src="{% static 'js/room.js' %}"></script>
+    <style>
+        .ep-participant__iframe {
+            display: inline-flex;
+            {#left: 0;#}
+            {#right: auto;#}
+            flex-direction: row-reverse;
+            width: 339px;
+            height: 683px;
+            background-image: url(static/images/participant-mode.08b82bef05842129.png);
+            background-size: 339px 683px;
+            margin-left: 0;
+            margin-right: 0;
+            padding: 89px 22px 19px 23px;
+            box-sizing: border-box;
+            border-radius: 36px;
+            transform: translate3d(223px, -6px, 0);
+            {#transform-origin: 0 0;#}
+            {#z-index: 990;#}
+        }
+    </style>
 {% endblock stream_navbar_content %}

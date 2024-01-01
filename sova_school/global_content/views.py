@@ -1,9 +1,12 @@
+import os
+
 from django.core.files.storage import default_storage
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic as views, generic
 from rest_framework import generics
 
-from sova_school.chat.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
+from ..users.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
 from sova_school.global_content.forms import GlobalContentModelForm, GlobalContentEditForm, GlobalContentReadForm, \
     GlobalContentDeleteForm
 from sova_school.global_content.models import Level_2
@@ -110,8 +113,28 @@ class DeleteGlobalContentView(CustomLoginRequiredMixin, views.DeleteView):
     success_url = reverse_lazy('global-read-content')
     form_class = GlobalContentDeleteForm
 
-    def get_form_kwargs(self):
+    # def get_form_kwargs(self):
+    #     instance = self.get_object()
+    #     form = super().get_form_kwargs()
+    #     form.update(instance=instance)
+    #     return form
+
+    def delete(self, request, *args, **kwargs):
         instance = self.get_object()
-        form = super().get_form_kwargs()
-        form.update(instance=instance)
-        return form
+        video = instance.Level_2.video
+        file = instance.Level_2.file
+
+        # Call the delete() method on the parent class to delete the object from the database
+        response = super().delete(request, *args, **kwargs)
+
+        # Delete the video file from the local folder
+        if default_storage.exists(video):
+            default_storage.delete(video)
+
+            # Delete the file from the local folder using default_storage
+        if default_storage.exists(file):
+            default_storage.delete(file)
+
+        return response
+
+

@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic as views, generic
 
 from .serializers import ContentSerializer
-from ..chat.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
+from ..users.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
 from django.core.files.storage import default_storage
 
 
@@ -16,6 +16,13 @@ class ContentListView(ErrorRedirectMixin, CustomLoginRequiredMixin, generics.Lis
 
 
 class ContentLiveStreamView(CustomLoginRequiredMixin, generic.TemplateView):
+    template_name = '../rtmp/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+class ContentSuperUserView(CustomLoginRequiredMixin, generic.TemplateView):
     template_name = '../rtmp/index.html'
 
     def get_context_data(self, **kwargs):
@@ -109,8 +116,26 @@ class DeleteContentView(CustomLoginRequiredMixin, views.DeleteView):
     success_url = reverse_lazy('read-content')
     form_class = ContentDeleteForm
 
-    def get_form_kwargs(self):
+    # def get_form_kwargs(self):
+    #     instance = self.get_object()
+    #     form = super().get_form_kwargs()
+    #     form.update(instance=instance)
+    #     return form
+
+    def delete(self, request, *args, **kwargs):
         instance = self.get_object()
-        form = super().get_form_kwargs()
-        form.update(instance=instance)
-        return form
+        video = instance.Level_1.video
+        file = instance.Level_1.file
+
+        # Call the delete() method on the parent class to delete the object from the database
+        response = super().delete(request, *args, **kwargs)
+
+        # Delete the video file from the local folder
+        if default_storage.exists(video):
+            default_storage.delete(video)
+
+            # Delete the file from the local folder using default_storage
+        if default_storage.exists(file):
+            default_storage.delete(file)
+
+        return response
