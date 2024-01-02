@@ -1,9 +1,3 @@
 #!/bin/sh
-
-echo "Running collect-static commands"
-python manage.py collectstatic --noinput &
-
-
-echo "Running app commands"
-python manage.py runserver
+python manage.py runserver 0.0.0.0:8000
 exec "$@"
