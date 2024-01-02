@@ -162,7 +162,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-# STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'static_files')
+STATIC_ROOT = BASE_DIR / 'static_files'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
