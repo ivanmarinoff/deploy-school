@@ -1,3 +1,14 @@
 #!/bin/sh
-python manage.py runserver 0.0.0.0:8000
+
+echo "Install the dependencies"
+pip install -r requirements.txt
+
+
+echo "Running Database Migrations"
+python manage.py makemigrations
+python manage.py migrate
+
+echo "Running app commands"
+python manage.py collectstatic --noinput
+python manage.py runserver &
 exec "$@"
