@@ -5,6 +5,7 @@ pip install -r requirements.txt
 
 
 echo "Running Database Migrations"
+python manage.py createcachetable
 python manage.py makemigrations
 python manage.py migrate
 
