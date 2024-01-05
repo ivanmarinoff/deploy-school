@@ -4,7 +4,7 @@
 
 
 [//]: # (Modern template for **Django** that covers `Admin Section`, all authentication pages &#40;registration included&#41; crafted on top of **[Black Dashboard]&#40;https://appseed.us/product/black-dashboard/django/&#41;**, an open-source `Bootstrap 5` design from [Creative-Tim]&#40;https://www.creative-tim.com/?AFFILIATE=128200&#41;.)
-This is a S.O.V.A-school site project built with  **Django** that includes a publicly accessible site, an authentication section, and content creation by registered users.
+This is a [ S.O.V.A](http://www.sovapsychologist.com")-school site project built with  **Django** that includes a publicly accessible site, an authentication section, and content creation by registered users.
 > Actively supported by [ S.O.V.A](http://www.sovapsychologist.com") Many thanks `S.O.V.A`.
 
 <br>
