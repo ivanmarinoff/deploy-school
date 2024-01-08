@@ -201,7 +201,7 @@ class PasswordChangeView(auth_mixins.LoginRequiredMixin, auth_views.PasswordChan
     template_name = 'users/profile_password_change.html'
 
 
-class PasswordChangeDoneView(ErrorRedirectMixin, auth_views.LogoutView):
+class PasswordChangeDoneView(ErrorRedirectMixin, auth_views.PasswordChangeDoneView):
     template_name = 'users/password_change_done.html'
     success_url = reverse_lazy('password_change_done')
 

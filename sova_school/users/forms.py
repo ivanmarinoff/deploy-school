@@ -29,6 +29,10 @@ class RegisterUserForm(auth_forms.UserCreationForm):
             'password2': 'Confirm Password',
         }
 
+    def save(self, commit=True):
+        result = super().save(commit)
+        return result
+
 
 class LoginUserForm(auth_forms.AuthenticationForm):
     class Meta:
