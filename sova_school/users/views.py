@@ -18,6 +18,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import UserSerializer
+from rest_framework.authentication import TokenAuthentication
 
 UserModel = get_user_model()
 
@@ -47,6 +48,8 @@ def register_user(request):
 
 
 class LoginApiUserView(ObtainAuthToken):
+    authentication_classes = [TokenAuthentication]
+
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         if serializer.is_valid():
