@@ -6,8 +6,8 @@ set -x
 
 #echo "Running collectstatic commands"
 #python manage.py collectstatic --noinput &
-set -e
+
 echo "Running app commands"
-python manage.py runserver &
+python manage.py runserver 0.0.0.0:8000
 
 exec "$@"
