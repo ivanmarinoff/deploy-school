@@ -9,4 +9,5 @@
 
 echo "Running app commands"
 python manage.py runserver &
+set -e
 exec "$@"
