@@ -1,0 +1,32 @@
+version: '3.4'
+services:
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /tmp/school/static:/home/app/web/staticfiles
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    links:
+      - web
+  rtmp:
+     build: ./rtmp
+     ports:
+       - "1935:1935"
+       - "8081:8081"
+     container_name: rtmp_server
+     volumes:
+       - ./data:/tmp/hls
+
+  redis:
+     image: redis:latest
+     restart: always
+     ports:
+       - "6379:6379"
+     volumes:
+       - ./redis:/data
+       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
