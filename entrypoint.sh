@@ -1,5 +1,6 @@
 #!/bin/sh
 set -x
+set -o errexit
 #echo "Install the dependencies"
 #pip install -r requirements.txt
 
